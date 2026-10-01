@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Short 9:16 · Gasto Público</title>
-<meta name="description" content="Presentación vertical autorreproducible de ~65 segundos sobre el gasto público en España 1980–2025, lista para grabar la pantalla.">
+<meta name="description" content="Presentación vertical autorreproducible sobre el gasto público en España 1980–2025, con narración opcional y sincronización de escenas, lista para grabar la pantalla.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
@@ -22,39 +22,36 @@
     padding-block:calc(14px + env(safe-area-inset-top,0px)) calc(14px + env(safe-area-inset-bottom,0px));padding-inline:14px}
   html,body{height:100%}
 
-  .hint{font-size:13px;color:var(--muted);text-align:center;margin-bottom:10px;max-width:40ch}
+  .hint{font-size:13px;color:var(--muted);text-align:center;margin-bottom:10px;max-width:42ch}
   .hint b{color:var(--ink-2)}
 
   /* ESCENARIO 9:16 — esta es la zona a grabar */
-  .stage{position:relative;width:min(94vw,392px);aspect-ratio:9/16;max-height:76vh;
+  .stage{position:relative;width:min(94vw,392px);aspect-ratio:9/16;max-height:74vh;
     background:radial-gradient(130% 100% at 50% 0%,#1c1a17 0%,var(--stage) 55%,#100f0d 100%);
     border-radius:26px;overflow:hidden;container-type:size;
     box-shadow:0 20px 60px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.04)}
 
-  /* barra de progreso */
-  .prog{position:absolute;top:0;left:0;height:4px;width:0;background:var(--accent);z-index:6;transition:width .25s linear}
+  .prog{position:absolute;top:0;left:0;height:4px;width:0;background:var(--accent);z-index:6}
   .brand{position:absolute;top:14px;left:0;right:0;text-align:center;font-size:3cqmin;letter-spacing:.28em;
     text-transform:uppercase;color:var(--muted);z-index:5;font-weight:600}
 
   .scene{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
-    gap:3.2cqmin;padding:11cqmin 8cqmin;opacity:0;pointer-events:none;transition:opacity .5s ease}
+    gap:3.2cqmin;padding:12cqmin 8cqmin;opacity:0;pointer-events:none;transition:opacity .5s ease}
   .scene.on{opacity:1}
   .kick{font-size:4cqmin;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
-  .big{font-family:var(--f-disp);font-weight:700;line-height:1.02;font-size:12.5cqmin;letter-spacing:-.01em;text-wrap:balance}
-  .huge{font-family:var(--f-disp);font-weight:700;line-height:.98;font-size:20cqmin;letter-spacing:-.02em}
-  .mid{font-family:var(--f-disp);font-weight:600;font-size:8.6cqmin;line-height:1.08;text-wrap:balance}
-  .body{font-size:4.6cqmin;line-height:1.4;color:var(--ink-2)}
+  .big{font-family:var(--f-disp);font-weight:700;line-height:1.02;font-size:12cqmin;letter-spacing:-.01em;text-wrap:balance}
+  .huge{font-family:var(--f-disp);font-weight:700;line-height:.98;font-size:19cqmin;letter-spacing:-.02em}
+  .mid{font-family:var(--f-disp);font-weight:600;font-size:8.2cqmin;line-height:1.1;text-wrap:balance}
+  .body{font-size:4.6cqmin;line-height:1.42;color:var(--ink-2)}
   .tiny{font-size:3.5cqmin;color:var(--muted);line-height:1.4}
-  .flow{font-size:9cqmin;font-family:var(--f-disp);font-weight:700}
+  .flow{font-size:8.6cqmin;font-family:var(--f-disp);font-weight:700}
   .arrow{color:var(--muted)}
 
-  /* fila de 3 stats */
   .stats{display:flex;justify-content:space-between;gap:2.4cqmin;margin-top:1cqmin}
   .stat{flex:1;text-align:center;background:rgba(255,255,255,.04);border-radius:3cqmin;padding:3.4cqmin 1cqmin}
-  .stat .n{font-family:var(--f-disp);font-weight:700;font-size:9cqmin;line-height:1}
+  .stat .n{font-family:var(--f-disp);font-weight:700;font-size:8.6cqmin;line-height:1}
   .stat .l{font-size:2.9cqmin;color:var(--ink-2);margin-top:1cqmin;text-transform:uppercase;letter-spacing:.04em}
 
-  /* animación de entrada (hijos) */
   .el{opacity:0;transform:translateY(16px);transition:opacity .55s cubic-bezier(.2,.7,.2,1),transform .55s cubic-bezier(.2,.7,.2,1)}
   .scene.on .el{opacity:1;transform:none}
   .scene.on .el:nth-child(1){transition-delay:.05s}
@@ -66,7 +63,6 @@
   .cta-pill{display:inline-block;align-self:flex-start;background:var(--accent);color:#120d07;font-weight:700;
     font-size:4.4cqmin;padding:2.4cqmin 4.6cqmin;border-radius:999px}
 
-  /* overlay inicio */
   .cover{position:absolute;inset:0;z-index:8;display:flex;flex-direction:column;align-items:center;justify-content:center;
     gap:4cqmin;background:rgba(10,9,8,.72);backdrop-filter:blur(3px);cursor:pointer}
   .cover .play{width:22cqmin;height:22cqmin;border-radius:50%;background:var(--accent);color:#120d07;
@@ -74,7 +70,6 @@
   .cover .t{font-size:4cqmin;color:var(--ink-2)}
   .cover.hide{display:none}
 
-  /* controles (NO grabar esta parte) */
   .controls{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap;justify-content:center}
   button.ctrl{font-family:inherit;font-size:14px;font-weight:600;border:1px solid #3a352e;background:#1d1b18;color:var(--ink);
     border-radius:999px;padding:9px 18px;cursor:pointer}
@@ -85,7 +80,7 @@
 </style>
 </head>
 <body>
-<p class="hint">Pulsa <b>▶ Reproducir</b> y <b>graba esta zona</b> con la grabadora de pantalla de tu móvil u ordenador. Dura ~65&nbsp;s. Al terminar, recórtalo y súbelo. El resto de la página (botones) no hace falta grabarlo.</p>
+<p class="hint">Pulsa <b>▶ Reproducir</b> y <b>graba esta zona</b>. Cada escena espera a que termine la narración, así nada se corta. Dura ~70&nbsp;s con voz.</p>
 
 <div class="stage" id="stage">
   <div class="prog" id="prog"></div>
@@ -145,7 +140,7 @@
 
   <div class="cover" id="cover">
     <div class="play">▶</div>
-    <div class="t">Reproducir presentación · ~65 s</div>
+    <div class="t">Reproducir presentación</div>
   </div>
 </div>
 
@@ -153,16 +148,17 @@
   <button class="ctrl primary" id="play">▶ Reproducir</button>
   <button class="ctrl" id="replay">↻ Repetir</button>
   <button class="ctrl" id="voice" aria-pressed="true">🔊 Voz: ON</button>
-  <span class="dur" id="dur">Duración ≈ 65 s</span>
+  <span class="dur" id="dur"></span>
 </div>
-<p class="hint" style="margin-top:10px">Para que el vídeo salga <b>narrado</b>, deja la voz en ON y usa una grabadora que capture el <b>audio de la pestaña/sistema</b> (en el móvil, activa el sonido interno). La voz es sintética del navegador; para calidad profesional, graba sin voz y añade tu locución en el editor.</p>
+<p class="hint" style="margin-top:10px">Para que el vídeo salga <b>narrado</b>, deja la voz en ON y graba capturando el <b>audio de la pestaña/sistema</b>. La voz es sintética del navegador; para calidad profesional, graba sin voz (botón 🔇) y añade tu locución en el editor.</p>
 
 <script>
 const scenes=[...document.querySelectorAll('.scene')];
-// [índice, duración en ms]
-const PLAN=[[0,7000],[1,12000],[2,12000],[3,11000],[4,14000],[5,9000]];
-
-// Locución por escena (voz sintética del navegador)
+const order=[0,1,2,3,4,5];
+const N=order.length;
+// Duraciones SIN voz (ms), holgadas para leer en pantalla
+const FIXED=[6500,13500,12000,11000,13500,8500];
+// Locución por escena
 const LINES=[
   "¿A dónde va de verdad el dinero del Estado español? Cuarenta y cinco años de gasto público, con datos.",
   "Comparar euros de 1980 con los de hoy engaña: los precios se han multiplicado por seis, la población ha crecido un treinta por ciento y la economía es diecisiete veces mayor. Por eso lo medimos en porcentaje del PIB.",
@@ -171,59 +167,72 @@ const LINES=[
   "¿Y la Iglesia? Cuatrocientos veintinueve millones por la casilla del I R P F en 2024. Aunque su coste real para el Estado es mayor, y nadie lo suma.",
   "Datos oficiales, de 1980 a hoy. Míralo tú mismo. Sígueme para más."
 ];
-let voiceOn=true, esVoice=null;
-function pickVoice(){const vs=speechSynthesis.getVoices();
-  esVoice = vs.find(v=>/es[-_]ES/i.test(v.lang)) || vs.find(v=>/^es/i.test(v.lang)) || null;}
-if('speechSynthesis' in window){ pickVoice(); speechSynthesis.onvoiceschanged=pickVoice; }
-function speak(i){ if(!voiceOn||!('speechSynthesis' in window))return;
-  const u=new SpeechSynthesisUtterance(LINES[i]); u.lang='es-ES'; u.rate=1.02; u.pitch=1;
-  if(esVoice)u.voice=esVoice; speechSynthesis.speak(u); }
-function stopSpeak(){ if('speechSynthesis' in window)speechSynthesis.cancel(); }
-const TOTAL=PLAN.reduce((a,b)=>a+b[1],0);
-document.getElementById('dur').textContent='Duración ≈ '+Math.round(TOTAL/1000)+' s';
 
-const prog=document.getElementById('prog'), cover=document.getElementById('cover');
-let timers=[], rafId=null, startT=0, playing=false;
+const prog=document.getElementById('prog'), cover=document.getElementById('cover'), durEl=document.getElementById('dur');
+const ttsOK=('speechSynthesis' in window);
+let timers=[], voiceOn=true, esVoice=null;
 
-function clearAll(){timers.forEach(clearTimeout);timers=[];if(rafId)cancelAnimationFrame(rafId);
-  scenes.forEach(s=>s.classList.remove('on'));prog.style.width='0';}
+function pickVoice(){ if(!ttsOK)return; const vs=speechSynthesis.getVoices();
+  esVoice = vs.find(v=>/es[-_]ES/i.test(v.lang)) || vs.find(v=>/^es/i.test(v.lang)) || null; }
+if(ttsOK){ pickVoice(); speechSynthesis.onvoiceschanged=pickVoice; }
 
+const fixedTotal=Math.round(FIXED.reduce((a,b)=>a+b,0)/1000);
+durEl.textContent='≈ '+fixedTotal+' s sin voz · algo más con narración';
+
+function clearTimers(){ timers.forEach(clearTimeout); timers=[]; }
+function stopSpeak(){ if(ttsOK)speechSynthesis.cancel(); }
+function resetAll(){ clearTimers(); stopSpeak(); scenes.forEach(s=>s.classList.remove('on'));
+  prog.style.transition='none'; prog.style.width='0'; }
+
+function setProgress(frac,durMs){
+  prog.style.transition='width '+Math.max(300,durMs)+'ms linear';
+  requestAnimationFrame(()=>{ prog.style.width=(frac*100)+'%'; });
+}
 function countUp(el){
   const target=parseFloat(el.dataset.count), dec=parseInt(el.dataset.dec||'0'),
     pre=el.dataset.pre||'', suf=el.dataset.suf||'', dur=900, t0=performance.now();
-  function step(now){const p=Math.min(1,(now-t0)/dur);const e=1-Math.pow(1-p,3);
-    const val=(target*e).toFixed(dec).replace('.',',');
-    el.textContent=pre+val+suf; if(p<1)requestAnimationFrame(step);}
+  function step(now){ const p=Math.min(1,(now-t0)/dur), e=1-Math.pow(1-p,3);
+    el.textContent=pre+(target*e).toFixed(dec).replace('.',',')+suf; if(p<1)requestAnimationFrame(step); }
   requestAnimationFrame(step);
 }
-
 function activate(i){
   scenes.forEach(s=>s.classList.toggle('on',+s.dataset.i===i));
-  const sc=scenes[i];
-  stopSpeak(); speak(i);
-  // lanzar contadores con pequeño retardo (tras entrar)
-  sc.querySelectorAll('[data-count]').forEach(el=>{
+  scenes[i].querySelectorAll('[data-count]').forEach(el=>{
     el.textContent=(el.dataset.pre||'')+'0'+(el.dataset.suf||'');
-    setTimeout(()=>countUp(el),420);
+    setTimeout(()=>countUp(el),440);
   });
 }
+// estimación para la barra de progreso en modo voz
+function estDur(i){ const w=LINES[i].trim().split(/\s+/).length; return Math.max(4500,Math.round(w/2.4*1000)+1600); }
 
-function play(){
-  clearAll(); stopSpeak(); cover.classList.add('hide'); playing=true; startT=performance.now();
-  let acc=0;
-  PLAN.forEach(([idx,dur])=>{ timers.push(setTimeout(()=>activate(idx),acc)); acc+=dur; });
-  timers.push(setTimeout(()=>{playing=false;},TOTAL));
-  function tick(now){const p=Math.min(1,(now-startT)/TOTAL);prog.style.width=(p*100)+'%';
-    if(p<1)rafId=requestAnimationFrame(tick);}
-  rafId=requestAnimationFrame(tick);
+function runScene(k){
+  if(k>=N) return;
+  const i=order[k];
+  activate(i);
+  if(voiceOn && ttsOK){
+    const planned=estDur(i);
+    setProgress((k+1)/N, planned);
+    const u=new SpeechSynthesisUtterance(LINES[i]);
+    u.lang='es-ES'; u.rate=1.02; u.pitch=1; if(esVoice)u.voice=esVoice;
+    let done=false;
+    const go=()=>{ if(done)return; done=true; timers.push(setTimeout(()=>runScene(k+1),650)); };
+    u.onend=go; u.onerror=go;
+    timers.push(setTimeout(go, planned+5000)); // red de seguridad si onend no dispara
+    try{ speechSynthesis.speak(u); }catch(e){ go(); }
+  } else {
+    const planned=FIXED[i];
+    setProgress((k+1)/N, planned);
+    timers.push(setTimeout(()=>runScene(k+1), planned));
+  }
 }
+function play(){ resetAll(); cover.classList.add('hide'); timers.push(setTimeout(()=>runScene(0),80)); }
 
 document.getElementById('play').onclick=play;
 document.getElementById('replay').onclick=play;
 cover.onclick=play;
 const vbtn=document.getElementById('voice');
-vbtn.onclick=()=>{voiceOn=!voiceOn;vbtn.setAttribute('aria-pressed',String(voiceOn));
-  vbtn.textContent=voiceOn?'🔊 Voz: ON':'🔇 Voz: OFF'; if(!voiceOn)stopSpeak();};
+vbtn.onclick=()=>{ voiceOn=!voiceOn; vbtn.setAttribute('aria-pressed',String(voiceOn));
+  vbtn.textContent=voiceOn?'🔊 Voz: ON':'🔇 Voz: OFF'; if(!voiceOn)stopSpeak(); };
 window.addEventListener('beforeunload',stopSpeak);
 </script>
 </body>
