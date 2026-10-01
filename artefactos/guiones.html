@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Guiones de Vídeo · Gasto Público</title>
+<meta name="description" content="Dos guiones listos para grabar sobre el gasto público en España: un corto vertical para redes y un guión largo de locución para YouTube.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --bg:#f6f4ef; --surface:#fcfcfb; --surface-2:#efece4; --ink:#1c1b19; --ink-2:#55514a; --muted:#8a847a;
+    --line:#e0dcd2; --line-2:#cfc9bc; --accent:#B45309; --blue:#2563EB; --igl:#C026A9;
+    --shadow:0 1px 2px rgba(28,27,25,.06),0 6px 20px rgba(28,27,25,.06); --radius:14px;
+    --f-disp:"Fraunces",Georgia,serif; --f-body:"IBM Plex Sans",system-ui,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --bg:#131210; --surface:#1d1b18; --surface-2:#262320; --ink:#f3efe7; --ink-2:#c3bdb2; --muted:#938d82;
+    --line:#332f2a; --line-2:#413c35; --accent:#d98a33; --blue:#4A86E8; --igl:#CC3BB0; color-scheme:dark;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 28px rgba(0,0,0,.4);
+  }}
+  :root[data-theme="dark"]{
+    --bg:#131210; --surface:#1d1b18; --surface-2:#262320; --ink:#f3efe7; --ink-2:#c3bdb2; --muted:#938d82;
+    --line:#332f2a; --line-2:#413c35; --accent:#d98a33; --blue:#4A86E8; --igl:#CC3BB0; color-scheme:dark;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 28px rgba(0,0,0,.4);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:820px;margin:0 auto;padding-inline:16px;padding-block:0}
+  h1,h2,h3{font-family:var(--f-disp);font-weight:600;line-height:1.12;text-wrap:balance;margin:0}
+  .eyebrow{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:10px}
+  header.hero{padding-block:34px 14px}
+  h1{font-size:clamp(28px,5.5vw,42px);letter-spacing:-.01em}
+  .sub{font-size:17px;color:var(--ink-2);max-width:60ch;margin-top:12px}
+
+  nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--bg);border-bottom:1px solid var(--line);display:flex;gap:4px;padding:8px 0;overflow-x:auto;scrollbar-width:none}
+  nav.tabs::-webkit-scrollbar{display:none}
+  .tab{flex:0 0 auto;border:1px solid transparent;background:none;color:var(--ink-2);font-family:inherit;font-size:14.5px;font-weight:600;padding:8px 14px;border-radius:999px;cursor:pointer;white-space:nowrap}
+  .tab:hover{background:var(--surface-2)}
+  .tab[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+
+  section.panel{padding-block:24px 10px}
+  .lead{font-size:16.5px;color:var(--ink-2);max-width:62ch;margin:0 0 18px}
+  .chip{display:inline-block;font-size:12px;font-weight:600;color:var(--accent);background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:4px 11px;margin:0 6px 10px 0}
+
+  /* storyboard beats */
+  .beat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:0;margin-bottom:12px;overflow:hidden;display:grid;grid-template-columns:96px 1fr}
+  .beat .time{background:var(--surface-2);padding:14px 10px;font-size:12px;font-weight:700;color:var(--accent);text-align:center;display:flex;flex-direction:column;justify-content:center;gap:3px;border-right:1px solid var(--line)}
+  .beat .time span{font-weight:500;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+  .beat .body{padding:13px 15px}
+  .beat .screen{font-family:var(--f-disp);font-weight:600;font-size:17px;line-height:1.25;margin-bottom:8px}
+  .beat .screen small{display:block;font-family:var(--f-body);font-weight:600;font-size:12.5px;color:var(--muted);letter-spacing:.03em;margin-top:3px}
+  .beat .vo{font-size:14.5px;color:var(--ink-2);border-top:1px dashed var(--line-2);padding-top:8px}
+  .beat .vo b{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:2px}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 18px;margin-bottom:14px}
+  .card .k{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:8px}
+
+  /* guión largo */
+  .script h3{font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px;font-family:var(--f-body);font-weight:700}
+  .script p{font-size:17px;line-height:1.72;margin:0 0 14px;max-width:64ch}
+  .copybar{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 18px}
+  button.copy{font-family:inherit;font-size:13.5px;font-weight:600;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 14px;cursor:pointer}
+  button.copy:hover{background:var(--surface-2)}
+  .note{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:13px 15px;font-size:14.5px;color:var(--ink-2);margin:0 0 18px}
+  .note b{color:var(--ink)}
+  code{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13.5px;background:var(--surface-2);padding:1px 6px;border-radius:5px}
+  .chaplist{font-family:ui-monospace,monospace;font-size:13.5px;color:var(--ink-2);line-height:1.9}
+  ul.sug{padding-left:1.1em;margin:.3em 0 1em}
+  ul.sug li{margin-bottom:.4em}
+  .themebtn{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));right:14px;z-index:40;background:var(--surface);border:1px solid var(--line-2);color:var(--ink-2);border-radius:999px;width:40px;height:40px;cursor:pointer;font-size:17px;box-shadow:var(--shadow)}
+  footer{padding:26px 0 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:22px}
+  @media (max-width:430px){ .beat{grid-template-columns:76px 1fr} .beat .time{font-size:11px} }
+</style>
+</head>
+<body>
+<button class="themebtn" id="themebtn" aria-label="Cambiar tema">◐</button>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Guiones de vídeo · Basados en el artefacto interactivo</div>
+    <h1>Guiones: ¿En qué gasta el dinero el Estado?</h1>
+    <p class="sub">Dos piezas listas para grabar. Cambia de pestaña para ver cada una. Puedes copiar cualquier bloque con un clic.</p>
+  </header>
+
+  <nav class="tabs" id="tabs" role="tablist">
+    <button class="tab" role="tab" data-tab="corto" aria-selected="true">📱 Corto vertical (redes)</button>
+    <button class="tab" role="tab" data-tab="largo">▶️ Largo YouTube</button>
+    <button class="tab" role="tab" data-tab="extra">Ficha YouTube</button>
+  </nav>
+
+  <div id="content"></div>
+
+  <footer>Guiones derivados del artefacto de datos 1980–2025. Fuentes: INE, Ministerios de Educación y Sanidad, OCDE, Agencia Tributaria, Conferencia Episcopal, Banco de España. Octubre 2025.</footer>
+</div>
+
+<script>
+const BEATS=[
+  ["0–3 s","GANCHO","¿A DÓNDE VA EL DINERO DEL ESTADO?","","¿A dónde va de verdad el dinero del Estado español? Mira esto."],
+  ["3–12 s","LA REGLA","La trampa: comparar euros de 1980 con los de hoy","Precios ×6 · Población +30% · Economía ×17","Comparar euros de hace 45 años es un engaño. Por eso lo medimos en porcentaje del PIB."],
+  ["12–24 s","BIENESTAR","SANIDAD: 4% → 8% (COVID)","EDUCACIÓN: se ha duplicado desde 1980","La sanidad pública pasó del 4 al 8 por ciento del PIB en la pandemia. La educación se ha duplicado desde 1980… pero seguimos por debajo de Europa."],
+  ["24–36 s","LADRILLO","OBRA PÚBLICA: pico en 2009","−72% en 2018","La inversión en carreteras y trenes tocó techo en 2009 y se hundió un 72 por ciento con la crisis."],
+  ["36–50 s","GANCHO FUERTE","IGLESIA: 429 M€ vía IRPF (2024)","…pero el coste real es mayor","¿Y la Iglesia? 429 millones por la casilla del IRPF en 2024. Aunque su coste real para el Estado es mayor… y nadie lo suma en una sola cifra."],
+  ["50–58 s","CIERRE + CTA","Datos oficiales · Gráfico interactivo 👇","Sígueme para más","Todo con datos oficiales. Tienes el gráfico interactivo para verlo tú mismo. Sígueme para más."],
+];
+
+const LARGO=[
+  ["Introducción","Cada año, el Estado español reparte cientos de miles de millones de euros. Pero, ¿a dónde va realmente ese dinero? ¿Gastamos hoy más o menos que hace 45 años en colegios, en hospitales, en carreteras… o en la Iglesia? En este vídeo lo vemos con datos oficiales, desde 1980 hasta hoy. Vamos allá."],
+  ["La trampa de los euros","Antes de empezar, una advertencia que lo cambia todo. Comparar euros de 1980 con euros de hoy es engañoso, por tres motivos que ocurren a la vez.|Primero, los precios: se han multiplicado por seis; lo que costaba un euro en 1980 cuesta seis en la actualidad. Segundo, la población: hemos pasado de 37 a casi 49 millones de habitantes. Y tercero, la economía: hoy es diecisiete veces más grande medida en euros.|Por eso, para comparar de forma justa, usamos una sola vara de medir: el porcentaje del Producto Interior Bruto. Es decir, de todo lo que produce el país en un año, qué parte dedica a cada cosa. Esa medida neutraliza la inflación, el aumento de la población y el crecimiento de la riqueza, todo a la vez. Es la misma que usan la OCDE, el Fondo Monetario Internacional y Eurostat."],
+  ["Visión general","Con esa vara de medir, esta es la fotografía completa. Tres grandes partidas comparables: sanidad, educación e infraestructuras, todas en porcentaje del PIB.|El patrón es claro. La sanidad y la educación suben de forma sostenida a lo largo de las décadas: es la construcción del Estado del bienestar. En cambio, la inversión en infraestructuras dibuja una montaña: crece con la expansión económica y se desploma tras la crisis de 2010.|La Iglesia queda fuera de esta imagen por una razón de escala: el dinero directo que recibe es unas 150 veces menor, así que la veremos por separado."],
+  ["Educación","Empecemos por los colegios. En 1980, recién estrenada la democracia, España dedicaba a la educación pública alrededor del 2,4 por ciento del PIB: la mitad que hoy. Con la universalización de la enseñanza, el gasto creció con fuerza durante los años ochenta y noventa, hasta alcanzar su techo histórico en 2009: un 5 por ciento del PIB.|Después llegaron los recortes. Hoy estamos en torno al 4,5 por ciento, todavía por debajo de la media de los países de la OCDE.|Dentro de ese gasto hay una partida que conviene conocer: la enseñanza concertada, es decir, colegios de titularidad privada financiados con dinero público. Suponen unos 7.500 millones de euros al año, cerca del 12 por ciento de todo el gasto educativo público. En comunidades como el País Vasco, Madrid o Navarra ese porcentaje es bastante mayor. Y un matiz importante: lo que las familias pagan de su bolsillo en la enseñanza privada no concertada no es gasto del Estado, y por eso no entra en esta cuenta."],
+  ["Sanidad","La sanidad es hoy la mayor partida social del país. Despegó con la Ley General de Sanidad de 1986, que creó un sistema sanitario público y universal. El gasto público pasó de alrededor del 4 por ciento del PIB en 1980 a un 6,5 por ciento justo antes de la pandemia.|Y entonces llegó la COVID. En 2020, el gasto sanitario público saltó hasta el 8 por ciento del PIB, el nivel más alto jamás registrado. En 2023 se situó en el 7 por ciento.|Si a esa cifra le sumamos la sanidad privada —los seguros y lo que los hogares pagan directamente, en torno a un 2,5 por ciento más— el país dedica a la salud cerca del 10 por ciento de todo lo que produce. Un dato llama la atención: España es uno de los países de la OCDE con mayor peso de la sanidad privada. Aproximadamente uno de cada cuatro euros que se gastan en salud es dinero privado, no público."],
+  ["La Iglesia","Llegamos al asunto más debatido: cuánto dinero destina el Estado a la Iglesia católica. Conviene aclarar cómo funciona. Desde 2007, el Estado ya no entrega una dotación directa a la Iglesia. Su financiación pública procede de la casilla del 0,7 por ciento del IRPF, que cada contribuyente decide marcar, o no, en su declaración de la renta.|En 2024, esa casilla aportó 429 millones de euros, la cifra más alta de la historia, con más de 9 millones de personas marcándola.|Ahora bien, hay que ser honestos: esos 429 millones son únicamente la asignación del IRPF. El coste público real es considerablemente mayor si se suman otras partidas: los profesores de religión en la escuela pública, los conciertos de los colegios religiosos, las capellanías en el ejército, los hospitales y las prisiones, la conservación del patrimonio y las exenciones fiscales.|El problema es que esas partidas están repartidas entre muchas administraciones, no se consolidan en una única cifra oficial, y su cálculo es objeto de disputa política. Por eso no las incluimos en el gráfico: preferimos señalar su existencia antes que ofrecer un número inventado. En proporción, la asignación vía IRPF equivale a apenas el 0,03 por ciento del PIB: otra escala por completo frente a la sanidad o la educación."],
+  ["Infraestructuras","Última gran partida: las infraestructuras de transporte, es decir, carreteras, ferrocarril, puertos y aeropuertos. Es la más cíclica de todas, un auténtico espejo de la economía.|En 2009, en pleno despliegue del AVE y de las autovías, la inversión alcanzó el 2,1 por ciento del PIB: unos 24.000 millones de euros. Luego vino el ajuste. Para 2018, la inversión se había hundido un 72 por ciento, hasta apenas el 0,55 por ciento del PIB.|En los últimos años se recupera: en 2025 ronda los 16.000 millones, cerca del 1 por ciento del PIB, aunque todavía muy por debajo de los niveles de 2009 en términos reales. De todo ese dinero, las carreteras se han llevado históricamente algo más de la mitad; hoy, en torno a un tercio."],
+  ["Metodología","Una palabra sobre el rigor de estos datos. Las cifras proceden de fuentes oficiales: el Instituto Nacional de Estadística, los ministerios de Educación y de Sanidad, la OCDE, la Agencia Tributaria, la Conferencia Episcopal y el Banco de España. Los datos desde el año 2000 son sólidos. Los de los años ochenta y primeros noventa son estimaciones reconstruidas a partir de literatura académica y series históricas, y así aparecen señaladas. Deben leerse como tendencias fiables, no como contabilidad al céntimo."],
+  ["Conclusión","En resumen: a lo largo de 45 años, España ha apostado de forma creciente por la sanidad y la educación, aunque todavía por debajo de sus vecinos europeos. La inversión en obra pública sube y baja al ritmo del ciclo económico. Y el dinero directo a la Iglesia es pequeño en la parte que puede medirse con claridad.|Si te ha servido para entender mejor a dónde va el dinero de todos, suscríbete y déjame en los comentarios qué partida te ha sorprendido más. Los datos están sobre la mesa; las conclusiones, cada uno las suyas. Nos vemos en el próximo vídeo."],
+];
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+
+function renderCorto(){
+  const beats=BEATS.map(b=>`<div class="beat">
+    <div class="time">${b[0]}<span>${b[1]}</span></div>
+    <div class="body">
+      <div class="screen">${esc(b[2])}${b[3]?`<small>${esc(b[3])}</small>`:''}</div>
+      <div class="vo"><b>Locución</b>${esc(b[4])}</div>
+    </div></div>`).join('');
+  return `<section class="panel">
+    <span class="chip">Vertical 9:16</span><span class="chip">~58 segundos</span><span class="chip">TikTok · Reels · Facebook</span>
+    <p class="lead">Pensado para verse <b>sin sonido</b>: el texto en pantalla cuenta la historia y la locución la refuerza. Un corte por bloque.</p>
+    <div class="note"><b>Truco:</b> para una versión de 30 s, deja solo los bloques <b>Gancho</b>, <b>Iglesia</b> y <b>Cierre</b>. La Iglesia es el gancho que más se comparte.</div>
+    ${beats}
+    <div class="card"><div class="k">Texto de publicación + hashtags</div>
+      <p style="margin:0 0 10px;color:var(--ink-2);font-size:15px">¿Sabes a dónde va de verdad el dinero del Estado? Lo he mirado desde 1980 con datos oficiales. La sanidad, la educación, las carreteras y la Iglesia… hay sorpresas. Gráfico interactivo en el perfil.</p>
+      <p style="margin:0;color:var(--muted);font-size:14px">#España #datos #economía #sanidad #educación #política #divulgación #impuestos</p>
+    </div>
+    <div class="copybar"><button class="copy" data-copy="corto">Copiar todo el corto</button></div>
+  </section>`;
+}
+
+function renderLargo(){
+  const body=LARGO.map(s=>`<h3>${esc(s[0])}</h3>`+s[1].split('|').map(p=>`<p>${esc(p)}</p>`).join('')).join('');
+  return `<section class="panel script">
+    <span class="chip">Locución limpia</span><span class="chip">~7–8 minutos</span><span class="chip">YouTube</span>
+    <p class="lead">Solo el texto para leer en alto. Los títulos en mayúsculas son para orientarte: <b>no se locutan</b>. Lee con calma (~140 palabras/minuto) y pausa tras cada cifra.</p>
+    <div class="copybar"><button class="copy" data-copy="largo">Copiar guión completo</button></div>
+    ${body}
+  </section>`;
+}
+
+function renderExtra(){
+  return `<section class="panel">
+    <p class="lead">Para rellenar la ficha del vídeo de YouTube. (No se locuta.)</p>
+    <div class="card"><div class="k">Títulos sugeridos</div>
+      <ul class="sug">
+        <li>¿A DÓNDE VA TU DINERO? Lo que España gasta en sanidad, educación e Iglesia (1980–2025)</li>
+        <li>45 años de gasto público en España, explicados con datos</li>
+        <li>Sanidad, colegios, carreteras e Iglesia: en qué gasta de verdad el Estado español</li>
+      </ul></div>
+    <div class="card"><div class="k">Descripción</div>
+      <p style="margin:0;color:var(--ink-2);font-size:15px">Un recorrido con datos oficiales por el gasto del Estado español entre 1980 y hoy: educación pública y concertada, sanidad pública y privada, financiación de la Iglesia e inversión en infraestructuras. Todo medido en porcentaje del PIB para comparar de forma justa, teniendo en cuenta la inflación, la población y el crecimiento de la economía. Fuentes: INE, Educación, Sanidad, OCDE, Agencia Tributaria, Conferencia Episcopal y Banco de España.</p></div>
+    <div class="card"><div class="k">Capítulos (pégalos en la descripción)</div>
+      <div class="chaplist">00:00&nbsp;&nbsp;Introducción<br>00:25&nbsp;&nbsp;La trampa de los euros<br>01:15&nbsp;&nbsp;Visión general<br>01:55&nbsp;&nbsp;Educación y concertada<br>02:55&nbsp;&nbsp;Sanidad pública y privada<br>03:55&nbsp;&nbsp;La Iglesia: el 0,7% y lo que no se ve<br>05:05&nbsp;&nbsp;Infraestructuras<br>05:50&nbsp;&nbsp;Metodología y fuentes<br>06:20&nbsp;&nbsp;Conclusión</div></div>
+    <div class="copybar"><button class="copy" data-copy="extra">Copiar ficha completa</button></div>
+  </section>`;
+}
+
+const TEXT={
+  corto:()=>BEATS.map(b=>`[${b[0]} · ${b[1]}]\nEN PANTALLA: ${b[2]}${b[3]?' — '+b[3]:''}\nLOCUCIÓN: ${b[4]}`).join('\n\n'),
+  largo:()=>LARGO.map(s=>`${s[0].toUpperCase()}\n`+s[1].split('|').join('\n\n')).join('\n\n\n'),
+  extra:()=>'TÍTULOS:\n- ¿A DÓNDE VA TU DINERO? Lo que España gasta en sanidad, educación e Iglesia (1980–2025)\n- 45 años de gasto público en España, explicados con datos\n- Sanidad, colegios, carreteras e Iglesia: en qué gasta de verdad el Estado español\n\nCAPÍTULOS:\n00:00 Introducción\n00:25 La trampa de los euros\n01:15 Visión general\n01:55 Educación y concertada\n02:55 Sanidad pública y privada\n03:55 La Iglesia\n05:05 Infraestructuras\n05:50 Metodología\n06:20 Conclusión',
+};
+
+const content=document.getElementById('content'), tabs=document.getElementById('tabs');
+function show(t){
+  tabs.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-selected',String(x.dataset.tab===t)));
+  content.innerHTML = t==='corto'?renderCorto() : t==='largo'?renderLargo() : renderExtra();
+  content.querySelectorAll('.copy').forEach(btn=>btn.onclick=async()=>{
+    try{await navigator.clipboard.writeText(TEXT[btn.dataset.copy]());btn.textContent='¡Copiado!';
+      setTimeout(()=>btn.textContent=btn.dataset.copy==='corto'?'Copiar todo el corto':btn.dataset.copy==='largo'?'Copiar guión completo':'Copiar ficha completa',1600);}
+    catch(e){const r=document.createRange();const tmp=document.createElement('textarea');tmp.value=TEXT[btn.dataset.copy]();document.body.appendChild(tmp);tmp.select();try{document.execCommand('copy');btn.textContent='¡Copiado!';}catch(_){btn.textContent='Selecciona y copia manualmente';}setTimeout(()=>tmp.remove(),100);}
+  });
+  window.scrollTo({top:0,behavior:'instant'});
+}
+tabs.addEventListener('click',e=>{const b=e.target.closest('.tab');if(b)show(b.dataset.tab);});
+
+const tb=document.getElementById('themebtn');
+function cur(){const a=document.documentElement.getAttribute('data-theme');return a||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');}
+tb.onclick=()=>{document.documentElement.setAttribute('data-theme',cur()==='dark'?'light':'dark');};
+
+show('corto');
+</script>
+</body>
+</html>

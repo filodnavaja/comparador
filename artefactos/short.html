@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Short 9:16 · Gasto Público</title>
+<meta name="description" content="Presentación vertical autorreproducible de ~65 segundos sobre el gasto público en España 1980–2025, lista para grabar la pantalla.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  /* Pieza deliberadamente en modo oscuro: una presentación de vídeo debe verse igual en cualquier dispositivo. */
+  :root{
+    --bg:#0e0d0b; --stage:#141311; --ink:#f4efe6; --ink-2:#b9b2a6; --muted:#7d776c;
+    --edu:#2DB38F; --san:#5B9BFF; --igl:#E25FC8; --inf:#E0922E; --accent:#E0922E;
+    --f-disp:"Fraunces",Georgia,serif; --f-body:"IBM Plex Sans",system-ui,sans-serif;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);
+    display:flex;flex-direction:column;align-items:center;min-height:100%;
+    padding-block:calc(14px + env(safe-area-inset-top,0px)) calc(14px + env(safe-area-inset-bottom,0px));padding-inline:14px}
+  html,body{height:100%}
+
+  .hint{font-size:13px;color:var(--muted);text-align:center;margin-bottom:10px;max-width:40ch}
+  .hint b{color:var(--ink-2)}
+
+  /* ESCENARIO 9:16 — esta es la zona a grabar */
+  .stage{position:relative;width:min(94vw,392px);aspect-ratio:9/16;max-height:76vh;
+    background:radial-gradient(130% 100% at 50% 0%,#1c1a17 0%,var(--stage) 55%,#100f0d 100%);
+    border-radius:26px;overflow:hidden;container-type:size;
+    box-shadow:0 20px 60px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.04)}
+
+  /* barra de progreso */
+  .prog{position:absolute;top:0;left:0;height:4px;width:0;background:var(--accent);z-index:6;transition:width .25s linear}
+  .brand{position:absolute;top:14px;left:0;right:0;text-align:center;font-size:3cqmin;letter-spacing:.28em;
+    text-transform:uppercase;color:var(--muted);z-index:5;font-weight:600}
+
+  .scene{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+    gap:3.2cqmin;padding:11cqmin 8cqmin;opacity:0;pointer-events:none;transition:opacity .5s ease}
+  .scene.on{opacity:1}
+  .kick{font-size:4cqmin;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+  .big{font-family:var(--f-disp);font-weight:700;line-height:1.02;font-size:12.5cqmin;letter-spacing:-.01em;text-wrap:balance}
+  .huge{font-family:var(--f-disp);font-weight:700;line-height:.98;font-size:20cqmin;letter-spacing:-.02em}
+  .mid{font-family:var(--f-disp);font-weight:600;font-size:8.6cqmin;line-height:1.08;text-wrap:balance}
+  .body{font-size:4.6cqmin;line-height:1.4;color:var(--ink-2)}
+  .tiny{font-size:3.5cqmin;color:var(--muted);line-height:1.4}
+  .flow{font-size:9cqmin;font-family:var(--f-disp);font-weight:700}
+  .arrow{color:var(--muted)}
+
+  /* fila de 3 stats */
+  .stats{display:flex;justify-content:space-between;gap:2.4cqmin;margin-top:1cqmin}
+  .stat{flex:1;text-align:center;background:rgba(255,255,255,.04);border-radius:3cqmin;padding:3.4cqmin 1cqmin}
+  .stat .n{font-family:var(--f-disp);font-weight:700;font-size:9cqmin;line-height:1}
+  .stat .l{font-size:2.9cqmin;color:var(--ink-2);margin-top:1cqmin;text-transform:uppercase;letter-spacing:.04em}
+
+  /* animación de entrada (hijos) */
+  .el{opacity:0;transform:translateY(16px);transition:opacity .55s cubic-bezier(.2,.7,.2,1),transform .55s cubic-bezier(.2,.7,.2,1)}
+  .scene.on .el{opacity:1;transform:none}
+  .scene.on .el:nth-child(1){transition-delay:.05s}
+  .scene.on .el:nth-child(2){transition-delay:.30s}
+  .scene.on .el:nth-child(3){transition-delay:.55s}
+  .scene.on .el:nth-child(4){transition-delay:.80s}
+  .scene.on .el:nth-child(5){transition-delay:1.05s}
+
+  .cta-pill{display:inline-block;align-self:flex-start;background:var(--accent);color:#120d07;font-weight:700;
+    font-size:4.4cqmin;padding:2.4cqmin 4.6cqmin;border-radius:999px}
+
+  /* overlay inicio */
+  .cover{position:absolute;inset:0;z-index:8;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:4cqmin;background:rgba(10,9,8,.72);backdrop-filter:blur(3px);cursor:pointer}
+  .cover .play{width:22cqmin;height:22cqmin;border-radius:50%;background:var(--accent);color:#120d07;
+    display:flex;align-items:center;justify-content:center;font-size:10cqmin;padding-left:1.5cqmin}
+  .cover .t{font-size:4cqmin;color:var(--ink-2)}
+  .cover.hide{display:none}
+
+  /* controles (NO grabar esta parte) */
+  .controls{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap;justify-content:center}
+  button.ctrl{font-family:inherit;font-size:14px;font-weight:600;border:1px solid #3a352e;background:#1d1b18;color:var(--ink);
+    border-radius:999px;padding:9px 18px;cursor:pointer}
+  button.ctrl.primary{background:var(--accent);color:#120d07;border-color:var(--accent)}
+  button.ctrl:hover{filter:brightness(1.08)}
+  .dur{font-size:13px;color:var(--muted)}
+  @media (prefers-reduced-motion:reduce){ .el{transition-duration:.2s} }
+</style>
+</head>
+<body>
+<p class="hint">Pulsa <b>▶ Reproducir</b> y <b>graba esta zona</b> con la grabadora de pantalla de tu móvil u ordenador. Dura ~65&nbsp;s. Al terminar, recórtalo y súbelo. El resto de la página (botones) no hace falta grabarlo.</p>
+
+<div class="stage" id="stage">
+  <div class="prog" id="prog"></div>
+  <div class="brand">España · 1980–2025</div>
+
+  <!-- S0 HOOK -->
+  <div class="scene" data-i="0">
+    <div class="el kick" style="color:var(--accent)">El dinero de todos</div>
+    <div class="el big">¿A dónde va el dinero del&nbsp;Estado?</div>
+    <div class="el body">45 años de gasto público español, contados con datos.</div>
+  </div>
+
+  <!-- S1 REGLA -->
+  <div class="scene" data-i="1">
+    <div class="el kick" style="color:var(--inf)">Primero, una trampa</div>
+    <div class="el mid">Comparar euros de 1980 con los de hoy engaña.</div>
+    <div class="el stats">
+      <div class="stat"><div class="n" data-count="6" data-pre="×">×0</div><div class="l">Precios</div></div>
+      <div class="stat"><div class="n" data-count="30" data-pre="+" data-suf="%">+0%</div><div class="l">Población</div></div>
+      <div class="stat"><div class="n" data-count="17" data-pre="×">×0</div><div class="l">Economía</div></div>
+    </div>
+    <div class="el body">Por eso lo medimos en <b style="color:var(--ink)">% del PIB</b>: la medida justa.</div>
+  </div>
+
+  <!-- S2 BIENESTAR -->
+  <div class="scene" data-i="2">
+    <div class="el kick" style="color:var(--san)">Sanidad y educación</div>
+    <div class="el flow">Sanidad: 4% <span class="arrow">→</span> <span style="color:var(--san)">8%</span></div>
+    <div class="el tiny">del PIB · máximo en la pandemia (2020)</div>
+    <div class="el flow" style="margin-top:2cqmin">Educación: <span style="color:var(--edu)">×2</span> desde 1980</div>
+    <div class="el tiny">…pero aún por debajo de la media europea</div>
+  </div>
+
+  <!-- S3 INFRA -->
+  <div class="scene" data-i="3">
+    <div class="el kick" style="color:var(--inf)">Obra pública: montaña rusa</div>
+    <div class="el huge" style="color:var(--inf)"><span data-count="2.1" data-suf="%" data-dec="1">0%</span></div>
+    <div class="el body">tocó techo en 2009 (AVE y autovías)…</div>
+    <div class="el mid">y se hundió <span style="color:#e0674f"><span data-count="72" data-pre="−" data-suf="%">−0%</span></span> hasta 2018</div>
+  </div>
+
+  <!-- S4 IGLESIA -->
+  <div class="scene" data-i="4">
+    <div class="el kick" style="color:var(--igl)">El dato polémico</div>
+    <div class="el huge" style="color:var(--igl)"><span data-count="429" data-suf=" M€">0 M€</span></div>
+    <div class="el body">a la Iglesia vía casilla del IRPF en 2024. Desde 2007 el Estado ya no da dotación directa.</div>
+    <div class="el mid">…pero el coste real es mayor. Y nadie lo suma.</div>
+  </div>
+
+  <!-- S5 CIERRE -->
+  <div class="scene" data-i="5">
+    <div class="el kick" style="color:var(--accent)">Datos oficiales · 1980–2025</div>
+    <div class="el big">Míralo tú&nbsp;mismo.</div>
+    <div class="el tiny">INE · OCDE · Ministerios · Agencia Tributaria</div>
+    <div class="el cta-pill">Sígueme para más 👇</div>
+  </div>
+
+  <div class="cover" id="cover">
+    <div class="play">▶</div>
+    <div class="t">Reproducir presentación · ~65 s</div>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="ctrl primary" id="play">▶ Reproducir</button>
+  <button class="ctrl" id="replay">↻ Repetir</button>
+  <button class="ctrl" id="voice" aria-pressed="true">🔊 Voz: ON</button>
+  <span class="dur" id="dur">Duración ≈ 65 s</span>
+</div>
+<p class="hint" style="margin-top:10px">Para que el vídeo salga <b>narrado</b>, deja la voz en ON y usa una grabadora que capture el <b>audio de la pestaña/sistema</b> (en el móvil, activa el sonido interno). La voz es sintética del navegador; para calidad profesional, graba sin voz y añade tu locución en el editor.</p>
+
+<script>
+const scenes=[...document.querySelectorAll('.scene')];
+// [índice, duración en ms]
+const PLAN=[[0,7000],[1,12000],[2,12000],[3,11000],[4,14000],[5,9000]];
+
+// Locución por escena (voz sintética del navegador)
+const LINES=[
+  "¿A dónde va de verdad el dinero del Estado español? Cuarenta y cinco años de gasto público, con datos.",
+  "Comparar euros de 1980 con los de hoy engaña: los precios se han multiplicado por seis, la población ha crecido un treinta por ciento y la economía es diecisiete veces mayor. Por eso lo medimos en porcentaje del PIB.",
+  "La sanidad pública pasó del cuatro al ocho por ciento del PIB en la pandemia. La educación se ha duplicado desde 1980, aunque seguimos por debajo de Europa.",
+  "La inversión en infraestructuras tocó techo en 2009, y se hundió un setenta y dos por ciento hasta 2018.",
+  "¿Y la Iglesia? Cuatrocientos veintinueve millones por la casilla del I R P F en 2024. Aunque su coste real para el Estado es mayor, y nadie lo suma.",
+  "Datos oficiales, de 1980 a hoy. Míralo tú mismo. Sígueme para más."
+];
+let voiceOn=true, esVoice=null;
+function pickVoice(){const vs=speechSynthesis.getVoices();
+  esVoice = vs.find(v=>/es[-_]ES/i.test(v.lang)) || vs.find(v=>/^es/i.test(v.lang)) || null;}
+if('speechSynthesis' in window){ pickVoice(); speechSynthesis.onvoiceschanged=pickVoice; }
+function speak(i){ if(!voiceOn||!('speechSynthesis' in window))return;
+  const u=new SpeechSynthesisUtterance(LINES[i]); u.lang='es-ES'; u.rate=1.02; u.pitch=1;
+  if(esVoice)u.voice=esVoice; speechSynthesis.speak(u); }
+function stopSpeak(){ if('speechSynthesis' in window)speechSynthesis.cancel(); }
+const TOTAL=PLAN.reduce((a,b)=>a+b[1],0);
+document.getElementById('dur').textContent='Duración ≈ '+Math.round(TOTAL/1000)+' s';
+
+const prog=document.getElementById('prog'), cover=document.getElementById('cover');
+let timers=[], rafId=null, startT=0, playing=false;
+
+function clearAll(){timers.forEach(clearTimeout);timers=[];if(rafId)cancelAnimationFrame(rafId);
+  scenes.forEach(s=>s.classList.remove('on'));prog.style.width='0';}
+
+function countUp(el){
+  const target=parseFloat(el.dataset.count), dec=parseInt(el.dataset.dec||'0'),
+    pre=el.dataset.pre||'', suf=el.dataset.suf||'', dur=900, t0=performance.now();
+  function step(now){const p=Math.min(1,(now-t0)/dur);const e=1-Math.pow(1-p,3);
+    const val=(target*e).toFixed(dec).replace('.',',');
+    el.textContent=pre+val+suf; if(p<1)requestAnimationFrame(step);}
+  requestAnimationFrame(step);
+}
+
+function activate(i){
+  scenes.forEach(s=>s.classList.toggle('on',+s.dataset.i===i));
+  const sc=scenes[i];
+  stopSpeak(); speak(i);
+  // lanzar contadores con pequeño retardo (tras entrar)
+  sc.querySelectorAll('[data-count]').forEach(el=>{
+    el.textContent=(el.dataset.pre||'')+'0'+(el.dataset.suf||'');
+    setTimeout(()=>countUp(el),420);
+  });
+}
+
+function play(){
+  clearAll(); stopSpeak(); cover.classList.add('hide'); playing=true; startT=performance.now();
+  let acc=0;
+  PLAN.forEach(([idx,dur])=>{ timers.push(setTimeout(()=>activate(idx),acc)); acc+=dur; });
+  timers.push(setTimeout(()=>{playing=false;},TOTAL));
+  function tick(now){const p=Math.min(1,(now-startT)/TOTAL);prog.style.width=(p*100)+'%';
+    if(p<1)rafId=requestAnimationFrame(tick);}
+  rafId=requestAnimationFrame(tick);
+}
+
+document.getElementById('play').onclick=play;
+document.getElementById('replay').onclick=play;
+cover.onclick=play;
+const vbtn=document.getElementById('voice');
+vbtn.onclick=()=>{voiceOn=!voiceOn;vbtn.setAttribute('aria-pressed',String(voiceOn));
+  vbtn.textContent=voiceOn?'🔊 Voz: ON':'🔇 Voz: OFF'; if(!voiceOn)stopSpeak();};
+window.addEventListener('beforeunload',stopSpeak);
+</script>
+</body>
+</html>

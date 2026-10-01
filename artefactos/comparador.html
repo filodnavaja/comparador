@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gasto Público en España 1980–2025</title>
+<meta name="description" content="Comparativa interactiva del gasto del Estado español en educación, sanidad, Iglesia e infraestructuras desde 1980, ajustada por el tamaño de la economía y la población.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  /* Layout: dashboard editorial de una columna — cabecera fija, selector de bloques, panel con gráfico SVG + fichas + desplegables. */
+  :root{
+    --bg:#f6f4ef; --surface:#fcfcfb; --surface-2:#efece4; --ink:#1c1b19; --ink-2:#55514a; --muted:#8a847a;
+    --line:#e0dcd2; --line-2:#cfc9bc;
+    --c-edu:#1F8A70; --c-san:#2563EB; --c-igl:#C026A9; --c-inf:#B45309; --c-pri:#8a847a;
+    --accent:#B45309; --good:#1F8A70; --crit:#b4341f;
+    --shadow:0 1px 2px rgba(28,27,25,.06),0 6px 20px rgba(28,27,25,.06);
+    --radius:14px;
+    --f-disp:"Fraunces",Georgia,serif; --f-body:"IBM Plex Sans",system-ui,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --bg:#131210; --surface:#1d1b18; --surface-2:#262320; --ink:#f3efe7; --ink-2:#c3bdb2; --muted:#938d82;
+    --line:#332f2a; --line-2:#413c35;
+    --c-edu:#1F9E7E; --c-san:#4A86E8; --c-igl:#CC3BB0; --c-inf:#BE7A1E; --c-pri:#9a9488;
+    --accent:#d98a33; --good:#1F9E7E; --crit:#e0674f; color-scheme:dark;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 28px rgba(0,0,0,.4);
+  }}
+  :root[data-theme="dark"]{
+    --bg:#131210; --surface:#1d1b18; --surface-2:#262320; --ink:#f3efe7; --ink-2:#c3bdb2; --muted:#938d82;
+    --line:#332f2a; --line-2:#413c35;
+    --c-edu:#1F9E7E; --c-san:#4A86E8; --c-igl:#CC3BB0; --c-inf:#BE7A1E; --c-pri:#9a9488;
+    --accent:#d98a33; --good:#1F9E7E; --crit:#e0674f; color-scheme:dark;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 28px rgba(0,0,0,.4);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);
+    font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+  .wrap{max-width:920px;margin:0 auto;padding-inline:16px;padding-block:0}
+  h1,h2,h3{font-family:var(--f-disp);font-weight:600;line-height:1.1;text-wrap:balance;margin:0}
+  p{margin:0 0 .8em}
+  a{color:var(--accent)}
+  .tnum{font-variant-numeric:tabular-nums}
+
+  /* Cabecera */
+  header.hero{padding-block:34px 20px}
+  .eyebrow{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:12px}
+  h1{font-size:clamp(30px,6vw,50px);letter-spacing:-.01em}
+  .sub{font-size:clamp(16px,2.4vw,19px);color:var(--ink-2);max-width:60ch;margin-top:14px}
+  .themebtn{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));right:14px;z-index:40;
+    background:var(--surface);border:1px solid var(--line-2);color:var(--ink-2);border-radius:999px;
+    width:40px;height:40px;cursor:pointer;font-size:17px;box-shadow:var(--shadow)}
+
+  /* Aviso metodología breve */
+  .note{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);
+    border-radius:10px;padding:14px 16px;font-size:14.5px;color:var(--ink-2);margin:6px 0 22px}
+  .note b{color:var(--ink)}
+
+  /* Tabs */
+  nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--bg);
+    border-bottom:1px solid var(--line);display:flex;gap:4px;overflow-x:auto;padding:8px 0;scrollbar-width:none}
+  nav.tabs::-webkit-scrollbar{display:none}
+  .tab{flex:0 0 auto;border:1px solid transparent;background:none;color:var(--ink-2);font-family:inherit;
+    font-size:14.5px;font-weight:600;padding:8px 14px;border-radius:999px;cursor:pointer;white-space:nowrap}
+  .tab:hover{background:var(--surface-2)}
+  .tab[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+
+  section.panel{padding-block:26px 10px}
+  .lead{font-size:17px;color:var(--ink-2);max-width:62ch;margin-bottom:20px}
+
+  /* Fichas / stat tiles */
+  .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:0 0 22px}
+  .tile{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:15px 16px;box-shadow:var(--shadow)}
+  .tile .k{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .tile .v{font-family:var(--f-disp);font-size:30px;font-weight:600;margin-top:4px;line-height:1}
+  .tile .d{font-size:13px;color:var(--ink-2);margin-top:6px}
+  .tile .v small{font-size:15px;color:var(--ink-2);font-family:var(--f-body)}
+
+  /* Panel gráfico */
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);
+    padding:16px 14px 10px;margin-bottom:18px}
+  .charttop{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px;padding:2px 4px 10px}
+  .charttop h3{font-size:18px}
+  .charttop .unit{font-size:13px;color:var(--muted)}
+  .toggle{display:inline-flex;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:3px;gap:2px}
+  .toggle button{border:0;background:none;color:var(--ink-2);font-family:inherit;font-size:13px;font-weight:600;
+    padding:5px 11px;border-radius:999px;cursor:pointer}
+  .toggle button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+  .chartbox{position:relative}
+  svg.chart{display:block;width:100%;height:auto;overflow:visible}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;padding:8px 6px 4px}
+  .legend span{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;color:var(--ink-2)}
+  .sw{width:14px;height:4px;border-radius:2px;display:inline-block}
+  .sw.dash{background:none !important;border-top:3px dashed}
+  .tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);border-radius:9px;
+    padding:9px 11px;font-size:12.5px;line-height:1.45;box-shadow:0 8px 24px rgba(0,0,0,.25);opacity:0;
+    transition:opacity .08s;z-index:5;min-width:120px}
+  .tip .ty{font-weight:700;margin-bottom:4px;font-family:var(--f-disp)}
+  .tip .tr{display:flex;justify-content:space-between;gap:12px}
+  .tip .tr i{width:8px;height:8px;border-radius:2px;display:inline-block;margin-right:5px}
+
+  /* Desplegables */
+  details{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-bottom:10px;overflow:hidden}
+  details[open]{box-shadow:var(--shadow)}
+  summary{cursor:pointer;padding:14px 16px;font-weight:600;font-size:15.5px;list-style:none;display:flex;
+    justify-content:space-between;align-items:center;gap:10px}
+  summary::-webkit-details-marker{display:none}
+  summary .chev{color:var(--muted);transition:transform .2s;font-size:13px}
+  details[open] summary .chev{transform:rotate(90deg)}
+  .dbody{padding:0 16px 16px;color:var(--ink-2);font-size:15px}
+  .dbody p{margin:0 0 .7em}
+  .dbody ul{margin:.2em 0 .8em;padding-left:1.1em}
+  .dbody li{margin-bottom:.35em}
+
+  /* Tabla */
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin-bottom:8px}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:0}
+  th,td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+  th:first-child,td:first-child{text-align:left}
+  thead th{background:var(--surface-2);color:var(--ink-2);font-weight:600;position:sticky;top:0}
+  tbody tr:last-child td{border-bottom:0}
+  td.est{color:var(--muted)}
+
+  .flag{display:inline-block;font-size:11px;color:var(--muted);border:1px solid var(--line-2);
+    border-radius:5px;padding:1px 5px;margin-left:6px;vertical-align:1px}
+  .src{font-size:13px;color:var(--muted);margin-top:4px}
+  .src a{color:var(--muted)}
+  footer{padding:30px 0 50px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:24px}
+  .hl{color:var(--ink);font-weight:600}
+  @media (max-width:520px){ .tile .v{font-size:25px} h1{letter-spacing:0} }
+</style>
+</head>
+<body>
+<button class="themebtn" id="themebtn" aria-label="Cambiar tema">◐</button>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">España · 1980 → 2025 · Gasto del Estado</div>
+    <h1>¿En qué gasta el dinero el Estado?</h1>
+    <p class="sub">Educación, sanidad, Iglesia e infraestructuras a lo largo de 45 años, medidos de forma justa: en relación con el tamaño de la economía y el número de habitantes.</p>
+  </header>
+
+  <div class="note">
+    <b>Cómo leer esto (importante).</b> Comparar euros de 1980 con euros de hoy engaña: los precios se han multiplicado por ~6, la población ha crecido de 37 a 48&nbsp;millones y la economía es ~17&nbsp;veces mayor en euros. Por eso la vista principal es el <b>% del PIB</b> (cuánto del país se dedica a cada cosa): neutraliza inflación, crecimiento y población de golpe. Puedes cambiar a <b>euros corrientes</b> con el botón de cada gráfico. Las cifras anteriores a 1995 son <b>estimaciones</b> y van marcadas.
+  </div>
+
+  <nav class="tabs" id="tabs" role="tablist">
+    <button class="tab" role="tab" data-tab="overview" aria-selected="true">Visión general</button>
+    <button class="tab" role="tab" data-tab="edu">Educación</button>
+    <button class="tab" role="tab" data-tab="san">Sanidad</button>
+    <button class="tab" role="tab" data-tab="igl">Iglesia</button>
+    <button class="tab" role="tab" data-tab="inf">Infraestructuras</button>
+    <button class="tab" role="tab" data-tab="met">Metodología y fuentes</button>
+  </nav>
+
+  <div id="content"></div>
+
+  <footer class="wrap" style="padding-inline:0">
+    Elaboración propia a partir de fuentes oficiales (INE, Ministerios de Educación y Sanidad, OCDE, Conferencia Episcopal/Agencia Tributaria, Fomento/Transportes y literatura académica). Las series combinan cifras oficiales recientes con reconstrucciones históricas; úsalas como órdenes de magnitud, no como contabilidad exacta. Última revisión: octubre de 2025.
+  </footer>
+</div>
+
+<script>
+/* ---------- DATOS ---------- */
+// Contexto macro (para explicar por qué el % del PIB es la medida justa)
+const MACRO = {
+  pib:  [[1980,92000],[1990,314000],[2000,647851],[2010,1072709],[2020,1119010],[2024,1594330]], // M€ corrientes
+  pob:  [[1980,37.5],[1990,39.1],[2000,41.0],[2010,46.6],[2020,47.4],[2024,48.6]], // millones hab.
+};
+
+// Cada serie: pct = % del PIB ; eur = M€ corrientes. Años < 1995 marcados como estimación en la tabla.
+const CAT = {
+  edu:{
+    color:'--c-edu', title:'Educación pública', unit:'% del PIB · gasto público total',
+    series:[
+      {name:'Gasto público total', key:'edu', color:'--c-edu',
+        pct:[[1980,2.4],[1990,3.6],[2000,4.3],[2009,5.0],[2015,4.3],[2020,4.9],[2024,4.5]],
+        eur:[[1980,2200],[1990,11300],[2000,27900],[2009,53900],[2015,44800],[2020,55266],[2024,63380]]},
+      {name:'de ello, enseñanza concertada', key:'con', color:'--c-pri', dash:true,
+        pct:[[2000,0.54],[2012,0.55],[2022,0.55]],
+        eur:[[2000,3500],[2012,5706],[2022,7495]]},
+    ],
+    tiles:[
+      {k:'1980',v:'≈2,4%',d:'del PIB en educación pública'},
+      {k:'2009 (máx.)',v:'5,0%',d:'del PIB · récord histórico'},
+      {k:'2024',v:'4,5%',d:'del PIB ≈ 63.400 M€'},
+      {k:'Concertada',v:'≈12%',d:'del gasto educativo público'},
+    ]
+  },
+  san:{
+    color:'--c-san', title:'Sanidad: pública vs privada', unit:'% del PIB',
+    series:[
+      {name:'Sanidad pública', key:'sanpub', color:'--c-san',
+        pct:[[1980,4.2],[1990,5.1],[2000,5.2],[2009,6.5],[2015,6.2],[2019,6.5],[2020,8.0],[2023,7.0]],
+        eur:[[1980,3900],[1990,16000],[2000,33700],[2009,70100],[2015,67000],[2020,89500],[2023,104900]]},
+      {name:'Sanidad privada', key:'sanpri', color:'--c-pri', dash:true,
+        pct:[[2000,2.0],[2010,2.3],[2015,2.5],[2020,2.8],[2023,2.5]],
+        eur:[[2010,24000],[2015,27000],[2020,31000],[2023,34056]]},
+    ],
+    tiles:[
+      {k:'1980',v:'≈4,2%',d:'del PIB (gasto público)'},
+      {k:'2020 (COVID)',v:'8,0%',d:'máximo del gasto público'},
+      {k:'2023',v:'7,0%',d:'público + 2,5% privado = 9,5%'},
+      {k:'Peso privado',v:'≈26%',d:'del gasto sanitario total'},
+    ]
+  },
+  igl:{
+    color:'--c-igl', title:'Iglesia católica · asignación tributaria', unit:'millones de € (vía IRPF)', eurOnly:true,
+    series:[
+      {name:'Asignación tributaria (IRPF)', key:'igl', color:'--c-igl',
+        eur:[[1994,110],[2000,128],[2006,144],[2008,252],[2014,250],[2018,285],[2019,301],[2022,358],[2023,382],[2024,429]]},
+    ],
+    tiles:[
+      {k:'Hasta 2006',v:'≈130 M€',d:'dotación directa + IRPF 0,52%'},
+      {k:'Desde 2007',v:'0,7%',d:'casilla del IRPF (sin dotación)'},
+      {k:'2024',v:'429 M€',d:'máximo histórico vía IRPF'},
+      {k:'Sobre el PIB',v:'≈0,03%',d:'otra escala: ~150× menor que sanidad'},
+    ]
+  },
+  inf:{
+    color:'--c-inf', title:'Infraestructuras de transporte', unit:'% del PIB · inversión pública',
+    series:[
+      {name:'Inversión en transporte', key:'inf', color:'--c-inf',
+        pct:[[1990,1.6],[2000,1.8],[2009,2.1],[2015,0.9],[2018,0.55],[2020,0.8],[2025,1.0]],
+        eur:[[1990,5000],[2000,11700],[2009,24000],[2015,10000],[2018,6700],[2020,9000],[2025,16114]]},
+    ],
+    tiles:[
+      {k:'2009 (máx.)',v:'2,1%',d:'del PIB ≈ 24.000 M€'},
+      {k:'2018 (mín.)',v:'0,55%',d:'del PIB ≈ 6.700 M€ (−72%)'},
+      {k:'2025',v:'≈1,0%',d:'del PIB ≈ 16.114 M€'},
+      {k:'Carreteras',v:'30–55%',d:'del total (30% en 2025)'},
+    ]
+  },
+};
+
+/* ---------- UTILIDADES GRÁFICO ---------- */
+const cv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+function interp(pts,x){ // interpolación lineal para tooltip
+  if(x<=pts[0][0]) return pts[0][1];
+  if(x>=pts[pts.length-1][0]) return pts[pts.length-1][1];
+  for(let i=0;i<pts.length-1;i++){const[a,b]=[pts[i],pts[i+1]];if(x>=a[0]&&x<=b[0]){
+    const t=(x-a[0])/(b[0]-a[0]);return a[1]+t*(b[1]-a[1]);}}
+  return pts[pts.length-1][1];
+}
+const fmtPct = v => v.toFixed(v<1?2:1).replace('.',',')+'%';
+const fmtEur = v => (v>=1000? (v/1000).toLocaleString('es-ES',{maximumFractionDigits:1})+' MM€'
+                            : Math.round(v).toLocaleString('es-ES')+' M€');
+function niceMax(m){const steps=[1,2,2.5,3,4,5,6,8,10,12,15,20,25,30,40,50,80,120,200,500,1000,2000];
+  for(const s of steps){for(const mult of [1,10,100,1000,10000,100000]){const t=s*mult;if(t>=m*1.02)return t;}}return m;}
+
+function drawChart(wrap, cfg, metric){
+  const W=760,H=420,mL=52,mR=96,mT=22,mB=40;
+  const series=cfg.series.filter(s=>s[metric]&&s[metric].length);
+  let xs=[],ys=[];
+  series.forEach(s=>s[metric].forEach(([x,y])=>{xs.push(x);ys.push(y);}));
+  const xmin=Math.min(...xs), xmax=Math.max(...xs), ymax=niceMax(Math.max(...ys));
+  const X=x=>mL+(x-xmin)/(xmax-xmin)*(W-mL-mR);
+  const Y=y=>H-mB-(y/ymax)*(H-mT-mB);
+  const yfmt = metric==='pct'?fmtPct:fmtEur;
+
+  let g='';
+  // grid + eje Y
+  const ticks=5;
+  for(let i=0;i<=ticks;i++){const val=ymax*i/ticks;const yy=Y(val);
+    g+=`<line x1="${mL}" y1="${yy}" x2="${W-mR}" y2="${yy}" stroke="${cv('--line')}" stroke-width="1"/>`;
+    g+=`<text x="${mL-8}" y="${yy+4}" text-anchor="end" font-size="12" fill="${cv('--muted')}">${yfmt(val)}</text>`;}
+  // eje X (años clave)
+  const yearTicks=[...new Set(xs)].sort((a,b)=>a-b);
+  const shown = yearTicks.filter((y,i)=> yearTicks.length<=7 || i%2===0 || y===xmax);
+  shown.forEach(y=>{g+=`<text x="${X(y)}" y="${H-mB+20}" text-anchor="middle" font-size="12" fill="${cv('--muted')}">${y}</text>`;});
+
+  // líneas + puntos
+  series.forEach(s=>{
+    const col=cv(s.color), pts=s[metric];
+    const d=pts.map(([x,y],i)=>`${i?'L':'M'}${X(x).toFixed(1)} ${Y(y).toFixed(1)}`).join(' ');
+    g+=`<path d="${d}" fill="none" stroke="${col}" stroke-width="2.5" ${s.dash?'stroke-dasharray="7 5"':''} stroke-linejoin="round" stroke-linecap="round"/>`;
+    pts.forEach(([x,y])=>{g+=`<circle cx="${X(x)}" cy="${Y(y)}" r="3.6" fill="${cv('--surface')}" stroke="${col}" stroke-width="2"/>`;});
+    // etiqueta directa al final
+    const last=pts[pts.length-1];
+    g+=`<text x="${X(last[0])+9}" y="${Y(last[1])+4}" font-size="12.5" font-weight="600" fill="${cv('--ink')}">${yfmt(last[1])}</text>`;
+  });
+
+  // capa hover
+  g+=`<line id="cross" x1="0" y1="${mT}" x2="0" y2="${H-mB}" stroke="${cv('--line-2')}" stroke-width="1" opacity="0"/>`;
+  g+=`<rect id="hit" x="${mL}" y="${mT}" width="${W-mL-mR}" height="${H-mT-mB}" fill="transparent"/>`;
+
+  const svg=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${cfg.title}, ${cfg.unit}">${g}</svg>`;
+  wrap.innerHTML=svg;
+
+  // tooltip
+  const box=wrap.closest('.chartbox');
+  let tip=box.querySelector('.tip'); if(!tip){tip=document.createElement('div');tip.className='tip';box.appendChild(tip);}
+  const svgEl=wrap.querySelector('svg'), cross=svgEl.querySelector('#cross'), hit=svgEl.querySelector('#hit');
+  function move(ev){
+    const r=svgEl.getBoundingClientRect(); const px=(ev.touches?ev.touches[0].clientX:ev.clientX)-r.left;
+    const sx=px/r.width*W; if(sx<mL||sx>W-mR){leave();return;}
+    let year=Math.round(xmin+(sx-mL)/(W-mL-mR)*(xmax-xmin)); year=Math.max(xmin,Math.min(xmax,year));
+    const gx=X(year); cross.setAttribute('x1',gx);cross.setAttribute('x2',gx);cross.setAttribute('opacity','1');
+    let rows=`<div class="ty">${year}</div>`;
+    series.forEach(s=>{const val=interp(s[metric],year);
+      rows+=`<div class="tr"><span><i style="background:${cv(s.color)}"></i>${s.name}</span><b>${yfmt(val)}</b></div>`;});
+    tip.innerHTML=rows; tip.style.opacity='1';
+    const bx=box.getBoundingClientRect(); let left=(gx/W)*bx.width+12;
+    if(left>bx.width-150)left=(gx/W)*bx.width-tip.offsetWidth-12;
+    tip.style.left=Math.max(4,left)+'px'; tip.style.top='14px';
+  }
+  function leave(){cross.setAttribute('opacity','0');tip.style.opacity='0';}
+  hit.addEventListener('mousemove',move); hit.addEventListener('mouseleave',leave);
+  hit.addEventListener('touchstart',move,{passive:true}); hit.addEventListener('touchmove',move,{passive:true});
+}
+
+/* ---------- TABLA ---------- */
+function tableFor(cfg,metric){
+  const years=[...new Set(cfg.series.flatMap(s=>(s[metric]||[]).map(p=>p[0])))].sort((a,b)=>a-b);
+  const yfmt=metric==='pct'?fmtPct:fmtEur;
+  let th=`<th>Serie</th>`+years.map(y=>`<th>${y}</th>`).join('');
+  let rows=cfg.series.filter(s=>s[metric]).map(s=>{
+    const map=Object.fromEntries(s[metric]);
+    return `<tr><td>${s.name}</td>`+years.map(y=> y in map
+      ? `<td class="${y<1995?'est':''}">${yfmt(map[y])}</td>` : `<td class="est">·</td>`).join('')+`</tr>`;
+  }).join('');
+  return `<div class="tablewrap"><table><thead><tr>${th}</tr></thead><tbody>${rows}</tbody></table></div>
+    <div class="src">Celdas en gris claro = estimación (datos previos a 1995 o interpolados). «·» = sin dato en ese año.</div>`;
+}
+
+/* ---------- RENDER CATEGORÍA ---------- */
+function legendFor(cfg,metric){
+  return `<div class="legend">`+cfg.series.filter(s=>s[metric]).map(s=>
+    `<span><i class="sw ${s.dash?'dash':''}" style="${s.dash?`border-color:${cv(s.color)}`:`background:${cv(s.color)}`}"></i>${s.name}</span>`
+  ).join('')+`</div>`;
+}
+function tilesFor(cfg){return `<div class="tiles">`+cfg.tiles.map(t=>
+  `<div class="tile"><div class="k">${t.k}</div><div class="v">${t.v}</div><div class="d">${t.d}</div></div>`).join('')+`</div>`;}
+
+let state={};
+function renderCat(id){
+  const cfg=CAT[id]; const metric=state[id]||(cfg.eurOnly?'eur':'pct');
+  const el=document.getElementById('content');
+  const toggle = cfg.eurOnly?'' : `<div class="toggle" role="group" aria-label="Unidad">
+      <button data-m="pct" aria-pressed="${metric==='pct'}">% del PIB</button>
+      <button data-m="eur" aria-pressed="${metric==='eur'}">€ corrientes</button></div>`;
+  el.innerHTML = `<section class="panel">
+    <p class="lead">${LEAD[id]}</p>
+    ${tilesFor(cfg)}
+    <div class="card">
+      <div class="charttop"><div><h3 style="color:${cv(cfg.color)}">${cfg.title}</h3>
+        <span class="unit">${metric==='pct'?'% del PIB':(cfg.eurOnly?cfg.unit:'millones de € corrientes')}</span></div>${toggle}</div>
+      <div class="chartbox"><div class="plot"></div></div>
+      ${legendFor(cfg,metric)}
+    </div>
+    ${DETAILS[id]}
+    <details><summary>Ver tabla de datos<span class="chev">▸</span></summary><div class="dbody">${tableFor(cfg,metric)}</div></details>
+  </section>`;
+  drawChart(el.querySelector('.plot'),cfg,metric);
+  el.querySelectorAll('.toggle button').forEach(b=>b.onclick=()=>{state[id]=b.dataset.m;renderCat(id);});
+}
+
+/* ---------- VISIÓN GENERAL ---------- */
+function renderOverview(){
+  const el=document.getElementById('content');
+  const cfg={title:'Tres grandes partidas comparables',unit:'% del PIB',
+    series:[
+      {name:'Sanidad pública',color:'--c-san',pct:CAT.san.series[0].pct},
+      {name:'Educación pública',color:'--c-edu',pct:CAT.edu.series[0].pct},
+      {name:'Infraestructuras',color:'--c-inf',pct:CAT.inf.series[0].pct},
+    ]};
+  el.innerHTML=`<section class="panel">
+    <p class="lead">En 45 años el Estado del bienestar (sanidad y educación) ha <span class="hl">ganado peso</span> en la economía, mientras la inversión en infraestructuras se <span class="hl">disparó con el ladrillo y se hundió tras 2010</span>. Todo en % del PIB, la única comparación honesta entre 1980 y hoy.</p>
+    <div class="tiles">
+      <div class="tile"><div class="k">Población</div><div class="v">37→49 <small>millones</small></div><div class="d">+30% desde 1980</div></div>
+      <div class="tile"><div class="k">Economía (€ corrientes)</div><div class="v">×17</div><div class="d">PIB: 92.000 → 1,59 billones €</div></div>
+      <div class="tile"><div class="k">Precios (inflación)</div><div class="v">×6</div><div class="d">1 € de 1980 ≈ 6 € de hoy</div></div>
+      <div class="tile"><div class="k">Por eso medimos en</div><div class="v" style="color:${cv('--accent')}">% PIB</div><div class="d">absorbe los tres efectos</div></div>
+    </div>
+    <div class="card">
+      <div class="charttop"><div><h3>Tres grandes partidas comparables</h3><span class="unit">% del PIB · 1980–2025</span></div></div>
+      <div class="chartbox"><div class="plot"></div></div>
+      ${legendFor(cfg,'pct')}
+    </div>
+    <details open><summary>¿Qué cuenta este gráfico?<span class="chev">▸</span></summary><div class="dbody">
+      <ul>
+        <li><b>Sanidad pública</b> pasó de ~4% a ~7% del PIB (pico del 8% en la pandemia): es hoy la mayor partida social.</li>
+        <li><b>Educación pública</b> subió de ~2,4% (1980) a un techo del 5% en 2009; hoy ~4,5%, por debajo de la media OCDE.</li>
+        <li><b>Infraestructuras</b> siguen el ciclo económico: 2,1% en 2009 (AVE, autovías) → 0,55% en 2018 → ~1% en 2025.</li>
+        <li>La <b>Iglesia</b> (0,03% del PIB) va aparte: es ~150 veces menor y se mide en millones, no en puntos de PIB.</li>
+      </ul>
+      <p>Consejo: toca o pasa el ratón por las líneas para ver el valor año a año.</p>
+    </div></details>
+  </section>`;
+  drawChart(el.querySelector('.plot'),cfg,'pct');
+}
+
+/* ---------- METODOLOGÍA ---------- */
+function renderMet(){
+  document.getElementById('content').innerHTML=`<section class="panel">
+    <p class="lead">Cómo está hecho esto, qué fiabilidad tiene cada cifra y de dónde sale cada dato. Transparencia total: hay decisiones discutibles y las señalo.</p>
+    ${DETAILS.met}
+  </section>`;
+}
+
+/* ---------- TEXTOS ---------- */
+const LEAD={
+  edu:'Incluye todo el gasto público educativo (infantil a universidad). La <b>enseñanza concertada</b> —colegios privados financiados con dinero público— es ~12% de ese total. El gasto de las familias en la privada pura va aparte y no es gasto del Estado.',
+  san:'La sanidad <b>pública</b> es la mayor partida social del país. La <b>privada</b> (seguros y pago directo de los hogares) no es gasto del Estado, pero la incluyo para ver el reparto público/privado: España es de los países de la OCDE con más peso privado.',
+  igl:'El Estado ya <b>no da una dotación directa</b> a la Iglesia desde 2007. Hoy se financia con la casilla del <b>0,7% del IRPF</b> de quien la marca voluntariamente. Ojo: esto NO incluye la financiación indirecta (sueldos de profesores de religión, conciertos de colegios religiosos, patrimonio, exenciones fiscales), mucho mayor y difícil de cuantificar. Ver Metodología.',
+  inf:'Inversión pública en infraestructuras de transporte (carreteras, ferrocarril, puertos, aeropuertos). Las <b>carreteras</b> han sido históricamente la mitad del total (~55%), hoy ~30%. Es la partida más cíclica: sube en expansión y se recorta en crisis.',
+};
+
+const DETAILS={
+  edu:`<details><summary>Lo que dicen los datos<span class="chev">▸</span></summary><div class="dbody">
+    <p>De la dictadura al Estado del bienestar: en 1980 España dedicaba a educación pública ~2,4% del PIB, la mitad que hoy. La universalización de la enseñanza y la LOGSE dispararon el gasto en los 80-90.</p>
+    <ul><li><b>Pico:</b> 5,0% del PIB en 2009, antes de los recortes.</li>
+    <li><b>Hoy:</b> ~4,5% (≈63.400 M€), por debajo de la media de la OCDE (~4,9%).</li>
+    <li><b>Concertada:</b> ~7.500 M€/año (11,8% del gasto público educativo en 2022). Más peso en País Vasco (23,5%), Madrid (18,8%) y Navarra.</li></ul>
+    <p class="src">Fuentes: Ministerio de Educación FP y Deportes; OCDE «Education at a Glance»; CECE.</p>
+  </div></details>`,
+  san:`<details><summary>Lo que dicen los datos<span class="chev">▸</span></summary><div class="dbody">
+    <p>La sanidad pública creció con fuerza tras la Ley General de Sanidad (1986), que creó el Sistema Nacional de Salud universal. Del ~4% del PIB (1980) al 6,5% previo a la pandemia.</p>
+    <ul><li><b>2020:</b> salto al 8,0% del PIB por el COVID (gasto total 10,8%, máximo histórico).</li>
+    <li><b>2023:</b> 7,0% público + 2,5% privado = 9,5% del PIB.</li>
+    <li><b>Peso privado:</b> ~26% del gasto sanitario total; España está por encima de la media OCDE en gasto privado y por debajo en público.</li></ul>
+    <p class="src">Fuentes: Ministerio de Sanidad (Sistema de Cuentas de Salud 2023); OCDE «Health at a Glance»; series históricas Barea/SEPG.</p>
+  </div></details>`,
+  igl:`<details><summary>El dato del 0,7%... y lo que no se ve<span class="chev">▸</span></summary><div class="dbody">
+    <p>Tras los Acuerdos de 1979, el Estado debía caminar hacia la autofinanciación de la Iglesia. El sistema evolucionó así:</p>
+    <ul><li><b>Hasta 2006:</b> dotación presupuestaria directa + casilla del 0,5239% del IRPF (≈130 M€/año).</li>
+    <li><b>Desde 2007:</b> se elimina la dotación directa, la casilla sube al <b>0,7%</b> y se quita la exención del IVA.</li>
+    <li><b>2024:</b> 429 M€, máximo histórico; más de 9 millones de contribuyentes marcan la casilla.</li></ul>
+    <p><b>Advertencia honesta:</b> estos 429 M€ son solo la asignación vía IRPF. El coste público real para el Estado es <b>mucho mayor</b> si se suman profesores de religión en la pública, conciertos de colegios religiosos, capellanías (ejército, hospitales, cárceles), conservación de patrimonio y exenciones fiscales (IBI, etc.). Esas partidas están dispersas, no se consolidan y su cálculo es objeto de debate político, por lo que no las incluyo en el gráfico para no dar una cifra inventada.</p>
+    <p class="src">Fuentes: Conferencia Episcopal (Oficina de Transparencia); Agencia Tributaria; BOE (Acuerdos 1979, Ley de Presupuestos 2007).</p>
+  </div></details>`,
+  inf:`<details><summary>Lo que dicen los datos<span class="chev">▸</span></summary><div class="dbody">
+    <p>La inversión en transporte es un espejo del ciclo económico español.</p>
+    <ul><li><b>Media 1985–2018:</b> 1,37% del PIB. <b>Pico 2009:</b> 2,1% (≈24.000 M€), plan E y expansión del AVE.</li>
+    <li><b>Hundimiento:</b> −72% hasta 2018 (6.700 M€), tras la crisis financiera y el ajuste.</li>
+    <li><b>2025:</b> recuperación a ~16.114 M€ (≈1% del PIB), aún un 60% por debajo de 2009 en términos reales.</li>
+    <li><b>Reparto:</b> carreteras ~55% histórico (hoy 30%), ferrocarril ~31%, puertos y aeropuertos ~7% cada uno.</li></ul>
+    <p class="src">Fuentes: Fundación Funcas (Matas-Vassallo); Ministerio de Transportes; Seopan.</p>
+  </div></details>`,
+  met:`
+    <details open><summary>La regla de oro: % del PIB<span class="chev">▸</span></summary><div class="dbody">
+      <p>Comparar euros de 1980 con euros de 2025 es un error de principiante por tres razones que se acumulan:</p>
+      <ul><li><b>Inflación:</b> los precios se han multiplicado por ~6 (520% acumulado 1980–2025).</li>
+      <li><b>Población:</b> de 37,5 a ~48,6 millones de habitantes (+30%).</li>
+      <li><b>Riqueza:</b> la economía es mucho mayor, también en términos reales.</li></ul>
+      <p>El <b>% del PIB</b> resuelve los tres a la vez: dice qué parte de todo lo que produce el país se dedica a cada cosa. Es la medida que usan la OCDE, el FMI y Eurostat para comparar en el tiempo y entre países. Por eso es la vista por defecto. El botón «€ corrientes» muestra el dinero «tal cual» de cada año, útil para ver titulares pero <b>no comparable</b> entre épocas.</p>
+    </div></details>
+    <details><summary>Fiabilidad de cada cifra<span class="chev">▸</span></summary><div class="dbody">
+      <ul><li><b>2000–2025:</b> datos oficiales sólidos (INE, ministerios, OCDE).</li>
+      <li><b>1995–2000:</b> datos oficiales con cambios de metodología (bases contables distintas).</li>
+      <li><b>1980–1995:</b> <b>estimaciones</b> reconstruidas de literatura académica y series del Banco de España; van marcadas en gris en las tablas. Úsalas como tendencia, no al decimal.</li>
+      <li>Los años intermedios de las líneas se <b>interpolan</b> visualmente entre puntos reales.</li></ul>
+    </div></details>
+    <details><summary>Decisiones discutibles (y por qué)<span class="chev">▸</span></summary><div class="dbody">
+      <ul><li><b>Sanidad «pública» vs «total»:</b> algunas fuentes de los 80 mezclan ambas; he priorizado la serie de gasto público consolidado del SNS.</li>
+      <li><b>Iglesia:</b> solo cuento la asignación del IRPF (cifra cierta y auditada). La financiación indirecta es mayor pero no hay una cifra oficial consolidada; inventarla sería deshonesto.</li>
+      <li><b>Infraestructuras:</b> uso «transporte» (no toda la obra pública) para tener una serie homogénea 1985–2025.</li>
+      <li><b>Educación/Sanidad:</b> incluyen todas las administraciones (Estado + Comunidades Autónomas), que es donde está hoy el grueso del gasto.</li></ul>
+    </div></details>
+    <details><summary>Fuentes principales<span class="chev">▸</span></summary><div class="dbody">
+      <ul>
+      <li>INE — Contabilidad Nacional (PIB) y Padrón (población).</li>
+      <li>Ministerio de Educación, FP y Deportes — Estadística del gasto público en educación.</li>
+      <li>Ministerio de Sanidad — Sistema de Cuentas de Salud 2023.</li>
+      <li>OCDE — «Education at a Glance» y «Health at a Glance».</li>
+      <li>Conferencia Episcopal Española (Transparencia) y Agencia Tributaria — asignación 0,7%.</li>
+      <li>Funcas (Matas &amp; Vassallo) y Ministerio de Transportes — inversión en infraestructuras.</li>
+      <li>Banco de España — series históricas de Contabilidad Nacional (1850–2024).</li>
+      </ul>
+    </div></details>`,
+};
+
+/* ---------- NAVEGACIÓN ---------- */
+const tabs=document.getElementById('tabs');
+function show(tab){
+  tabs.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected',String(t.dataset.tab===tab)));
+  if(tab==='overview')renderOverview();
+  else if(tab==='met')renderMet();
+  else renderCat(tab);
+  window.scrollTo({top:0,behavior:'instant'});
+}
+tabs.addEventListener('click',e=>{const b=e.target.closest('.tab');if(b)show(b.dataset.tab);});
+
+/* tema */
+const tb=document.getElementById('themebtn');
+function cur(){const a=document.documentElement.getAttribute('data-theme');
+  if(a)return a; return matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';}
+tb.onclick=()=>{const n=cur()==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);
+  const sel=tabs.querySelector('[aria-selected="true"]').dataset.tab;show(sel);};
+
+show('overview');
+</script>
+</body>
+</html>
