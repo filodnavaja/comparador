@@ -150,6 +150,7 @@
     <button class="tab" role="tab" data-tab="san">Sanidad</button>
     <button class="tab" role="tab" data-tab="igl">Iglesia</button>
     <button class="tab" role="tab" data-tab="inf">Infraestructuras</button>
+    <button class="tab" role="tab" data-tab="priv">Público → Privado</button>
     <button class="tab" role="tab" data-tab="met">Metodología y fuentes</button>
   </nav>
 
@@ -229,6 +230,21 @@ const CAT = {
       {k:'2018 (mín.)',v:'0,55%',d:'del PIB ≈ 6.700 M€ (−72%)'},
       {k:'2025',v:'≈1,0%',d:'del PIB ≈ 16.114 M€'},
       {k:'Carreteras',v:'30–55%',d:'del total (30% en 2025)'},
+    ]
+  },
+  priv:{
+    color:'--c-san', title:'Dinero público que va a lo privado', unit:'millones de € · dinero público a proveedores privados', eurOnly:true,
+    series:[
+      {name:'Conciertos sanitarios', key:'consan', color:'--c-san',
+        eur:[[2013,7280],[2020,8587],[2022,9521],[2024,10143]]},
+      {name:'Enseñanza concertada', key:'conedu', color:'--c-edu', dash:true,
+        eur:[[2012,5706],[2017,6300],[2022,7495]]},
+    ],
+    tiles:[
+      {k:'Total',v:'≈20.000 M€',d:'público → privado al año (sanidad+educación)'},
+      {k:'Conciertos sanit.',v:'10.143 M€',d:'2024 · +48% en una década'},
+      {k:'Concertada',v:'7.495 M€',d:'colegios privados con dinero público'},
+      {k:'Mutualidades',v:'≈2.300 M€',d:'MUFACE/ISFAS/MUGEJU a aseguradoras'},
     ]
   },
 };
@@ -404,6 +420,7 @@ const LEAD={
   san:'La sanidad <b>pública</b> es la mayor partida social del país. La <b>privada</b> (seguros y pago directo de los hogares) no es gasto del Estado, pero la incluyo para ver el reparto público/privado: España es de los países de la OCDE con más peso privado.',
   igl:'El Estado ya <b>no da una dotación directa</b> a la Iglesia desde 2007. Hoy se financia con la casilla del <b>0,7% del IRPF</b> de quien la marca voluntariamente. Ojo: esto NO incluye la financiación indirecta (sueldos de profesores de religión, conciertos de colegios religiosos, patrimonio, exenciones fiscales), mucho mayor y difícil de cuantificar. Ver Metodología.',
   inf:'Inversión pública en infraestructuras de transporte (carreteras, ferrocarril, puertos, aeropuertos). Las <b>carreteras</b> han sido históricamente la mitad del total (~55%), hoy ~30%. Es la partida más cíclica: sube en expansión y se recorta en crisis.',
+  priv:'No todo el dinero público lo gestiona el sector público: una parte se paga a <b>empresas privadas</b> para prestar servicios públicos. Entre <b>conciertos sanitarios</b>, <b>enseñanza concertada</b> y <b>mutualidades de funcionarios</b>, rondan los <b>20.000 M€ al año</b> solo en sanidad y educación.',
 };
 
 const DETAILS={
@@ -436,6 +453,15 @@ const DETAILS={
     <li><b>2025:</b> recuperación a ~16.114 M€ (≈1% del PIB), aún un 60% por debajo de 2009 en términos reales.</li>
     <li><b>Reparto:</b> carreteras ~55% histórico (hoy 30%), ferrocarril ~31%, puertos y aeropuertos ~7% cada uno.</li></ul>
     <p class="src">Fuentes: Fundación Funcas (Matas-Vassallo); Ministerio de Transportes; Seopan.</p>
+  </div></details>`,
+  priv:`<details open><summary>Dinero público en manos privadas<span class="chev">▸</span></summary><div class="dbody">
+    <ul>
+      <li><b>Conciertos sanitarios:</b> la sanidad pública paga a hospitales y clínicas privadas (operaciones, pruebas, diálisis…). <b>10.143 M€ en 2024</b>, ~10% del gasto sanitario público y +48% en una década. Cataluña (≈22%) y Madrid (≈12%) a la cabeza; media ≈8,5%.</li>
+      <li><b>Enseñanza concertada:</b> colegios privados financiados con fondos públicos. <b>7.495 M€</b> (~12% del gasto educativo público).</li>
+      <li><b>Mutualidades de funcionarios</b> (MUFACE, ISFAS, MUGEJU): el Estado paga a aseguradoras privadas la sanidad de ~2 millones de funcionarios; ~80% eligen la privada. En torno a <b>2.300 M€/año</b>.</li>
+    </ul>
+    <p><b>Matiz honesto:</b> dinero público en manos privadas no es automáticamente malo; a veces complementa capacidad que falta en lo público. El debate es cuándo ahorra y cuándo sustituye y debilita al sistema público.</p>
+    <p class="src">Fuentes: Ministerio de Sanidad (conciertos), AIReF (mutualismo), Ministerio de Educación (concertada), ASPE/IDIS y prensa (Público, Infobae).</p>
   </div></details>`,
   met:`
     <details open><summary>La regla de oro: % del PIB<span class="chev">▸</span></summary><div class="dbody">

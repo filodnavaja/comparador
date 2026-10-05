@@ -139,6 +139,7 @@
     <button class="tab" role="tab" data-tab="general" aria-selected="true">💶 Visión general</button>
     <button class="tab" role="tab" data-tab="crece">📈 Crece vs. cae</button>
     <button class="tab" role="tab" data-tab="partidas">🔍 Partida a partida</button>
+    <button class="tab" role="tab" data-tab="priv">🔁 Público → Privado</button>
     <button class="tab" role="tab" data-tab="met">📋 Metodología</button>
   </nav>
 
@@ -218,6 +219,15 @@ const PART={
     tiles:[['2013','31.000 M€','pico de paro'],['2019','18.000 M€','baja el paro'],['2023','≈21.000 M€','4,4% del PGE'],['Tendencia','↓','menos que antes']],
     note:'Muy sensible al paro: se disparó en la crisis (2010–2013) y bajó con la recuperación del empleo. De las pocas grandes partidas que hoy pesa menos que hace 15 años.'},
 };
+const PRIV={
+  channels:[
+    ['Conciertos sanitarios',10143,'--c-san','2024 · ~10% del gasto sanitario público'],
+    ['Enseñanza concertada',7495,'--c-edu','2022 · ~12% del gasto educativo público'],
+    ['Mutualidades de funcionarios',2300,'--c-igl','≈ · MUFACE/ISFAS/MUGEJU a aseguradoras'],
+  ],
+  conciertos:[[2013,7280],[2020,8587],[2022,9521],[2024,10143]],
+  concertada:[[2012,5706],[2017,6300],[2022,7495]],
+};
 const PART_ORDER=[['pensiones','👵 Pensiones'],['defensa','🪖 Defensa'],['sanidad','🏥 Sanidad'],['educacion','🎓 Educación'],['igualdad','⚖️ Igualdad'],['idi','🔬 I+D+i'],['infra','🛣️ Infraestructuras'],['deuda','🏦 Deuda'],['desempleo','💼 Desempleo']];
 
 /* ---------- gráficos ---------- */
@@ -240,6 +250,24 @@ function hbars(wrap, rows, unit){ // rows:[name,pct,colorvar]; unit:'pct'|'eur'
   wrap.querySelectorAll('.b').forEach(b=>{const r=rows[+b.dataset.i];
     b.addEventListener('mousemove',e=>{tip.innerHTML=`<div class="ty">${r[0]}</div>${fmtPct(r[1])} · ${fmtE(Math.round(TOTAL23*r[1]/100))}`;tip.style.opacity='1';
       const bx=box.getBoundingClientRect();tip.style.left=Math.min(bx.width-170,Math.max(4,e.clientX-bx.left+12))+'px';tip.style.top=(e.clientY-bx.top-10)+'px';});
+    b.addEventListener('mouseleave',()=>tip.style.opacity='0');});
+}
+
+function hbarsVal(wrap, rows){ // rows:[name, val(M€), colorvar, sub]
+  const W=760,rh=52,mT=6,mB=6,mL=250,mR=112,H=mT+mB+rows.length*rh;
+  const max=Math.max(...rows.map(r=>r[1])); const X=v=>mL+(v/max)*(W-mL-mR);
+  let g='';
+  rows.forEach((r,i)=>{const y=mT+i*rh+rh/2, col=cv(r[2]);
+    g+=`<text x="${mL-10}" y="${y-2}" text-anchor="end" font-size="13" font-weight="600" fill="${cv('--ink')}">${r[0]}</text>`;
+    g+=`<text x="${mL-10}" y="${y+15}" text-anchor="end" font-size="11" fill="${cv('--muted')}">${r[3]}</text>`;
+    const bw=Math.max(3,X(r[1])-mL);
+    g+=`<rect class="b" data-i="${i}" x="${mL}" y="${y-11}" width="${bw}" height="22" rx="5" fill="${col}"/>`;
+    g+=`<text x="${mL+bw+9}" y="${y+4}" font-size="13" font-weight="700" fill="#fff">${fmtE(r[1])}</text>`;});
+  wrap.innerHTML=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Dinero público a privado">${g}</svg>`;
+  const box=wrap.closest('.chartbox'),tip=tooltip(box);
+  wrap.querySelectorAll('.b').forEach(b=>{const r=rows[+b.dataset.i];
+    b.addEventListener('mousemove',e=>{tip.innerHTML=`<div class="ty">${r[0]}</div>${fmtE(r[1])}<br><span style="opacity:.7">${r[3]}</span>`;tip.style.opacity='1';
+      const bx=box.getBoundingClientRect();tip.style.left=Math.min(bx.width-180,Math.max(4,e.clientX-bx.left+12))+'px';tip.style.top=(e.clientY-bx.top-10)+'px';});
     b.addEventListener('mouseleave',()=>tip.style.opacity='0');});
 }
 
@@ -378,6 +406,39 @@ function renderPartidas(){
   el.querySelectorAll('.selector button').forEach(b=>b.onclick=()=>{partSel=b.dataset.k;renderPartidas();});
 }
 
+function renderPriv(){
+  el.innerHTML=`<section class="panel">
+    <p class="lead">Mucho dinero público no lo gestiona el Estado: <b>se paga a empresas privadas</b> para prestar servicios públicos. Sumando sanidad y educación, son <b>unos 20.000 millones de € al año</b>.</p>
+    <div class="hero-cards">
+      <div class="hcard b-def"><div class="k">Total público → privado</div><div class="v">≈20.000<small> M€/año</small></div><div class="d">solo sanidad + educación</div><div class="spark">🔁</div></div>
+      <div class="hcard" style="background:linear-gradient(145deg,#0D9488,#0b6e63)"><div class="k">Conciertos sanitarios</div><div class="v">10.143<small> M€</small></div><div class="d">2024 · +48% en una década</div><div class="spark">🏥</div></div>
+      <div class="hcard b-up"><div class="k">Enseñanza concertada</div><div class="v">7.495<small> M€</small></div><div class="d">~12% del gasto educativo</div><div class="spark">🎓</div></div>
+      <div class="hcard b-igl"><div class="k">Mutualidades funcionarios</div><div class="v">≈2.300<small> M€</small></div><div class="d">a aseguradoras privadas</div><div class="spark">🩺</div></div>
+    </div>
+    <div class="card">
+      <div class="charttop"><div><h3>Por dónde se va a lo privado</h3><span class="unit">millones de € al año (dinero público)</span></div></div>
+      <div class="chartbox"><div class="plot1"></div></div>
+    </div>
+    <div class="card">
+      <div class="charttop"><div><h3>🏥 Conciertos sanitarios en el tiempo</h3><span class="unit">dinero público a centros privados · millones de € por año</span></div></div>
+      <div class="chartbox"><div class="plot2"></div></div>
+    </div>
+    <div class="cmp-h">📊 Comparativa año a año · conciertos sanitarios</div>
+    <div class="deltas">${deltaRows(PRIV.conciertos)}</div>
+    <details open><summary>Qué es esto (y el matiz honesto)<span class="chev">▸</span></summary><div class="dbody">
+      <ul>
+        <li><b>Conciertos sanitarios:</b> la sanidad pública paga a hospitales y clínicas privadas para operar, hacer pruebas, diálisis, etc. 1 de cada 10 euros sanitarios públicos. Cataluña (≈22%) y Madrid (≈12%) lideran; media ≈8,5%.</li>
+        <li><b>Enseñanza concertada:</b> colegios privados financiados con dinero público (~12% del gasto educativo).</li>
+        <li><b>Mutualidades (MUFACE/ISFAS/MUGEJU):</b> el Estado paga a aseguradoras privadas la sanidad de ~2 millones de funcionarios; ~80% eligen la privada.</li>
+      </ul>
+      <p><b>Matiz:</b> que sea dinero público en manos privadas no es automáticamente “malo”: a veces complementa capacidad que falta en la pública. El debate es cuándo ahorra y da servicio y cuándo sustituye y debilita lo público. Los datos están; el juicio, cada uno.</p>
+      <p class="src">Fuentes: Ministerio de Sanidad (conciertos), AIReF (mutualismo), Ministerio de Educación (concertada), ASPE/IDIS y prensa (Público, Infobae, elEconomista).</p>
+    </div></details>
+  </section>`;
+  hbarsVal(el.querySelector('.plot1'),PRIV.channels);
+  lineChart(el.querySelector('.plot2'),PRIV.conciertos,'--c-san');
+}
+
 function renderMet(){
   el.innerHTML=`<section class="panel">
     <p class="lead">De dónde salen los datos, su fiabilidad y las decisiones discutibles. Sin trampas.</p>
@@ -405,7 +466,7 @@ function renderMet(){
 
 function show(tab){
   tabs.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected',String(t.dataset.tab===tab)));
-  ({general:renderGeneral,crece:renderCrece,partidas:renderPartidas,met:renderMet}[tab])();
+  ({general:renderGeneral,crece:renderCrece,partidas:renderPartidas,priv:renderPriv,met:renderMet}[tab])();
   window.scrollTo({top:0,behavior:'instant'});
 }
 tabs.addEventListener('click',e=>{const b=e.target.closest('.tab');if(b)show(b.dataset.tab);});

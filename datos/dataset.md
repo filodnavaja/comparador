@@ -97,3 +97,20 @@ Reparto histórico (1985–2018): carreteras ≈ 54,8 %, ferrocarril ≈ 31,2 %,
 - Agencia Tributaria — nota asignación: <https://sede.agenciatributaria.gob.es>
 - Funcas (Matas & Vassallo), infraestructuras: <https://www.funcas.es/wp-content/uploads/2026/02/Matas_Vassallo.pdf>
 - Banco de España — Contabilidad Nacional histórica: <https://www.bde.es>
+
+
+## Público → Privado (dinero público a proveedores privados)
+
+Añadido a ambos artefactos. ~20.000 M€/año solo en sanidad y educación.
+
+| Canal | Importe | Nota |
+|---|---:|---|
+| Conciertos sanitarios | 10.143 M€ (2024) | ~10% del gasto sanitario público; +48% en una década. Cataluña ≈22%, Madrid ≈12%, media ≈8,5% |
+| Enseñanza concertada | 7.495 M€ (2022) | ~12% del gasto educativo público |
+| Mutualidades funcionarios (MUFACE/ISFAS/MUGEJU) | ≈2.300 M€/año | a aseguradoras privadas; ~2 M funcionarios, ~80% eligen privada |
+
+Series conciertos sanitarios (M€): 2013 7.280 · 2020 8.587 · 2022 9.521 · 2024 10.143
+Series concertada (M€): 2012 5.706 · 2017 6.300 · 2022 7.495
+
+Matiz: dinero público en manos privadas no es automáticamente negativo (a veces complementa capacidad); el debate es cuándo ahorra y cuándo sustituye/debilita lo público.
+Fuentes: Ministerio de Sanidad (conciertos), AIReF (mutualismo), Ministerio de Educación (concertada), ASPE/IDIS, prensa (Público, Infobae, elEconomista).
