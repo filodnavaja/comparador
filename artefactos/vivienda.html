@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>La vivienda: el agujero negro</title>
+<meta name="description" content="Por qué la vivienda se comió tu sueldo: precio del m², años de salario para comprar por comunidad, alquiler y emancipación juvenil en España.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --bg:#121233; --panel:rgba(255,255,255,.055); --panel-2:rgba(255,255,255,.10); --ink:#f4f2ff; --ink-2:#c6c0ea; --muted:#8e88b8;
+    --line:rgba(255,255,255,.12); --line-2:rgba(255,255,255,.22);
+    --accent:#FBBF24; --good:#22C55E; --warn:#FB923C; --bad:#F43F5E; --blue:#3B82F6; --mag:#D946AF;
+    --f-disp:"Fraunces",Georgia,serif; --f-body:"IBM Plex Sans",system-ui,sans-serif; color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+    font-variant-numeric:tabular-nums;
+    background:radial-gradient(90% 60% at 85% -5%,rgba(217,70,175,.22),transparent 60%),
+      radial-gradient(80% 55% at 0% 0%,rgba(59,130,246,.22),transparent 55%),
+      linear-gradient(160deg,#1c1746,#121233 55%,#0c1030);background-attachment:fixed;min-height:100%}
+  html,body{min-height:100%}
+  .wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:0}
+  h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(32px,6.5vw,56px);line-height:1.05;margin:0;
+    background:linear-gradient(92deg,#fff 10%,#ffd98a 55%,#ff9bdf 95%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  h2{font-family:var(--f-disp);font-weight:700;font-size:clamp(22px,4vw,30px);margin:34px 0 6px;color:#fff;text-wrap:balance}
+  header{padding-block:36px 6px}
+  .eyebrow{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#120d07;font-weight:700;
+    background:linear-gradient(90deg,var(--accent),#fb923c);padding:5px 12px;border-radius:999px;margin-bottom:14px}
+  .sub{font-size:clamp(17px,2.5vw,20px);color:var(--ink-2);max-width:62ch;margin-top:14px}
+  p{margin:0 0 .85em} .lead{font-size:17px;color:var(--ink-2);max-width:64ch} b,strong{color:#fff}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:13px;margin:16px 0 6px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:17px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .card .k{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  .card .v{font-family:var(--f-disp);font-weight:700;font-size:34px;line-height:1.05;margin:7px 0 4px;color:#fff}
+  .card .d{font-size:14px;color:var(--ink-2)}
+  .card.bad{border-left:4px solid var(--bad)} .card.warn{border-left:4px solid var(--warn)} .card.good{border-left:4px solid var(--good)}
+
+  .chartcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 16px 10px;margin:14px 0;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .charttop{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px;padding:0 2px 10px}
+  .charttop h3{font-size:18px;color:#fff;font-family:var(--f-disp)} .charttop .unit{font-size:13px;color:var(--muted)}
+  .chartbox{position:relative} svg.chart{display:block;width:100%;height:auto;overflow:visible}
+  .tip{position:absolute;pointer-events:none;background:#0b0a1f;color:#fff;border:1px solid var(--line-2);border-radius:10px;padding:8px 11px;font-size:12.5px;opacity:0;transition:opacity .08s;z-index:5}
+  .tip b{color:#fff}
+  .src{font-size:12.5px;color:var(--muted);margin-top:4px}
+
+  .big{background:linear-gradient(145deg,rgba(251,191,36,.16),rgba(251,146,60,.08));border:1px solid rgba(251,191,36,.35);border-radius:18px;padding:20px;margin:16px 0}
+  .big .q{font-family:var(--f-disp);font-weight:700;font-size:22px;color:#fff;margin-bottom:8px}
+  details{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin:12px 0;overflow:hidden}
+  summary{cursor:pointer;padding:14px 16px;font-weight:700;color:#fff;list-style:none}
+  summary::-webkit-details-marker{display:none}
+  .dbody{padding:0 16px 16px;color:var(--ink-2);font-size:14.5px} .dbody li{margin-bottom:.4em} .dbody b{color:#fff}
+  footer{padding:26px 0 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:26px}
+
+  /* Locutor (norma) */
+  .loc{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:12px;z-index:60;display:flex;align-items:center;gap:8px}
+  .loc .lbl{font-size:12px;font-weight:700;color:var(--ink-2);background:rgba(10,8,30,.6);border:1px solid var(--line);border-radius:999px;padding:6px 11px}
+  .locbtn{width:48px;height:48px;border-radius:50%;border:1px solid rgba(0,0,0,.15);cursor:pointer;font-size:19px;background:linear-gradient(92deg,var(--accent),#fb923c);color:#120d07;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+  .locbtn.playing{background:#f43f5e;color:#fff}
+  .locbtn.sec{background:rgba(255,255,255,.12);color:#fff;border:1px solid var(--line-2);width:44px;height:44px;font-size:17px}
+  .locbtn.sec.on{background:#22C55E;color:#06210f;border-color:transparent}
+  body.imode .card,body.imode .chartcard,body.imode .big,body.imode .lead{cursor:pointer}
+  body.imode .card:hover,body.imode .big:hover{outline:2px solid var(--accent);outline-offset:2px}
+  @media(max-width:520px){ .loc .lbl{display:none} }
+</style>
+</head>
+<body>
+<div class="loc"><span class="lbl">Escúchalo</span><button class="locbtn sec" id="locmode" title="Narrar al pasar el ratón" aria-label="Narración interactiva">👆</button><button class="locbtn" id="locplay" title="Escuchar" aria-label="Escuchar">🔊</button></div>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">España · Vivienda · 2000–2025</span>
+    <h1>La vivienda: el agujero negro</h1>
+    <p class="sub">Si trabajáis dos y no llegáis a fin de mes, aquí está el principal culpable. La casa dejó de seguir a los salarios: cuesta el doble de años de sueldo que hace 25 años, y el alquiler se come media nómina.</p>
+  </header>
+
+  <div class="cards">
+    <div class="card bad"><div class="k">Comprar una casa</div><div class="v">7,8 <span style="font-size:16px;color:var(--ink-2)">años de sueldo</span></div><div class="d">El DOBLE que en 1999 (~4 años). De todo el salario íntegro, sin gastar en nada más.</div></div>
+    <div class="card bad"><div class="k">El alquiler</div><div class="v">47% <span style="font-size:16px;color:var(--ink-2)">del salario</span></div><div class="d">Lo sano es 30%. En las ciudades grandes, más.</div></div>
+    <div class="card warn"><div class="k">Jóvenes emancipados</div><div class="v">31% <span style="font-size:16px;color:var(--ink-2)">de 16–34 años</span></div><div class="d">Eran el 42% en 2014. Ni con trabajo estable pueden irse de casa.</div></div>
+    <div class="card bad"><div class="k">Precio récord</div><div class="v">2.164 <span style="font-size:16px;color:var(--ink-2)">€/m²</span></div><div class="d">2024 supera ya el pico de la burbuja de 2008.</div></div>
+  </div>
+
+  <h2>1. El precio: la montaña rusa que siempre vuelve a subir</h2>
+  <p class="lead">El precio del metro cuadrado se duplicó en la burbuja (2000–2007), se desplomó con la crisis… y hoy está otra vez en <b>máximos históricos</b>.</p>
+  <div class="chartcard">
+    <div class="charttop"><div><h3>Precio de la vivienda</h3><span class="unit">€/m² · media España</span></div></div>
+    <div class="chartbox"><div class="plotPrice"></div></div>
+    <div class="src">2000 estimado. Pico 2008 ≈ 2.218 €/m²; suelo 2013 ≈ 1.557; récord 2024 ≈ 2.164. Fuente: INE/idealista.</div>
+  </div>
+
+  <h2>2. Dónde es imposible: años de sueldo por comunidad</h2>
+  <p class="lead">Cuántos <b>años de tu sueldo íntegro</b> cuesta una casa, según dónde vivas (2024). La media es 7,8. Pero mira los extremos.</p>
+  <div class="chartcard">
+    <div class="charttop"><div><h3>Años de salario para comprar</h3><span class="unit">por comunidad · 2024</span></div></div>
+    <div class="chartbox"><div class="plotCCAA"></div></div>
+    <div class="src">🔴 más de 10 años · 🟠 entre 7 y 10 · 🟢 menos de 7. Fuente: Fotocasa/idealista 2024.</div>
+  </div>
+
+  <h2>3. El alquiler, disparado</h2>
+  <p class="lead">Para quien no puede comprar, alquilar tampoco salva: el precio no para de marcar récords.</p>
+  <div class="chartcard">
+    <div class="charttop"><div><h3>Precio del alquiler</h3><span class="unit">€/m² al mes · media España</span></div></div>
+    <div class="chartbox"><div class="plotRent"></div></div>
+    <div class="src">2013–2018 estimado. Récord en 2025 ≈ 14,7 €/m². Fuente: idealista.</div>
+  </div>
+
+  <h2>4. Por qué pasa (la clave que casi nadie dice)</h2>
+  <div class="big">
+    <div class="q">No es que la casa valga más que en Europa. Es que tu sueldo vale menos.</div>
+    <p style="margin:0;color:var(--ink-2)">El precio de la vivienda en España está <b>en línea con la media europea</b>. Lo que está muy por debajo es <b>el salario</b>: +2,7% real en 30 años, frente al +30% de la OCDE. Resultado: el mismo precio, pero con sueldos que no llegan. Por eso una casa que antes costaba 4 años de trabajo hoy cuesta casi 8.</p>
+  </div>
+  <p class="lead">A eso se suman: poca <b>vivienda pública</b> (en España ~2,5% del parque, frente al 9% de media UE y el 30% de Países Bajos), los <b>pisos turísticos</b> que retiran vivienda del alquiler residencial, la <b>compra por fondos e inversores</b>, y una <b>oferta que no crece</b> al ritmo de la demanda en las ciudades.</p>
+
+  <details><summary>El matiz honesto: ¿y los que compraron antes?</summary><div class="dbody">
+    <p>Aquí está la fractura generacional. Quien compró antes de ~2005 tiene una casa pagada o barata; quien entra hoy al mercado paga el doble de años de sueldo. <b>No es rico contra pobre: es joven contra mayor, y "ya tenía casa" contra "nunca podrá".</b> Por eso tus padres, con un sueldo, tenían techo asegurado, y vosotros, con dos, no.</p>
+  </div></details>
+
+  <details><summary>¿Qué se podría hacer? (y por qué cuesta)</summary><div class="dbody">
+    <ul>
+      <li><b>Más oferta:</b> construir y movilizar vivienda, sobre todo pública y en alquiler asequible. Lento y caro.</li>
+      <li><b>Regular el alquiler turístico</b> y la compra especulativa. Políticamente peleado.</li>
+      <li><b>Subir salarios y productividad:</b> la raíz real, pero la más difícil y lenta.</li>
+      <li>Ojo con los <b>topes al alquiler</b> mal diseñados: pueden reducir la oferta y empeorarlo. No hay solución mágica.</li>
+    </ul>
+  </div></details>
+
+  <footer>Síntesis divulgativa a partir de datos oficiales (INE, idealista, Fotocasa, Banco de España, OCDE/Eurostat, Consejo de la Juventud). Las cifras son órdenes de magnitud; algunos puntos antiguos son estimaciones. Octubre de 2026.</footer>
+</div>
+
+<script>
+const PRICE=[[2000,1000],[2007,2218],[2013,1557],[2019,1900],[2024,2164],[2025,2300]];
+const RENT=[[2013,7.2],[2018,10.0],[2020,11.0],[2023,11.6],[2025,14.7]];
+const CCAA=[["Baleares",20.2],["Madrid",10.6],["Cataluña",8.4],["Canarias",8.0],["Cantabria",7.6],["Andalucía",7.3],["País Vasco",7.2],["Galicia",7.2],["C. Valenciana",6.6],["Navarra",6.1],["Asturias",5.6],["Castilla y León",5.5],["Aragón",5.4],["C.-La Mancha",5.4],["Murcia",5.3],["La Rioja",5.2],["Extremadura",4.8]];
+
+const cv=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+function tipFor(box){let t=box.querySelector('.tip');if(!t){t=document.createElement('div');t.className='tip';box.appendChild(t);}return t;}
+
+function lineChart(wrap, pts, colVar, unit, dec){
+  const W=760,H=320,mL=64,mR=66,mT=18,mB=36,col=cv(colVar);
+  const xs=pts.map(p=>p[0]),ys=pts.map(p=>p[1]),xmin=Math.min(...xs),xmax=Math.max(...xs);let ymax=Math.max(...ys)*1.12;
+  const X=x=>mL+(x-xmin)/(xmax-xmin)*(W-mL-mR),Y=y=>H-mB-(y/ymax)*(H-mT-mB);
+  const fmt=v=>v.toLocaleString('es-ES',{maximumFractionDigits:dec})+unit;
+  let g=`<defs><linearGradient id="g_${colVar.slice(2)}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${col}" stop-opacity=".35"/><stop offset="1" stop-color="${col}" stop-opacity="0"/></linearGradient></defs>`;
+  for(let i=0;i<=4;i++){const val=ymax*i/4,yy=Y(val);g+=`<line x1="${mL}" y1="${yy}" x2="${W-mR}" y2="${yy}" stroke="${cv('--line')}"/>`;g+=`<text x="${mL-8}" y="${yy+4}" text-anchor="end" font-size="12" fill="${cv('--muted')}">${fmt(val)}</text>`;}
+  xs.forEach(x=>{g+=`<text x="${X(x)}" y="${H-mB+20}" text-anchor="middle" font-size="12" fill="${cv('--muted')}">${x}</text>`;});
+  const d=pts.map((p,i)=>`${i?'L':'M'}${X(p[0]).toFixed(1)} ${Y(p[1]).toFixed(1)}`).join(' ');
+  g+=`<path d="${d} L ${X(xmax)} ${H-mB} L ${X(xmin)} ${H-mB} Z" fill="url(#g_${colVar.slice(2)})"/>`;
+  g+=`<path d="${d}" fill="none" stroke="${col}" stroke-width="3" stroke-linejoin="round"/>`;
+  pts.forEach(p=>{g+=`<circle class="pt" data-x="${p[0]}" data-v="${p[1]}" cx="${X(p[0])}" cy="${Y(p[1])}" r="4.5" fill="#121233" stroke="${col}" stroke-width="2.5"/>`;});
+  const last=pts[pts.length-1];g+=`<text x="${X(last[0])+8}" y="${Y(last[1])+4}" font-size="13" font-weight="700" fill="#fff">${fmt(last[1])}</text>`;
+  wrap.innerHTML=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img">${g}</svg>`;
+  const box=wrap.closest('.chartbox'),tip=tipFor(box);
+  wrap.querySelectorAll('.pt').forEach(c=>{c.addEventListener('mousemove',e=>{tip.innerHTML=`<b>${c.dataset.x}</b> · ${fmt(+c.dataset.v)}`;tip.style.opacity='1';const bx=box.getBoundingClientRect();tip.style.left=Math.min(bx.width-120,Math.max(4,e.clientX-bx.left+12))+'px';tip.style.top=(e.clientY-bx.top-10)+'px';});c.addEventListener('mouseleave',()=>tip.style.opacity='0');});
+}
+
+function ccaaChart(wrap, rows){
+  const W=760,rh=30,mT=6,mB=6,mL=130,mR=56,H=mT+mB+rows.length*rh,max=Math.max(...rows.map(r=>r[1]));
+  const X=v=>mL+(v/max)*(W-mL-mR);
+  let g='';
+  rows.forEach((r,i)=>{const y=mT+i*rh+rh/2,v=r[1];const col=v>10?cv('--bad'):v>=7?cv('--warn'):cv('--good');
+    g+=`<text x="${mL-9}" y="${y+4}" text-anchor="end" font-size="12" fill="${cv('--ink-2')}">${r[0]}</text>`;
+    const bw=Math.max(3,X(v)-mL);
+    g+=`<rect class="b" data-n="${r[0]}" data-v="${v}" x="${mL}" y="${y-8}" width="${bw}" height="16" rx="4" fill="${col}"/>`;
+    g+=`<text x="${mL+bw+7}" y="${y+4}" font-size="12" font-weight="700" fill="#fff">${v.toLocaleString('es-ES',{maximumFractionDigits:1})}</text>`;});
+  wrap.innerHTML=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Años de salario por comunidad">${g}</svg>`;
+  const box=wrap.closest('.chartbox'),tip=tipFor(box);
+  wrap.querySelectorAll('.b').forEach(b=>{b.addEventListener('mousemove',e=>{tip.innerHTML=`<b>${b.dataset.n}</b> · ${(+b.dataset.v).toLocaleString('es-ES',{maximumFractionDigits:1})} años de sueldo`;tip.style.opacity='1';const bx=box.getBoundingClientRect();tip.style.left=Math.min(bx.width-190,Math.max(4,e.clientX-bx.left+12))+'px';tip.style.top=(e.clientY-bx.top-10)+'px';});b.addEventListener('mouseleave',()=>tip.style.opacity='0');});
+}
+
+lineChart(document.querySelector('.plotPrice'),PRICE,'--blue',' €',0);
+ccaaChart(document.querySelector('.plotCCAA'),CCAA);
+lineChart(document.querySelector('.plotRent'),RENT,'--mag',' €',1);
+
+/* ---- Locutor: lectura completa + narración interactiva ---- */
+(function(){
+const LINES=[
+  "La vivienda es el agujero negro de tu economía.",
+  "Si trabajáis dos y no llegáis a fin de mes, aquí está el principal culpable.",
+  "Comprar una casa cuesta hoy, de media, siete coma ocho años de tu sueldo íntegro: el doble que en mil novecientos noventa y nueve.",
+  "El alquiler se lleva el cuarenta y siete por ciento del salario, cuando lo sano es el treinta.",
+  "Y la emancipación juvenil se ha hundido: solo el treinta y uno por ciento de los jóvenes vive fuera de casa, frente al cuarenta y dos de hace diez años.",
+  "El precio del metro cuadrado se duplicó en la burbuja, se desplomó con la crisis, y hoy está otra vez en máximos, por encima de dos mil cien euros.",
+  "Pero lo más brutal es la diferencia por zonas.",
+  "En Baleares hacen falta más de veinte años de sueldo para comprar; en Madrid, casi once; en Cataluña, más de ocho.",
+  "En cambio, en Extremadura bastan menos de cinco.",
+  "¿Por qué pasa esto? La clave que casi nadie dice.",
+  "No es que la casa valga más que en Europa: el precio está en línea con la media europea.",
+  "Lo que está muy por debajo es tu sueldo, que apenas ha subido un dos coma siete por ciento real en treinta años.",
+  "Mismo precio, pero con salarios que no llegan.",
+  "A eso se suma poca vivienda pública, los pisos turísticos, la compra por fondos, y una oferta que no crece al ritmo de la demanda.",
+  "Y hay una fractura generacional: quien compró antes tiene casa barata; quien entra hoy paga el doble de años de sueldo.",
+  "Por eso tus padres, con un solo sueldo, tenían techo asegurado, y vosotros, con dos, no.",
+  "No es que ganéis menos que ellos: es que la vivienda se soltó de los salarios."
+];
+const SAYSEL='.card,.chartcard,.big,.lead';
+const ttsOK='speechSynthesis'in window; let i=0,playing=false,voice=null,inter=false,last=null;
+const play=document.getElementById('locplay'),mode=document.getElementById('locmode');
+function pick(){const vs=speechSynthesis.getVoices();voice=vs.find(v=>/alvaro/i.test(v.name))||vs.find(v=>/es[-_]ES/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang))||null;}
+if(ttsOK){pick();speechSynthesis.onvoiceschanged=pick;}
+function speak(n){if(n>=LINES.length){stop();return;}i=n;const u=new SpeechSynthesisUtterance(LINES[n]);u.lang='es-ES';if(voice)u.voice=voice;u.onend=()=>{if(playing)speak(n+1)};u.onerror=()=>{if(playing)speak(n+1)};speechSynthesis.speak(u);}
+function start(){if(!ttsOK)return;speechSynthesis.cancel();playing=true;play.textContent='⏸';play.classList.add('playing');play.title='Pausar';speak(i);}
+function stop(){playing=false;if(ttsOK)speechSynthesis.cancel();i=0;play.textContent='🔊';play.classList.remove('playing');play.title='Escuchar';}
+function pause(){playing=false;if(ttsOK)speechSynthesis.cancel();play.textContent='▶';play.classList.remove('playing');play.title='Reanudar';}
+play.onclick=()=>{playing?pause():start();};
+function sayText(t){if(!ttsOK||!t)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='es-ES';u.rate=1.03;if(voice)u.voice=voice;speechSynthesis.speak(u);}
+function clean(el){return (el.getAttribute('data-say')||el.textContent||'').replace(/\s+/g,' ').trim().slice(0,340);}
+document.addEventListener('mouseover',e=>{if(!inter||playing)return;const el=e.target.closest(SAYSEL);if(el&&el!==last){last=el;sayText(clean(el));}});
+document.addEventListener('mouseout',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el&&el===last&&!el.contains(e.relatedTarget))last=null;});
+document.addEventListener('click',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el){if(playing)pause();sayText(clean(el));}});
+mode.onclick=()=>{inter=!inter;document.body.classList.toggle('imode',inter);mode.classList.toggle('on',inter);mode.title=inter?'Narración al pasar el ratón: ACTIVADA':'Narrar al pasar el ratón';if(inter&&playing)pause();if(!inter&&ttsOK)speechSynthesis.cancel();};
+window.addEventListener('beforeunload',()=>{if(ttsOK)speechSynthesis.cancel();});
+})();
+</script>
+</body>
+</html>

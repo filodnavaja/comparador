@@ -14,3 +14,4 @@
 Norma del proyecto: todo artefacto nuevo se guarda aquí automáticamente (HTML + .md).
 
 **Norma de locutor:** todo artefacto lleva un locutor fijo en la esquina superior derecha (botón 🔊 lee el contenido; botón 👆 activa la narración al pasar el ratón o tocar cada bloque).
+| vivienda.html | La vivienda: el agujero negro (precio, años de salario por CCAA, alquiler, emancipación) | vivienda.md |
