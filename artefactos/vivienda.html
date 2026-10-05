@@ -197,22 +197,27 @@ const LINES=[
   "No es que ganéis menos que ellos: es que la vivienda se soltó de los salarios."
 ];
 const SAYSEL='.card,.chartcard,.big,.lead';
-const ttsOK='speechSynthesis'in window; let i=0,playing=false,voice=null,inter=false,last=null;
+const ttsOK='speechSynthesis'in window; let i=0,playing=false,voice=null,inter=false,last=null,wd=null,hov=null;
 const play=document.getElementById('locplay'),mode=document.getElementById('locmode');
-function pick(){const vs=speechSynthesis.getVoices();voice=vs.find(v=>/alvaro/i.test(v.name))||vs.find(v=>/es[-_]ES/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang))||null;}
+function pick(){if(!ttsOK)return;const vs=speechSynthesis.getVoices();voice=vs.find(v=>/alvaro/i.test(v.name))||vs.find(v=>/es[-_]ES/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang))||null;}
 if(ttsOK){pick();speechSynthesis.onvoiceschanged=pick;}
-function speak(n){if(n>=LINES.length){stop();return;}i=n;const u=new SpeechSynthesisUtterance(LINES[n]);u.lang='es-ES';if(voice)u.voice=voice;u.onend=()=>{if(playing)speak(n+1)};u.onerror=()=>{if(playing)speak(n+1)};speechSynthesis.speak(u);}
-function start(){if(!ttsOK)return;speechSynthesis.cancel();playing=true;play.textContent='⏸';play.classList.add('playing');play.title='Pausar';speak(i);}
-function stop(){playing=false;if(ttsOK)speechSynthesis.cancel();i=0;play.textContent='🔊';play.classList.remove('playing');play.title='Escuchar';}
-function pause(){playing=false;if(ttsOK)speechSynthesis.cancel();play.textContent='▶';play.classList.remove('playing');play.title='Reanudar';}
+function keepAlive(){clearInterval(wd);wd=setInterval(()=>{if(!playing){clearInterval(wd);return;}try{if(speechSynthesis.speaking&&!speechSynthesis.paused)speechSynthesis.resume();}catch(e){}},9000);}
+function speak(n){if(n>=LINES.length){stop();return;}i=n;const u=new SpeechSynthesisUtterance(LINES[n]);u.lang='es-ES';u.rate=1;if(voice)u.voice=voice;
+  let adv=false;const go=()=>{if(adv)return;adv=true;if(playing)speak(n+1);};u.onend=go;u.onerror=go;
+  const est=Math.max(2600,LINES[n].length*85);setTimeout(()=>{if(playing&&!adv&&!speechSynthesis.speaking)go();},est+1600);
+  try{speechSynthesis.speak(u);}catch(e){go();}}
+function start(){if(!ttsOK)return;try{speechSynthesis.cancel();}catch(e){}playing=true;play.textContent='⏸';play.classList.add('playing');play.title='Pausar';keepAlive();setTimeout(()=>speak(i),130);}
+function stop(){playing=false;clearInterval(wd);if(ttsOK)try{speechSynthesis.cancel();}catch(e){}i=0;play.textContent='🔊';play.classList.remove('playing');play.title='Escuchar';}
+function pause(){playing=false;clearInterval(wd);if(ttsOK)try{speechSynthesis.cancel();}catch(e){}play.textContent='▶';play.classList.remove('playing');play.title='Reanudar';}
 play.onclick=()=>{playing?pause():start();};
-function sayText(t){if(!ttsOK||!t)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='es-ES';u.rate=1.03;if(voice)u.voice=voice;speechSynthesis.speak(u);}
-function clean(el){return (el.getAttribute('data-say')||el.textContent||'').replace(/\s+/g,' ').trim().slice(0,340);}
-document.addEventListener('mouseover',e=>{if(!inter||playing)return;const el=e.target.closest(SAYSEL);if(el&&el!==last){last=el;sayText(clean(el));}});
+let wd2=null;function keepAlive2(){clearInterval(wd2);wd2=setInterval(()=>{try{if(speechSynthesis.speaking&&!speechSynthesis.paused)speechSynthesis.resume();else clearInterval(wd2);}catch(e){}},9000);}
+function sayText(t){if(!ttsOK||!t)return;try{speechSynthesis.cancel();}catch(e){}const u=new SpeechSynthesisUtterance(t);u.lang='es-ES';u.rate=1.03;if(voice)u.voice=voice;keepAlive2();speechSynthesis.speak(u);}
+function clean(el){return (el.getAttribute('data-say')||el.textContent||'').replace(/\s+/g,' ').trim().slice(0,320);}
+document.addEventListener('mouseover',e=>{if(!inter||playing)return;const el=e.target.closest(SAYSEL);if(el&&el!==last){last=el;clearTimeout(hov);hov=setTimeout(()=>sayText(clean(el)),320);}});
 document.addEventListener('mouseout',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el&&el===last&&!el.contains(e.relatedTarget))last=null;});
-document.addEventListener('click',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el){if(playing)pause();sayText(clean(el));}});
-mode.onclick=()=>{inter=!inter;document.body.classList.toggle('imode',inter);mode.classList.toggle('on',inter);mode.title=inter?'Narración al pasar el ratón: ACTIVADA':'Narrar al pasar el ratón';if(inter&&playing)pause();if(!inter&&ttsOK)speechSynthesis.cancel();};
-window.addEventListener('beforeunload',()=>{if(ttsOK)speechSynthesis.cancel();});
+document.addEventListener('click',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el&&el.tagName!=='SELECT'&&el.tagName!=='OPTION'){if(playing)pause();clearTimeout(hov);sayText(clean(el));}});
+mode.onclick=()=>{inter=!inter;document.body.classList.toggle('imode',inter);mode.classList.toggle('on',inter);mode.title=inter?'Narración al pasar el ratón: ACTIVADA':'Narrar al pasar el ratón';if(inter&&playing)pause();if(!inter&&ttsOK)try{speechSynthesis.cancel();}catch(e){}};
+window.addEventListener('beforeunload',()=>{if(ttsOK)try{speechSynthesis.cancel();}catch(e){}});
 })();
 </script>
 </body>
