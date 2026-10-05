@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Narrador de los Comparadores</title>
+<meta name="description" content="Locución en español de los guiones de los dos comparadores de gasto público, con reproductor de voz y texto para copiar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --bg:#121233; --panel:rgba(255,255,255,.055); --panel-2:rgba(255,255,255,.10); --ink:#f4f2ff; --ink-2:#c6c0ea;
+    --muted:#8e88b8; --line:rgba(255,255,255,.12); --line-2:rgba(255,255,255,.22);
+    --accent:#FBBF24; --hot:#F43F5E; --c1:#3B82F6; --c2:#D946AF;
+    --f-disp:"Fraunces",Georgia,serif; --f-body:"IBM Plex Sans",system-ui,sans-serif; color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;
+    background:radial-gradient(90% 60% at 85% -5%,rgba(217,70,175,.22),transparent 60%),
+      radial-gradient(80% 55% at 0% 0%,rgba(59,130,246,.22),transparent 55%),
+      linear-gradient(160deg,#1c1746,#121233 55%,#0c1030);background-attachment:fixed;min-height:100%}
+  html,body{min-height:100%}
+  .wrap{max-width:780px;margin:0 auto;padding-inline:16px;padding-block:0}
+  h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(28px,5.5vw,44px);line-height:1.08;margin:0;
+    background:linear-gradient(92deg,#fff 10%,#ffd98a 55%,#ff9bdf 95%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  header{padding-block:34px 10px}
+  .eyebrow{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#120d07;font-weight:700;
+    background:linear-gradient(90deg,var(--accent),#fb923c);padding:5px 12px;border-radius:999px;margin-bottom:14px}
+  .sub{font-size:16.5px;color:var(--ink-2);max-width:60ch;margin-top:12px}
+  .note{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:12px;
+    padding:13px 15px;font-size:14px;color:var(--ink-2);margin:14px 0 6px}
+  .note b{color:#fff}
+
+  .tabs{display:flex;gap:8px;margin:18px 0 14px;flex-wrap:wrap}
+  .tab{flex:1 1 220px;border:1px solid var(--line-2);background:var(--panel);color:var(--ink-2);font-family:inherit;
+    font-size:15px;font-weight:700;padding:12px 14px;border-radius:14px;cursor:pointer;text-align:left}
+  .tab[aria-selected="true"]{border-color:transparent;color:#fff}
+  .tab small{display:block;font-weight:500;font-size:12.5px;color:var(--muted);margin-top:3px}
+  .tab.a[aria-selected="true"]{background:linear-gradient(145deg,#3B82F6,#1e51c9)}
+  .tab.b[aria-selected="true"]{background:linear-gradient(145deg,#D946AF,#a01f82)}
+
+  .player{position:sticky;top:0;z-index:10;background:rgba(18,18,51,.86);backdrop-filter:blur(8px);
+    border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:16px;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+  .controls{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+  button.ctrl{font-family:inherit;font-size:15px;font-weight:700;border:1px solid var(--line-2);background:var(--panel-2);
+    color:#fff;border-radius:999px;padding:11px 20px;cursor:pointer}
+  button.ctrl.primary{background:linear-gradient(92deg,var(--accent),#fb923c);color:#120d07;border-color:transparent}
+  button.ctrl:hover{filter:brightness(1.08)}
+  .meta{font-size:12.5px;color:var(--muted);margin-left:auto}
+  .bar{height:5px;background:rgba(255,255,255,.12);border-radius:999px;margin-top:12px;overflow:hidden}
+  .bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s}
+
+  .script{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 18px 10px;margin-bottom:14px}
+  .script p{font-size:18px;line-height:1.85;color:var(--ink-2);margin:0 0 .6em}
+  .s{transition:background .15s,color .15s;border-radius:5px;padding:1px 2px;cursor:pointer}
+  .s.on{background:var(--accent);color:#120d07;font-weight:600}
+  .copybar{display:flex;gap:8px;flex-wrap:wrap;margin:2px 0 18px}
+  .warn{font-size:13px;color:var(--muted);margin-top:6px}
+  footer{padding:24px 0 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Locución · Español</span>
+    <h1>Narrador de los comparadores</h1>
+    <p class="sub">Un guión por cada artefacto, de más de 2 minutos. Pulsa <b style="color:#fff">▶ Escuchar</b> y el navegador lo lee en voz alta, resaltando la frase que suena.</p>
+    <div class="note"><b>¿Quieres un MP3 con voz de estudio?</b> Copia el texto con el botón y pégalo en una voz como <b>Álvaro</b> (Microsoft/Edge) o ElevenLabs para exportarlo a audio. Aquí la voz es la del navegador (si tienes “Álvaro” instalada, la usa).</div>
+  </header>
+
+  <div class="tabs" role="tablist">
+    <button class="tab a" role="tab" data-k="a" aria-selected="true">💶 Gasto público 1980–2025<small>educación, sanidad, Iglesia, infraestructuras</small></button>
+    <button class="tab b" role="tab" data-k="b" aria-selected="false">🏛️ Presupuestos del Estado<small>pensiones, defensa, igualdad, público→privado</small></button>
+  </div>
+
+  <div class="player">
+    <div class="controls">
+      <button class="ctrl primary" id="play">▶ Escuchar</button>
+      <button class="ctrl" id="pause">⏸ Pausa</button>
+      <button class="ctrl" id="restart">↻ Reiniciar</button>
+      <span class="meta" id="meta"></span>
+    </div>
+    <div class="bar"><i id="prog"></i></div>
+  </div>
+
+  <div class="copybar">
+    <button class="ctrl" id="copy" style="font-size:13.5px;padding:8px 14px">📋 Copiar el guión</button>
+    <button class="ctrl" id="copyboth" style="font-size:13.5px;padding:8px 14px">📋 Copiar los dos</button>
+  </div>
+
+  <div class="script" id="script"></div>
+  <p class="warn" id="voicewarn"></p>
+
+  <footer>Si no se oye: toca ▶ otra vez (algunos navegadores exigen un gesto para activar el audio) y sube el volumen. En iPhone, quita el modo silencio. La calidad y el idioma de la voz dependen de tu dispositivo.</footer>
+</div>
+
+<script>
+const SCRIPTS={
+  a:{title:'Gasto público 1980–2025', color:'#3B82F6', sents:[
+    "Esto es el gasto público de España, de 1980 a hoy, contado con datos.",
+    "Antes de nada, una regla de oro: comparar euros de 1980 con euros de ahora engaña.",
+    "Los precios se han multiplicado por seis, la población ha crecido un treinta por ciento y la economía es diecisiete veces mayor.",
+    "Por eso lo medimos en porcentaje del PIB: qué parte del país se dedica a cada cosa.",
+    "Empecemos por la educación pública.",
+    "En 1980 España dedicaba alrededor del dos coma cuatro por ciento del PIB; hoy, el cuatro coma cinco, tras tocar techo en el cinco por ciento en 2009.",
+    "Dentro de esa cifra, la enseñanza concertada, colegios privados pagados con dinero público, supone cerca del doce por ciento del gasto educativo.",
+    "La sanidad pública es la mayor conquista social del país.",
+    "Pasó del cuatro por ciento del PIB en 1980 al ocho por ciento en plena pandemia, y hoy ronda el siete.",
+    "Si le sumamos la sanidad privada, España dedica a la salud casi un diez por ciento de todo lo que produce.",
+    "De hecho, somos uno de los países con más peso de la sanidad privada.",
+    "¿Y la Iglesia?",
+    "Desde 2007 el Estado ya no le da una dotación directa: se financia con la casilla del cero coma siete por ciento del I R P F.",
+    "En 2024 fueron cuatrocientos veintinueve millones de euros, aunque su coste real es mayor y difícil de medir.",
+    "Las infraestructuras son la partida más caprichosa: tocaron techo en 2009 y se hundieron un setenta por ciento con la crisis.",
+    "Y hay un capítulo que sorprende: el dinero público que acaba en manos privadas.",
+    "Entre conciertos sanitarios, enseñanza concertada y mutualidades de funcionarios, rondan los veinte mil millones de euros al año.",
+    "No es automáticamente malo: a veces complementa lo que falta en lo público.",
+    "El debate es cuándo ahorra y cuándo debilita al sistema.",
+    "En resumen: en cuarenta y cinco años, España ha apostado por la sanidad y la educación, aunque todavía por debajo de Europa.",
+    "Los datos están sobre la mesa; las conclusiones, cada uno las suyas."
+  ]},
+  b:{title:'Presupuestos del Estado 2000–2026', color:'#D946AF', sents:[
+    "Esto es el Presupuesto del Estado español, de 2000 a hoy.",
+    "Primer aviso, importante: el Presupuesto del Estado no es todo el gasto público.",
+    "La sanidad y la educación las pagan, sobre todo, las Comunidades Autónomas.",
+    "El Estado les manda el dinero y ellas deciden; por eso en el Presupuesto esas partidas parecen pequeñas.",
+    "¿En qué se reparte? De cada cien euros, casi cuarenta van a pensiones.",
+    "Sumando los intereses de la deuda y el desempleo, más de la mitad está comprometido antes de decidir nada.",
+    "¿Qué crece y qué cae?",
+    "La partida que más se dispara es Defensa: de menos de seis mil millones en el año 2000 a más de veintitrés mil en 2025, por el objetivo de la OTAN.",
+    "También crecen con fuerza las pensiones, la investigación, y el Ministerio de Igualdad, que triplicó su presupuesto desde 2020.",
+    "¿Y qué baja? El desempleo, porque hay menos paro que en la crisis.",
+    "Y, sobre todo, la inversión en infraestructuras: un sesenta por ciento por debajo de 2009 en términos reales.",
+    "Un truco para no engañarse: la inflación.",
+    "Lo que no sube más de un treinta por ciento desde 2010, en realidad ha perdido poder de compra.",
+    "Hay además un capítulo clave: el dinero público que va a lo privado.",
+    "Los conciertos sanitarios pagan a hospitales y clínicas privadas: más de diez mil millones en 2024.",
+    "La enseñanza concertada, siete mil quinientos millones.",
+    "Y las mutualidades de funcionarios pagan a aseguradoras privadas la sanidad de dos millones de personas.",
+    "En total, unos veinte mil millones al año solo en sanidad y educación.",
+    "Un apunte honesto: en euros los conciertos no paran de subir, pero como porcentaje del gasto sanitario incluso bajan un poco.",
+    "Y un detalle que lo explica casi todo: desde 2024, España gobierna con el presupuesto prorrogado de 2023, porque no se aprueban cuentas nuevas.",
+    "Los datos están; el juicio, es tuyo."
+  ]}
+};
+
+let sel='a', idx=0, playing=false, paused=false, esVoice=null;
+const ttsOK=('speechSynthesis' in window);
+const $=id=>document.getElementById(id);
+
+function pickVoice(){ if(!ttsOK)return; const vs=speechSynthesis.getVoices();
+  esVoice = vs.find(v=>/alvaro/i.test(v.name)) || vs.find(v=>/es[-_]ES/i.test(v.lang)) || vs.find(v=>/^es/i.test(v.lang)) || null;
+  $('voicewarn').textContent = esVoice? ('Voz: '+esVoice.name) : (ttsOK? 'Usando la voz por defecto del navegador (quizá no en español).':'Tu navegador no admite lectura por voz; copia el texto y úsalo en otra app.');}
+if(ttsOK){ pickVoice(); speechSynthesis.onvoiceschanged=pickVoice; }
+
+function wordCount(k){return SCRIPTS[k].sents.join(' ').split(/\s+/).length;}
+function renderScript(){
+  const sc=SCRIPTS[sel];
+  $('script').innerHTML='<p>'+sc.sents.map((s,i)=>`<span class="s" data-i="${i}">${s}</span>`).join(' ')+'</p>';
+  $('script').querySelectorAll('.s').forEach(sp=>sp.onclick=()=>{idx=+sp.dataset.i; if(playing){stop();play();} else {highlight(idx);} });
+  const w=wordCount(sel), secs=Math.round(w/2.3);
+  $('meta').textContent=`${sc.sents.length} frases · ~${Math.floor(secs/60)}:${String(secs%60).padStart(2,'0')} min`;
+  highlight(-1); setProg();
+}
+function highlight(i){ $('script').querySelectorAll('.s').forEach(sp=>sp.classList.toggle('on',+sp.dataset.i===i));
+  const on=$('script').querySelector('.s.on'); if(on)on.scrollIntoView({block:'center',behavior:'smooth'}); }
+function setProg(){ const t=SCRIPTS[sel].sents.length; $('prog').style.width=(playing||paused?Math.min(100,(idx/t)*100):0)+'%'; }
+
+function speakFrom(i){
+  if(!ttsOK) return;
+  const sc=SCRIPTS[sel]; if(i>=sc.sents.length){ playing=false; paused=false; idx=0; highlight(-1); setProg(); $('play').textContent='▶ Escuchar'; return; }
+  idx=i; highlight(i); setProg();
+  const u=new SpeechSynthesisUtterance(sc.sents[i]); u.lang='es-ES'; u.rate=1.0; u.pitch=1; if(esVoice)u.voice=esVoice;
+  u.onend=()=>{ if(playing) speakFrom(i+1); };
+  u.onerror=()=>{ if(playing) speakFrom(i+1); };
+  speechSynthesis.speak(u);
+}
+function play(){ if(!ttsOK){alert&&0;return;} speechSynthesis.cancel(); playing=true; paused=false; $('play').textContent='▶ Reproduciendo…'; speakFrom(idx); }
+function stop(){ playing=false; speechSynthesis.cancel(); }
+function pause(){ if(!playing)return; playing=false; paused=true; speechSynthesis.cancel(); $('play').textContent='▶ Reanudar'; }
+function restart(){ stop(); paused=false; idx=0; $('play').textContent='▶ Escuchar'; highlight(-1); setProg(); }
+
+$('play').onclick=()=>{ if(playing){pause();} else {play();} };
+$('pause').onclick=pause;
+$('restart').onclick=restart;
+
+async function copyText(txt,btn){ const old=btn.textContent;
+  try{ await navigator.clipboard.writeText(txt); btn.textContent='¡Copiado!'; }
+  catch(e){ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select();
+    try{document.execCommand('copy');btn.textContent='¡Copiado!';}catch(_){btn.textContent='Selecciona y copia';} ta.remove(); }
+  setTimeout(()=>btn.textContent=old,1600); }
+$('copy').onclick=e=>copyText(SCRIPTS[sel].title+'\n\n'+SCRIPTS[sel].sents.join(' '),e.target);
+$('copyboth').onclick=e=>copyText(['a','b'].map(k=>SCRIPTS[k].title+'\n\n'+SCRIPTS[k].sents.join(' ')).join('\n\n\n'),e.target);
+
+document.querySelector('.tabs').addEventListener('click',e=>{const b=e.target.closest('.tab'); if(!b)return;
+  restart(); sel=b.dataset.k;
+  document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected',String(t.dataset.k===sel)));
+  renderScript();});
+window.addEventListener('beforeunload',()=>{ if(ttsOK)speechSynthesis.cancel(); });
+
+renderScript();
+</script>
+</body>
+</html>
