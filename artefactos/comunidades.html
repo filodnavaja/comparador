@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>¿Dónde rinde más tu dinero?</title>
+<meta name="description" content="Comparativa por comunidades autónomas: gasto sanitario por habitante, listas de espera y esfuerzo de vivienda. Dónde recibes más por tus impuestos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --bg:#121233; --panel:rgba(255,255,255,.055); --panel-2:rgba(255,255,255,.10); --ink:#f4f2ff; --ink-2:#c6c0ea; --muted:#8e88b8;
+    --line:rgba(255,255,255,.12); --line-2:rgba(255,255,255,.22);
+    --accent:#FBBF24; --good:#22C55E; --warn:#FB923C; --bad:#F43F5E; --san:#0D9488; --viv:#3B82F6;
+    --f-disp:"Fraunces",Georgia,serif; --f-body:"IBM Plex Sans",system-ui,sans-serif; color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+    font-variant-numeric:tabular-nums;
+    background:radial-gradient(90% 60% at 85% -5%,rgba(13,148,136,.20),transparent 60%),
+      radial-gradient(80% 55% at 0% 0%,rgba(59,130,246,.22),transparent 55%),
+      linear-gradient(160deg,#1c1746,#121233 55%,#0c1030);background-attachment:fixed;min-height:100%}
+  html,body{min-height:100%}
+  .wrap{max-width:840px;margin:0 auto;padding-inline:16px;padding-block:0}
+  h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(30px,6vw,52px);line-height:1.05;margin:0;
+    background:linear-gradient(92deg,#fff 10%,#ffd98a 55%,#9df0e4 95%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  h2{font-family:var(--f-disp);font-weight:700;font-size:clamp(21px,4vw,29px);margin:32px 0 8px;color:#fff}
+  header{padding-block:34px 4px}
+  .eyebrow{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#120d07;font-weight:700;
+    background:linear-gradient(90deg,var(--accent),#fb923c);padding:5px 12px;border-radius:999px;margin-bottom:14px}
+  .sub{font-size:clamp(16px,2.4vw,19px);color:var(--ink-2);max-width:62ch;margin-top:12px}
+  p{margin:0 0 .8em} .lead{font-size:16.5px;color:var(--ink-2);max-width:64ch} b,strong{color:#fff}
+
+  .picker{background:var(--panel);border:1px solid var(--line-2);border-radius:18px;padding:16px;margin:16px 0 6px;box-shadow:0 10px 30px rgba(0,0,0,.28)}
+  .picker .q{font-weight:700;color:#fff;margin-bottom:10px}
+  select{font-family:var(--f-disp);font-weight:700;font-size:22px;background:rgba(0,0,0,.3);border:1px solid var(--line-2);color:#fff;border-radius:12px;padding:10px 12px;width:100%;max-width:360px}
+  .pcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:14px}
+  .pc{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:14px;padding:14px}
+  .pc .k{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  .pc .v{font-family:var(--f-disp);font-weight:700;font-size:26px;color:#fff;margin:6px 0 2px;line-height:1.05}
+  .pc .d{font-size:12.5px;color:var(--ink-2)}
+  .pc .r{font-size:12px;font-weight:700;margin-top:4px}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px;margin:14px 0 6px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .card .k{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  .card .v{font-family:var(--f-disp);font-weight:700;font-size:28px;color:#fff;margin:6px 0 2px;line-height:1.05}
+  .card .d{font-size:13px;color:var(--ink-2)}
+  .card.good{border-left:4px solid var(--good)} .card.bad{border-left:4px solid var(--bad)}
+
+  .chartcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 16px 10px;margin:14px 0;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .charttop{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px;padding:0 2px 10px}
+  .charttop h3{font-size:18px;color:#fff;font-family:var(--f-disp)} .charttop .unit{font-size:13px;color:var(--muted)}
+  .chartbox{position:relative} svg.chart{display:block;width:100%;height:auto;overflow:visible}
+  .tip{position:absolute;pointer-events:none;background:#0b0a1f;color:#fff;border:1px solid var(--line-2);border-radius:10px;padding:8px 11px;font-size:12.5px;opacity:0;transition:opacity .08s;z-index:5} .tip b{color:#fff}
+  .src{font-size:12.5px;color:var(--muted);margin-top:4px}
+
+  .big{background:linear-gradient(145deg,rgba(251,191,36,.16),rgba(13,148,136,.10));border:1px solid rgba(251,191,36,.35);border-radius:18px;padding:18px;margin:16px 0}
+  .big .q{font-family:var(--f-disp);font-weight:700;font-size:20px;color:#fff;margin-bottom:6px}
+  details{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin:12px 0;overflow:hidden}
+  summary{cursor:pointer;padding:14px 16px;font-weight:700;color:#fff;list-style:none} summary::-webkit-details-marker{display:none}
+  .dbody{padding:0 16px 16px;color:var(--ink-2);font-size:14px} .dbody b{color:#fff} .dbody li{margin-bottom:.4em}
+  footer{padding:24px 0 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:22px}
+
+  .loc{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:12px;z-index:60;display:flex;align-items:center;gap:8px}
+  .loc .lbl{font-size:12px;font-weight:700;color:var(--ink-2);background:rgba(10,8,30,.6);border:1px solid var(--line);border-radius:999px;padding:6px 11px}
+  .locbtn{width:48px;height:48px;border-radius:50%;border:1px solid rgba(0,0,0,.15);cursor:pointer;font-size:19px;background:linear-gradient(92deg,var(--accent),#fb923c);color:#120d07;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+  .locbtn.playing{background:#f43f5e;color:#fff}
+  .locbtn.sec{background:rgba(255,255,255,.12);color:#fff;border:1px solid var(--line-2);width:44px;height:44px;font-size:17px}
+  .locbtn.sec.on{background:#22C55E;color:#06210f;border-color:transparent}
+  body.imode .card,body.imode .pc,body.imode .chartcard,body.imode .big,body.imode .lead,body.imode .picker{cursor:pointer}
+  body.imode .card:hover,body.imode .pc:hover{outline:2px solid var(--accent);outline-offset:2px}
+  @media(max-width:520px){ .loc .lbl{display:none} }
+</style>
+</head>
+<body>
+<div class="loc"><span class="lbl">Escúchalo</span><button class="locbtn sec" id="locmode" title="Narrar al pasar el ratón" aria-label="Narración interactiva">👆</button><button class="locbtn" id="locplay" title="Escuchar" aria-label="Escuchar">🔊</button></div>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">España · Comunidades Autónomas</span>
+    <h1>¿Dónde rinde más tu dinero?</h1>
+    <p class="sub">Pagas (casi) los mismos impuestos vivas donde vivas, pero <b>lo que recibes depende de tu comunidad</b>: ellas gestionan la sanidad y la educación. Mira las diferencias.</p>
+  </header>
+
+  <div class="picker">
+    <div class="q">Elige tu comunidad</div>
+    <select id="sel"></select>
+    <div class="pcards" id="pcards"></div>
+  </div>
+
+  <div class="cards">
+    <div class="card good"><div class="k">Más gasto sanitario</div><div class="v">País Vasco</div><div class="d">2.332 €/hab en 2024</div></div>
+    <div class="card bad"><div class="k">Menos gasto sanitario</div><div class="v">Andalucía</div><div class="d">1.658 €/hab · 674 € menos que el País Vasco</div></div>
+    <div class="card good"><div class="k">Menos espera (operar)</div><div class="v">Galicia · 73 días</div><div class="d">frente a la media de 121</div></div>
+    <div class="card bad"><div class="k">Más espera (operar)</div><div class="v">Andalucía · 173 días</div><div class="d">la peor de España</div></div>
+  </div>
+
+  <h2>1. Gasto sanitario por habitante</h2>
+  <p class="lead">Cuánto dedica cada comunidad a tu sanidad, por persona (2024). Entre la que más y la que menos, <b>674 € por cabeza</b>.</p>
+  <div class="chartcard">
+    <div class="charttop"><div><h3>Gasto sanitario público per cápita</h3><span class="unit">€/habitante · 2024</span></div></div>
+    <div class="chartbox"><div class="plotSan"></div></div>
+    <div class="src">Algunas comunidades con «≈» son estimaciones. Fuente: FADSP / presupuestos autonómicos 2024.</div>
+  </div>
+
+  <h2>2. Listas de espera para operarse</h2>
+  <p class="lead">Días medios que esperas para una operación (diciembre 2025). La media nacional es 121 días, pero vivir en una comunidad u otra cambia mucho tu suerte.</p>
+  <div class="chartcard">
+    <div class="charttop"><div><h3>Demora quirúrgica media</h3><span class="unit">días · selección de comunidades</span></div></div>
+    <div class="chartbox"><div class="plotEsp"></div></div>
+    <div class="src">Selección con dato disponible. Fuente: Ministerio de Sanidad, dic. 2025.</div>
+  </div>
+
+  <h2>3. Y lo que cuesta vivir: la vivienda</h2>
+  <p class="lead">Años de sueldo íntegro para comprar una casa, por comunidad (2024). Aquí la diferencia es brutal.</p>
+  <div class="chartcard">
+    <div class="charttop"><div><h3>Años de salario para comprar casa</h3><span class="unit">2024</span></div></div>
+    <div class="chartbox"><div class="plotViv"></div></div>
+    <div class="src">Fuente: Fotocasa/idealista 2024.</div>
+  </div>
+
+  <h2>4. La trampa: no todos juegan con las mismas cartas</h2>
+  <div class="big">
+    <div class="q">País Vasco y Navarra recaudan sus propios impuestos (régimen foral).</div>
+    <p style="margin:0;color:var(--ink-2)">Por eso disponen de bastante <b>más dinero por habitante</b> que el resto. Las demás 15 comunidades dependen del <b>sistema de financiación autonómica</b>, muy criticado por desigual y sin reformar desde 2009. Así que parte de que en tu comunidad "rinda menos" tu dinero no es (solo) mala gestión: es <b>cómo se reparte la caja común</b>.</p>
+  </div>
+
+  <details><summary>Matiz honesto: más gasto no siempre es mejor servicio</summary><div class="dbody">
+    <p>El dinero ayuda, pero no lo explica todo. <b>Extremadura</b> gasta mucho por habitante (2.246 €) y aun así tiene listas largas, por su población dispersa y envejecida. <b>Madrid</b> gasta poco por habitante pero tiene esperas cortas, en parte por su población más joven y por un gran peso de la sanidad privada que descarga la pública. Compara, pero con cabeza: cada territorio parte de una realidad distinta.</p>
+  </div></details>
+
+  <footer>Síntesis divulgativa a partir de FADSP, Ministerio de Sanidad, Fotocasa/idealista e INE. Algunas cifras son estimaciones; úsalas como órdenes de magnitud. Octubre de 2026.</footer>
+</div>
+
+<script>
+// [nombre, gasto sanitario €/hab 2024 (est?), años vivienda 2024, espera días 2025|null]
+const CCAA=[
+  ["País Vasco",2332,false,7.2,85],
+  ["Asturias",2322,false,5.6,null],
+  ["Extremadura",2246,false,4.8,135],
+  ["Cantabria",2242,false,7.6,137],
+  ["Castilla y León",2218,false,5.5,null],
+  ["Aragón",2190,false,5.4,132],
+  ["Navarra",2156,false,6.1,null],
+  ["Murcia",2155,false,5.3,null],
+  ["Galicia",2071,false,7.2,73],
+  ["Cataluña",2061,false,8.4,142],
+  ["Castilla-La Mancha",2060,true,5.4,null],
+  ["La Rioja",2030,true,5.2,null],
+  ["Canarias",1950,true,8.0,null],
+  ["C. Valenciana",1867,false,6.6,null],
+  ["Baleares",1800,true,20.2,null],
+  ["Madrid",1779,false,10.6,80],
+  ["Andalucía",1658,false,7.3,173],
+];
+const cv=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const E=v=>v.toLocaleString('es-ES')+' €';
+function tipFor(box){let t=box.querySelector('.tip');if(!t){t=document.createElement('div');t.className='tip';box.appendChild(t);}return t;}
+
+function hbars(wrap, rows, fmt, colorFn){
+  const W=760,rh=30,mT=6,mB=6,mL=150,mR=74,H=mT+mB+rows.length*rh,max=Math.max(...rows.map(r=>r.v));
+  const X=v=>mL+(v/max)*(W-mL-mR);let g='';
+  rows.forEach((r,i)=>{const y=mT+i*rh+rh/2,col=colorFn(r,i);
+    g+=`<text x="${mL-9}" y="${y+4}" text-anchor="end" font-size="12" fill="${cv('--ink-2')}">${r.n}</text>`;
+    const bw=Math.max(3,X(r.v)-mL);
+    g+=`<rect class="b" data-n="${r.n}" data-t="${r.t}" x="${mL}" y="${y-8}" width="${bw}" height="16" rx="4" fill="${col}"/>`;
+    g+=`<text x="${mL+bw+7}" y="${y+4}" font-size="12" font-weight="700" fill="#fff">${fmt(r.v)}${r.est?' ≈':''}</text>`;});
+  wrap.innerHTML=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img">${g}</svg>`;
+  const box=wrap.closest('.chartbox'),tip=tipFor(box);
+  wrap.querySelectorAll('.b').forEach(b=>{b.addEventListener('mousemove',e=>{tip.innerHTML=`<b>${b.dataset.n}</b> · ${b.dataset.t}`;tip.style.opacity='1';const bx=box.getBoundingClientRect();tip.style.left=Math.min(bx.width-180,Math.max(4,e.clientX-bx.left+12))+'px';tip.style.top=(e.clientY-bx.top-10)+'px';});b.addEventListener('mouseleave',()=>tip.style.opacity='0');});
+}
+
+// Gasto sanitario (ya viene ordenado desc)
+hbars(document.querySelector('.plotSan'),
+  CCAA.map(c=>({n:c[0],v:c[1],est:c[2],t:E(c[1])+(c[2]?' (estimado)':'')+' por habitante'})),
+  v=>E(v), (r,i)=> i<3?cv('--good'):i>=CCAA.length-3?cv('--bad'):cv('--san'));
+
+// Lista de espera (solo con dato), ordenado desc
+const esp=CCAA.filter(c=>c[4]!=null).map(c=>({n:c[0],v:c[4],t:c[4]+' días de espera'})).sort((a,b)=>b.v-a.v);
+hbars(document.querySelector('.plotEsp'), esp, v=>v+' d', (r)=> r.v>=140?cv('--bad'):r.v>=110?cv('--warn'):cv('--good'));
+
+// Vivienda años, ordenado desc
+const viv=CCAA.map(c=>({n:c[0],v:c[3],t:c[3].toLocaleString('es-ES')+' años de sueldo'})).sort((a,b)=>b.v-a.v);
+hbars(document.querySelector('.plotViv'), viv, v=>v.toLocaleString('es-ES'), (r)=> r.v>=10?cv('--bad'):r.v>=7?cv('--warn'):cv('--good'));
+
+// Selector
+const sel=document.getElementById('sel');
+const sorted=[...CCAA].sort((a,b)=>a[0].localeCompare(b[0],'es'));
+sel.innerHTML=sorted.map(c=>`<option value="${c[0]}">${c[0]}</option>`).join('');
+const sanRank=[...CCAA].sort((a,b)=>b[1]-a[1]).map(c=>c[0]);
+function rankTxt(name){const pos=sanRank.indexOf(name)+1;return `#${pos} de 17 en gasto sanitario`;}
+function showCCAA(name){
+  const c=CCAA.find(x=>x[0]===name);
+  const media=1906;
+  const difCol=c[1]>=media?'var(--good)':'var(--bad)';
+  const esperaTxt=c[4]!=null?`${c[4]} días`:'sin dato';
+  document.getElementById('pcards').innerHTML=`
+    <div class="pc" data-say="${name}: gasto sanitario ${E(c[1])} por habitante, ${rankTxt(name)}"><div class="k">Sanidad / habitante</div><div class="v">${E(c[1])}</div><div class="d">media España 1.906 €</div><div class="r" style="color:${difCol}">${rankTxt(name)}</div></div>
+    <div class="pc" data-say="${name}: espera para operarse ${esperaTxt}"><div class="k">Espera para operar</div><div class="v">${esperaTxt}</div><div class="d">media 121 días</div></div>
+    <div class="pc" data-say="${name}: comprar casa cuesta ${c[3]} años de sueldo"><div class="k">Comprar casa</div><div class="v">${c[3].toLocaleString('es-ES')} <span style="font-size:14px;color:var(--ink-2)">años</span></div><div class="d">de tu sueldo íntegro</div></div>`;
+}
+sel.addEventListener('change',()=>showCCAA(sel.value));
+sel.value="Andalucía"; showCCAA("Andalucía");
+
+/* ---- Locutor ---- */
+(function(){
+const LINES=[
+  "¿Dónde rinde más tu dinero? Depende de tu comunidad.",
+  "Pagas casi los mismos impuestos vivas donde vivas, pero son las comunidades las que gestionan la sanidad y la educación.",
+  "En sanidad, el País Vasco gasta dos mil trescientos treinta y dos euros por habitante; Andalucía, mil seiscientos cincuenta y ocho: seiscientos setenta y cuatro euros menos por cabeza.",
+  "Y eso se nota en las listas de espera.",
+  "Para operarte, en Galicia esperas de media setenta y tres días; en Andalucía, ciento setenta y tres, la peor de España. La media nacional es ciento veintiuno.",
+  "La vivienda dispara aún más las diferencias: en Baleares una casa cuesta más de veinte años de sueldo; en Extremadura, menos de cinco.",
+  "Pero hay una trampa importante.",
+  "El País Vasco y Navarra recaudan sus propios impuestos, con el régimen foral, así que disponen de más dinero por habitante que el resto.",
+  "Las otras quince comunidades dependen del sistema de financiación autonómica, muy criticado por desigual y sin reformar desde dos mil nueve.",
+  "Y ojo: más gasto no siempre significa mejor servicio. Extremadura gasta mucho y aun así tiene listas largas, por su población dispersa y envejecida.",
+  "Elige tu comunidad arriba para ver tus números, y activa el dedo para que te narre cada dato."
+];
+const SAYSEL='.card,.pc,.chartcard,.big,.lead,.picker';
+const ttsOK='speechSynthesis'in window; let i=0,playing=false,voice=null,inter=false,last=null;
+const play=document.getElementById('locplay'),mode=document.getElementById('locmode');
+function pick(){const vs=speechSynthesis.getVoices();voice=vs.find(v=>/alvaro/i.test(v.name))||vs.find(v=>/es[-_]ES/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang))||null;}
+if(ttsOK){pick();speechSynthesis.onvoiceschanged=pick;}
+function speak(n){if(n>=LINES.length){stop();return;}i=n;const u=new SpeechSynthesisUtterance(LINES[n]);u.lang='es-ES';if(voice)u.voice=voice;u.onend=()=>{if(playing)speak(n+1)};u.onerror=()=>{if(playing)speak(n+1)};speechSynthesis.speak(u);}
+function start(){if(!ttsOK)return;speechSynthesis.cancel();playing=true;play.textContent='⏸';play.classList.add('playing');play.title='Pausar';speak(i);}
+function stop(){playing=false;if(ttsOK)speechSynthesis.cancel();i=0;play.textContent='🔊';play.classList.remove('playing');play.title='Escuchar';}
+function pause(){playing=false;if(ttsOK)speechSynthesis.cancel();play.textContent='▶';play.classList.remove('playing');play.title='Reanudar';}
+play.onclick=()=>{playing?pause():start();};
+function sayText(t){if(!ttsOK||!t)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='es-ES';u.rate=1.03;if(voice)u.voice=voice;speechSynthesis.speak(u);}
+function clean(el){return (el.getAttribute('data-say')||el.textContent||'').replace(/\s+/g,' ').trim().slice(0,320);}
+document.addEventListener('mouseover',e=>{if(!inter||playing)return;const el=e.target.closest(SAYSEL);if(el&&el!==last){last=el;sayText(clean(el));}});
+document.addEventListener('mouseout',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el&&el===last&&!el.contains(e.relatedTarget))last=null;});
+document.addEventListener('click',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el&&el.tagName!=='SELECT'&&el.tagName!=='OPTION'){if(playing)pause();sayText(clean(el));}});
+mode.onclick=()=>{inter=!inter;document.body.classList.toggle('imode',inter);mode.classList.toggle('on',inter);mode.title=inter?'Narración al pasar el ratón: ACTIVADA':'Narrar al pasar el ratón';if(inter&&playing)pause();if(!inter&&ttsOK)speechSynthesis.cancel();};
+window.addEventListener('beforeunload',()=>{if(ttsOK)speechSynthesis.cancel();});
+})();
+</script>
+</body>
+</html>
