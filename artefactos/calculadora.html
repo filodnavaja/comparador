@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>¿A dónde va TU dinero?</title>
+<meta name="description" content="Calculadora: mete tu sueldo y descubre cuánto pagas en cotizaciones e IRPF y cómo se reparte tu dinero entre pensiones, sanidad, educación, deuda y más.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --bg:#121233; --panel:rgba(255,255,255,.055); --panel-2:rgba(255,255,255,.10); --ink:#f4f2ff; --ink-2:#c6c0ea; --muted:#8e88b8;
+    --line:rgba(255,255,255,.12); --line-2:rgba(255,255,255,.22);
+    --accent:#FBBF24; --good:#22C55E; --bad:#F43F5E;
+    --c-pens:#3B82F6; --c-san:#0D9488; --c-edu:#16A34A; --c-econ:#FB923C; --c-deu:#A78BFA;
+    --c-ord:#38BDF8; --c-def:#EF4444; --c-adm:#8e88b8; --c-otros:#D946AF;
+    --f-disp:"Fraunces",Georgia,serif; --f-body:"IBM Plex Sans",system-ui,sans-serif; color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+    font-variant-numeric:tabular-nums;
+    background:radial-gradient(90% 60% at 85% -5%,rgba(217,70,175,.22),transparent 60%),
+      radial-gradient(80% 55% at 0% 0%,rgba(59,130,246,.22),transparent 55%),
+      linear-gradient(160deg,#1c1746,#121233 55%,#0c1030);background-attachment:fixed;min-height:100%}
+  html,body{min-height:100%}
+  .wrap{max-width:820px;margin:0 auto;padding-inline:16px;padding-block:0}
+  h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(30px,6vw,50px);line-height:1.05;margin:0;
+    background:linear-gradient(92deg,#fff 10%,#ffd98a 55%,#ff9bdf 95%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  h2{font-family:var(--f-disp);font-weight:700;font-size:clamp(21px,4vw,28px);margin:30px 0 8px;color:#fff}
+  header{padding-block:34px 4px}
+  .eyebrow{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#120d07;font-weight:700;
+    background:linear-gradient(90deg,var(--accent),#fb923c);padding:5px 12px;border-radius:999px;margin-bottom:14px}
+  .sub{font-size:clamp(16px,2.4vw,19px);color:var(--ink-2);max-width:60ch;margin-top:12px}
+  p{margin:0 0 .8em} .lead{font-size:16.5px;color:var(--ink-2);max-width:64ch} b,strong{color:#fff}
+
+  .inpcard{background:var(--panel);border:1px solid var(--line-2);border-radius:18px;padding:18px;margin:14px 0 6px;box-shadow:0 10px 30px rgba(0,0,0,.28)}
+  .inpcard .q{font-weight:700;color:#fff;font-size:16px;margin-bottom:12px}
+  .inprow{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  input[type=number]{font-family:var(--f-disp);font-weight:700;font-size:28px;background:rgba(0,0,0,.25);border:1px solid var(--line-2);
+    color:#fff;border-radius:12px;padding:8px 12px;width:180px}
+  .per{font-size:13px;color:var(--muted)}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:999px;margin-top:16px;
+    background:linear-gradient(90deg,var(--accent),#fb923c) no-repeat;background-size:30% 100%;cursor:pointer}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:#fff;border:3px solid var(--accent);cursor:pointer}
+  input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:#fff;border:3px solid var(--accent);cursor:pointer}
+  .chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+  .chip{border:1px solid var(--line-2);background:rgba(255,255,255,.06);color:var(--ink-2);font-family:inherit;font-weight:700;
+    font-size:13px;padding:6px 12px;border-radius:999px;cursor:pointer}
+  .chip:hover{color:#fff}
+
+  .rcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:14px 0}
+  .rcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:15px 16px}
+  .rcard .k{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  .rcard .v{font-family:var(--f-disp);font-weight:700;font-size:28px;color:#fff;margin:6px 0 2px;line-height:1.05}
+  .rcard .d{font-size:13px;color:var(--ink-2)}
+  .rcard.net{border-left:4px solid var(--good)} .rcard.pay{border-left:4px solid var(--bad)}
+
+  .alloc{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;margin:8px 0}
+  .arow{display:grid;grid-template-columns:150px 1fr 128px;gap:12px;align-items:center;margin-bottom:10px}
+  .arow:last-child{margin-bottom:0}
+  .arow .al{font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px}
+  .arow .dot{width:12px;height:12px;border-radius:3px;flex:0 0 auto}
+  .arow .bar{height:22px;border-radius:6px;min-width:3px}
+  .arow .av{font-size:13.5px;font-weight:700;color:#fff;text-align:right}
+  .arow .av small{display:block;font-weight:500;color:var(--muted);font-size:11.5px}
+  @media(max-width:560px){.arow{grid-template-columns:118px 1fr 92px;gap:9px}.arow .al{font-size:12.5px}}
+
+  .big{background:linear-gradient(145deg,rgba(251,191,36,.16),rgba(251,146,60,.08));border:1px solid rgba(251,191,36,.35);border-radius:18px;padding:18px;margin:16px 0}
+  .big .q{font-family:var(--f-disp);font-weight:700;font-size:20px;color:#fff;margin-bottom:6px}
+  details{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin:12px 0;overflow:hidden}
+  summary{cursor:pointer;padding:14px 16px;font-weight:700;color:#fff;list-style:none}
+  summary::-webkit-details-marker{display:none}
+  .dbody{padding:0 16px 16px;color:var(--ink-2);font-size:14px} .dbody li{margin-bottom:.4em} .dbody b{color:#fff}
+  footer{padding:24px 0 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:22px}
+
+  .loc{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:12px;z-index:60;display:flex;align-items:center;gap:8px}
+  .loc .lbl{font-size:12px;font-weight:700;color:var(--ink-2);background:rgba(10,8,30,.6);border:1px solid var(--line);border-radius:999px;padding:6px 11px}
+  .locbtn{width:48px;height:48px;border-radius:50%;border:1px solid rgba(0,0,0,.15);cursor:pointer;font-size:19px;background:linear-gradient(92deg,var(--accent),#fb923c);color:#120d07;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+  .locbtn.playing{background:#f43f5e;color:#fff}
+  .locbtn.sec{background:rgba(255,255,255,.12);color:#fff;border:1px solid var(--line-2);width:44px;height:44px;font-size:17px}
+  .locbtn.sec.on{background:#22C55E;color:#06210f;border-color:transparent}
+  body.imode .rcard,body.imode .arow,body.imode .big,body.imode .lead,body.imode .inpcard{cursor:pointer}
+  body.imode .rcard:hover,body.imode .arow:hover{outline:2px solid var(--accent);outline-offset:2px}
+  @media(max-width:520px){ .loc .lbl{display:none} }
+</style>
+</head>
+<body>
+<div class="loc"><span class="lbl">Escúchalo</span><button class="locbtn sec" id="locmode" title="Narrar al pasar el ratón" aria-label="Narración interactiva">👆</button><button class="locbtn" id="locplay" title="Escuchar" aria-label="Escuchar">🔊</button></div>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">España · Calculadora</span>
+    <h1>¿A dónde va TU dinero?</h1>
+    <p class="sub">Mete tu sueldo y descubre cuánto pagas de verdad (cotizaciones + IRPF) y cómo se reparte ese dinero entre pensiones, sanidad, educación, deuda y lo demás.</p>
+  </header>
+
+  <div class="inpcard">
+    <div class="q">Tu sueldo bruto anual</div>
+    <div class="inprow">
+      <input type="number" id="num" min="8000" max="200000" step="500" value="30000"> <span class="per">€ brutos / año</span>
+    </div>
+    <input type="range" id="rng" min="12000" max="120000" step="500" value="30000">
+    <div class="chips">
+      <button class="chip" data-v="18000">18.000</button>
+      <button class="chip" data-v="24000">24.000</button>
+      <button class="chip" data-v="30000">30.000</button>
+      <button class="chip" data-v="45000">45.000</button>
+      <button class="chip" data-v="70000">70.000</button>
+    </div>
+    <p class="per" style="margin-top:12px">Estimación para soltero/a sin hijos (14 pagas). No incluye IVA ni otros impuestos indirectos.</p>
+  </div>
+
+  <div class="rcards" id="rcards"></div>
+
+  <h2>A dónde va lo que pagas</h2>
+  <p class="lead" id="allocLead"></p>
+  <div class="alloc" id="alloc"></div>
+  <div class="big" id="bigbox"></div>
+
+  <details><summary>Cómo se calcula (y sus límites)</summary><div class="dbody">
+    <ul>
+      <li><b>Cotizaciones a la Seguridad Social:</b> ~6,48% de tu bruto (con tope en la base máxima). Las paga el trabajador; la empresa paga aparte ~30% más.</li>
+      <li><b>IRPF:</b> tramos estatales + autonómicos de referencia (19% → 47%), con mínimo personal y reducción por trabajo. Es una <b>estimación</b>: tu caso real varía según comunidad, hijos, deducciones, etc.</li>
+      <li><b>Reparto "a dónde va":</b> se aplica a lo que pagas la distribución del <b>gasto público total</b> por funciones (pensiones, sanidad, educación, deuda…). Es una aproximación: tus cotizaciones van sobre todo a la Seguridad Social (pensiones y paro) y tu IRPF al presupuesto general.</li>
+      <li>Objetivo: dar una idea clara y honesta, no una liquidación fiscal exacta.</li>
+    </ul>
+  </div></details>
+
+  <footer>Cálculo orientativo con la normativa de referencia 2024–2025 (tipos de cotización, tramos de IRPF) y el reparto funcional del gasto público (COFOG/PGE). Octubre de 2026.</footer>
+</div>
+
+<script>
+const E=n=>Math.round(n).toLocaleString('es-ES')+' €';
+const num=document.getElementById('num'), rng=document.getElementById('rng');
+
+// --- fiscalidad ---
+const SS_RATE=0.0648, SS_CAP=58908;
+const BR=[[0,.19],[12450,.24],[20200,.30],[35200,.37],[60000,.45],[300000,.47]];
+function tramo(b){let t=0;for(let i=0;i<BR.length;i++){const f=BR[i][0],to=i+1<BR.length?BR[i+1][0]:Infinity;if(b>f)t+=(Math.min(b,to)-f)*BR[i][1];}return t;}
+function redTrabajo(g){if(g<=14852)return 7302;if(g<19747.5)return 7302-1.75*(g-14852);return 0;}
+function calc(bruto){
+  const ss=Math.min(bruto,SS_CAP)*SS_RATE;
+  const base=Math.max(0,bruto-ss-2000-redTrabajo(bruto));
+  const irpf=Math.max(0,tramo(base)-tramo(5550));
+  const neto=bruto-ss-irpf;
+  const share=Math.max(0.55,Math.min(0.95,1.05-bruto/120000)); // cuánto del neto se consume
+  const consumo=neto*share;
+  const indirectos=consumo*0.12; // IVA + impuestos especiales (efectivo aprox.)
+  const pagasDir=ss+irpf, pagas=ss+irpf+indirectos;
+  const empresa=Math.min(bruto,SS_CAP)*0.305;
+  return {ss,irpf,neto,indirectos,consumo,pagasDir,pagas,empresa};
+}
+// reparto del gasto público (% del total, aprox COFOG)
+const BUCKETS=[["Pensiones y prestaciones",39,'--c-pens'],["Sanidad",15,'--c-san'],["Educación",10,'--c-edu'],
+  ["Infraestructuras y economía",12,'--c-econ'],["Intereses de la deuda",6,'--c-deu'],
+  ["Orden público y justicia",5,'--c-ord'],["Defensa",3,'--c-def'],["Administración",7,'--c-adm'],["Cultura, vivienda y otros",3,'--c-otros']];
+
+let lastSay=new WeakMap();
+function render(bruto){
+  const r=calc(bruto), pct=r.pagas/bruto*100;
+  const rc=document.getElementById('rcards');
+  const cards=[
+    ['net','Te queda (neto)',E(r.neto),`${E(r.neto/12)} al mes`],
+    ['pay','Pagas al Estado (total)',E(r.pagas),`el ${pct.toFixed(1).replace('.',',')}% de tu bruto · directos + IVA`],
+    ['','Cotizaciones',E(r.ss),'a la Seguridad Social'],
+    ['','IRPF',E(r.irpf),'a Hacienda'],
+    ['','IVA e indirectos',E(r.indirectos),'al consumir (estimación)'],
+    ['','Cuestas a la empresa',E(bruto+r.empresa),`${E(r.empresa)} de SS patronal`],
+  ];
+  rc.innerHTML=cards.map(c=>`<div class="rcard ${c[0]}" data-say="${c[1]}: ${c[2]}, ${c[3]}">
+     <div class="k">${c[1]}</div><div class="v">${c[2]}</div><div class="d">${c[3]}</div></div>`).join('');
+  document.getElementById('allocLead').innerHTML=`De los <b>${E(r.pagas)}</b> que pagas al año (unos <b>${E(r.pagas/12)}/mes</b>), esto es lo que, de media, financia cada cosa:`;
+  const max=Math.max(...BUCKETS.map(b=>b[1]));
+  document.getElementById('alloc').innerHTML=BUCKETS.map(b=>{
+    const anual=r.pagas*b[1]/100, mes=anual/12, col=`var(${b[2]})`;
+    return `<div class="arow" data-say="${b[0]}: ${E(anual)} al año, ${E(mes)} al mes, el ${b[1]}% de lo que pagas">
+      <div class="al"><span class="dot" style="background:${col}"></span>${b[0]}</div>
+      <div class="bar" style="width:${(b[1]/max*100).toFixed(1)}%;background:${col}"></div>
+      <div class="av">${E(anual)}<small>${E(mes)}/mes · ${b[1]}%</small></div></div>`;
+  }).join('');
+  const pens=r.pagas*0.39, san=r.pagas*0.15;
+  document.getElementById('bigbox').innerHTML=`<div class="q">De tu bolsillo, ${E(pens/12)} al mes van a pensiones y ${E(san/12)} a sanidad.</div>
+    <p style="margin:0 0 .6em;color:var(--ink-2)">La mayor parte de lo que pagas sostiene a quien ya está jubilado y la sanidad de todos. Lo que llega a educación, o a defensa, es mucho menor de lo que suele pensarse.</p>
+    <p style="margin:0;color:#fff;font-weight:700">En 40 años de vida laboral habrás pagado al Estado ≈ ${E(r.pagas*40)} <span style="color:var(--ink-2);font-weight:500">(a tu nivel actual, sin contar la inflación).</span></p>`;
+}
+function setVal(v){ v=Math.max(8000,Math.min(200000,v||0)); num.value=v; rng.value=Math.max(12000,Math.min(120000,v));
+  const p=(Math.max(12000,Math.min(120000,v))-12000)/(120000-12000)*100; rng.style.backgroundSize=p+'% 100%'; render(v); }
+num.addEventListener('input',()=>setVal(+num.value));
+rng.addEventListener('input',()=>setVal(+rng.value));
+document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>setVal(+c.dataset.v));
+setVal(30000);
+
+/* ---- Locutor: lectura + narración interactiva ---- */
+(function(){
+const LINES=[
+  "Esta calculadora te dice a dónde va tu dinero.",
+  "Mete tu sueldo bruto anual con la barra o escribiéndolo, y verás al instante cuánto pagas de verdad.",
+  "Primero, lo que te queda limpio al año y al mes.",
+  "Luego, lo que pagas: la suma de tus cotizaciones a la Seguridad Social y tu IRPF.",
+  "Verás también lo que le cuestas a tu empresa, porque ella paga otro treinta por ciento de cotizaciones por encima de tu sueldo.",
+  "Y además sumamos el IVA y los impuestos indirectos que pagas al gastar, para ver el total real que le entregas al Estado.",
+  "Al final te decimos cuánto habrás pagado en toda tu vida laboral: la cifra impresiona.",
+  "Y lo más interesante: a dónde va ese dinero.",
+  "De media, casi cuarenta de cada cien euros que pagas van a pensiones y prestaciones.",
+  "Quince, a sanidad; diez, a educación; y solo tres a defensa.",
+  "Seis euros de cada cien se van en pagar los intereses de la deuda.",
+  "Es una estimación orientativa, no una liquidación exacta; tu caso real depende de tu comunidad, hijos y deducciones.",
+  "Activa el botón del dedo y pasa el ratón por cada cifra para que te la lea."
+];
+const SAYSEL='.rcard,.arow,.big,.lead,.inpcard';
+const ttsOK='speechSynthesis'in window; let i=0,playing=false,voice=null,inter=false,last=null;
+const play=document.getElementById('locplay'),mode=document.getElementById('locmode');
+function pick(){const vs=speechSynthesis.getVoices();voice=vs.find(v=>/alvaro/i.test(v.name))||vs.find(v=>/es[-_]ES/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang))||null;}
+if(ttsOK){pick();speechSynthesis.onvoiceschanged=pick;}
+function speak(n){if(n>=LINES.length){stop();return;}i=n;const u=new SpeechSynthesisUtterance(LINES[n]);u.lang='es-ES';if(voice)u.voice=voice;u.onend=()=>{if(playing)speak(n+1)};u.onerror=()=>{if(playing)speak(n+1)};speechSynthesis.speak(u);}
+function start(){if(!ttsOK)return;speechSynthesis.cancel();playing=true;play.textContent='⏸';play.classList.add('playing');play.title='Pausar';speak(i);}
+function stop(){playing=false;if(ttsOK)speechSynthesis.cancel();i=0;play.textContent='🔊';play.classList.remove('playing');play.title='Escuchar';}
+function pause(){playing=false;if(ttsOK)speechSynthesis.cancel();play.textContent='▶';play.classList.remove('playing');play.title='Reanudar';}
+play.onclick=()=>{playing?pause():start();};
+function sayText(t){if(!ttsOK||!t)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='es-ES';u.rate=1.03;if(voice)u.voice=voice;speechSynthesis.speak(u);}
+function clean(el){return (el.getAttribute('data-say')||el.textContent||'').replace(/\s+/g,' ').trim().slice(0,320);}
+document.addEventListener('mouseover',e=>{if(!inter||playing)return;const el=e.target.closest(SAYSEL);if(el&&el!==last){last=el;sayText(clean(el));}});
+document.addEventListener('mouseout',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el&&el===last&&!el.contains(e.relatedTarget))last=null;});
+document.addEventListener('click',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el){if(playing)pause();sayText(clean(el));}});
+mode.onclick=()=>{inter=!inter;document.body.classList.toggle('imode',inter);mode.classList.toggle('on',inter);mode.title=inter?'Narración al pasar el ratón: ACTIVADA':'Narrar al pasar el ratón';if(inter&&playing)pause();if(!inter&&ttsOK)speechSynthesis.cancel();};
+window.addEventListener('beforeunload',()=>{if(ttsOK)speechSynthesis.cancel();});
+})();
+</script>
+</body>
+</html>
