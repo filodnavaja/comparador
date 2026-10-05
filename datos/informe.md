@@ -29,3 +29,12 @@ El síntoma es real (pagas y los servicios no mejoran), pero la causa no es "vag
 
 ## Fuentes
 OCDE/Eurostat (presión fiscal), Banco de España/Hacienda (déficit y deuda), OCDE Health at a Glance 2024, Ageing Report 2024, AIReF, Fedea, INE.
+
+## 6. Por qué no llegas a fin de mes (vivienda y salarios)
+- Un sueldo de 150.000 ptas en 2000 = 901 €/mes ≈ 1.580 € de hoy. Una pareja con 2×1.200 = 2.400 € ingresa MÁS dinero real que entonces.
+- Salario real 1994→2024: solo +2,7% (OCDE +30,8%); vs 2008 aún −4,6%. Productividad +8,7% (2009–19) con salarios planos → desacople.
+- Cesta de la compra +63% y ocio +52% (1994–2024): lo esencial subió ~20× más que el sueldo.
+- Vivienda: comprar = 7,5 años de sueldo (2023), el DOBLE que en 1999 (~4). Alquiler ≈ 47% del salario bruto (sano: 30%); quintil bajo ~43%.
+- Matiz: aquella familia de 6 con un sueldo vivía "a duras penas", con mucho menos consumo, y ya tenía casa barata. No vivían mejor; el techo no se comía su sueldo.
+- Conclusión: no ganáis menos que vuestros padres; es que la vivienda se disparó, el sueldo lleva 30 años parado y la economía creció sin repartirse hacia los salarios.
+Fuentes: INE/idealista (vivienda), Banco de España (esfuerzo alquiler), OCDE y El Blog Salmón (salario real).
