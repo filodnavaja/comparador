@@ -18,3 +18,4 @@ Norma del proyecto: todo artefacto nuevo se guarda aquí automáticamente (HTML 
 | calculadora.html | Calculadora «¿a dónde va TU dinero?» (impuestos directos + IVA, reparto y total de vida laboral) | calculadora.md |
 | okupacion.html | Okupación: datos y guía legal para propietarios (Ley 1/2025) | okupacion.md |
 | comunidades.html | ¿Dónde rinde más tu dinero? Comparativa por CCAA (sanidad/hab, listas de espera, vivienda) + selector | comunidades.md |
+| europa.html | España vs Europa (impuestos, salarios, paro, sanidad, vivienda, esperanza de vida) | europa.md |

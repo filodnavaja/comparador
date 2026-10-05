@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>España vs Europa</title>
+<meta name="description" content="España frente a la media de la UE: impuestos, salarios, paro, sanidad y vivienda. Qué pagamos y qué recibimos comparado con nuestros vecinos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --bg:#121233; --panel:rgba(255,255,255,.055); --panel-2:rgba(255,255,255,.10); --ink:#f4f2ff; --ink-2:#c6c0ea; --muted:#8e88b8;
+    --line:rgba(255,255,255,.12); --line-2:rgba(255,255,255,.22);
+    --accent:#FBBF24; --good:#22C55E; --bad:#F43F5E; --esp:#FBBF24; --ue:#3B82F6;
+    --f-disp:"Fraunces",Georgia,serif; --f-body:"IBM Plex Sans",system-ui,sans-serif; color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+    font-variant-numeric:tabular-nums;
+    background:radial-gradient(90% 60% at 85% -5%,rgba(59,130,246,.22),transparent 60%),
+      radial-gradient(80% 55% at 0% 0%,rgba(251,191,36,.16),transparent 55%),
+      linear-gradient(160deg,#1c1746,#121233 55%,#0c1030);background-attachment:fixed;min-height:100%}
+  html,body{min-height:100%}
+  .wrap{max-width:840px;margin:0 auto;padding-inline:16px;padding-block:0}
+  h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(30px,6vw,52px);line-height:1.05;margin:0;
+    background:linear-gradient(92deg,#fff 10%,#ffd98a 50%,#9dc0ff 95%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  h2{font-family:var(--f-disp);font-weight:700;font-size:clamp(21px,4vw,29px);margin:32px 0 8px;color:#fff}
+  header{padding-block:34px 4px}
+  .eyebrow{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#120d07;font-weight:700;
+    background:linear-gradient(90deg,var(--accent),#fb923c);padding:5px 12px;border-radius:999px;margin-bottom:14px}
+  .sub{font-size:clamp(16px,2.4vw,19px);color:var(--ink-2);max-width:62ch;margin-top:12px}
+  p{margin:0 0 .8em} .lead{font-size:16.5px;color:var(--ink-2);max-width:64ch} b,strong{color:#fff}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:16px 0 6px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .card .k{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  .card .v{font-family:var(--f-disp);font-weight:700;font-size:27px;color:#fff;margin:6px 0 2px;line-height:1.05}
+  .card .d{font-size:13px;color:var(--ink-2)}
+  .card.bad{border-left:4px solid var(--bad)} .card.good{border-left:4px solid var(--good)}
+
+  .vs{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;margin:12px 0}
+  .vsrow{margin-bottom:17px} .vsrow:last-child{margin-bottom:0}
+  .vslab{display:flex;justify-content:space-between;align-items:center;font-size:14px;margin-bottom:8px;gap:8px}
+  .vslab b{color:#fff} .verdict{font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px}
+  .verdict.worse{background:rgba(244,63,94,.18);color:#fda4af} .verdict.better{background:rgba(34,197,94,.18);color:#86efac} .verdict.neu{background:rgba(142,136,184,.2);color:#c6c0ea}
+  .barline{position:relative;height:15px;border-radius:999px;margin-bottom:6px;background:rgba(255,255,255,.07)}
+  .barline i{position:absolute;left:0;top:0;height:100%;border-radius:999px}
+  .barline .tag{position:absolute;top:-2px;font-size:11.5px;font-weight:700;color:#fff}
+  .esp i{background:linear-gradient(90deg,#FBBF24,#fb923c)} .ue i{background:linear-gradient(90deg,#3B82F6,#60a5fa)}
+  .lg{display:flex;gap:16px;font-size:12.5px;color:var(--ink-2);margin-top:4px} .lg i{width:12px;height:12px;border-radius:3px;display:inline-block;margin-right:6px;vertical-align:-1px}
+
+  .big{background:linear-gradient(145deg,rgba(251,191,36,.16),rgba(59,130,246,.10));border:1px solid rgba(251,191,36,.35);border-radius:18px;padding:18px;margin:16px 0}
+  .big .q{font-family:var(--f-disp);font-weight:700;font-size:21px;color:#fff;margin-bottom:6px}
+  details{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin:12px 0;overflow:hidden}
+  summary{cursor:pointer;padding:14px 16px;font-weight:700;color:#fff;list-style:none} summary::-webkit-details-marker{display:none}
+  .dbody{padding:0 16px 16px;color:var(--ink-2);font-size:14px} .dbody b{color:#fff} .dbody li{margin-bottom:.4em}
+  .src{font-size:12.5px;color:var(--muted);margin-top:4px}
+  footer{padding:24px 0 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:22px}
+
+  .loc{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:12px;z-index:60;display:flex;align-items:center;gap:8px}
+  .loc .lbl{font-size:12px;font-weight:700;color:var(--ink-2);background:rgba(10,8,30,.6);border:1px solid var(--line);border-radius:999px;padding:6px 11px}
+  .locbtn{width:48px;height:48px;border-radius:50%;border:1px solid rgba(0,0,0,.15);cursor:pointer;font-size:19px;background:linear-gradient(92deg,var(--accent),#fb923c);color:#120d07;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+  .locbtn.playing{background:#f43f5e;color:#fff}
+  .locbtn.sec{background:rgba(255,255,255,.12);color:#fff;border:1px solid var(--line-2);width:44px;height:44px;font-size:17px}
+  .locbtn.sec.on{background:#22C55E;color:#06210f;border-color:transparent}
+  body.imode .card,body.imode .vsrow,body.imode .big,body.imode .lead{cursor:pointer}
+  body.imode .card:hover,body.imode .vsrow:hover{outline:2px solid var(--accent);outline-offset:2px}
+  @media(max-width:520px){ .loc .lbl{display:none} }
+</style>
+</head>
+<body>
+<div class="loc"><span class="lbl">Escúchalo</span><button class="locbtn sec" id="locmode" title="Narrar al pasar el ratón" aria-label="Narración interactiva">👆</button><button class="locbtn" id="locplay" title="Escuchar" aria-label="Escuchar">🔊</button></div>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">España · frente a la media de la UE</span>
+    <h1>España vs Europa</h1>
+    <p class="sub">La pregunta del millón: comparados con nuestros vecinos, <b>¿qué pagamos y qué recibimos?</b> Spoiler: pagamos algo menos de impuestos… pero también cobramos menos y recibimos menos.</p>
+  </header>
+
+  <div class="cards">
+    <div class="card bad"><div class="k">Paro</div><div class="v">10,5% <span style="font-size:15px;color:var(--ink-2)">vs 6%</span></div><div class="d">el más alto de la UE; casi el doble que la media</div></div>
+    <div class="card bad"><div class="k">Salario medio</div><div class="v">−14% <span style="font-size:15px;color:var(--ink-2)">vs UE</span></div><div class="d">≈32.600 € vs ≈37.900 € al año</div></div>
+    <div class="card bad"><div class="k">Sanidad / habitante</div><div class="v">−20% <span style="font-size:15px;color:var(--ink-2)">vs UE</span></div><div class="d">3.137 € vs 3.832 €</div></div>
+    <div class="card good"><div class="k">Esperanza de vida</div><div class="v">83,1 <span style="font-size:15px;color:var(--ink-2)">vs 81,4</span></div><div class="d">de las más altas de Europa 🏆</div></div>
+  </div>
+
+  <h2>Cara a cara: España vs media de la UE</h2>
+  <p class="lead">Cada barra, a su escala. En amarillo España; en azul la media europea. El sello dice quién sale mejor parado.</p>
+  <div class="vs" id="vs"></div>
+  <div class="lg"><span><i style="background:linear-gradient(90deg,#FBBF24,#fb923c)"></i>España</span><span><i style="background:linear-gradient(90deg,#3B82F6,#60a5fa)"></i>Media UE</span></div>
+
+  <h2>La conclusión</h2>
+  <div class="big">
+    <div class="q">No somos un infierno fiscal… pero tampoco un paraíso de servicios.</div>
+    <p style="margin:0;color:var(--ink-2)">Pagamos <b>algo menos de impuestos</b> que la media europea, sí. Pero partimos de <b>salarios más bajos</b>, <b>el doble de paro</b>, <b>menos gasto sanitario por persona</b> y <b>una cuarta parte de la vivienda pública</b>. La sensación de "pago y no me llega" encaja: en el conjunto, España recibe <b>menos de lo que recibe un europeo medio</b>, partiendo de una base más débil. Lo que sí ganamos, y no es poco, es en <b>esperanza de vida y clima</b>.</p>
+  </div>
+
+  <details><summary>Matices honestos</summary><div class="dbody">
+    <ul>
+      <li><b>La presión fiscal no reparte igual:</b> el asalariado español soporta proporcionalmente más (cotizaciones) que otras bases; por eso "pagar menos de media" no se nota en tu nómina.</li>
+      <li><b>España tiene puntos fuertes:</b> esperanza de vida de las más altas del mundo, buena sanidad en resultados (no solo gasto), seguridad y coste de vida menor que el norte de Europa.</li>
+      <li><b>Economía sumergida alta</b> (~16–20% del PIB): parte de la recaudación "que falta" está ahí.</li>
+      <li>Comparar medias esconde diferencias enormes dentro de la UE (no es igual Alemania que Bulgaria) y dentro de España (por comunidades).</li>
+    </ul>
+    <p class="src">Fuentes: Eurostat, OCDE, Adecco, Housing Europe, INE. Cifras 2024–2025, órdenes de magnitud.</p>
+  </div></details>
+
+  <footer>Síntesis divulgativa a partir de Eurostat, OCDE, INE, Adecco y Housing Europe. Octubre de 2026.</footer>
+</div>
+
+<script>
+// [etiqueta, España, UE, formato, mejorEsMenor(bool|null=neutral)]
+const E0=v=>Math.round(v).toLocaleString('es-ES')+' €';
+const ROWS=[
+  ["Paro (%)",10.5,6.0,v=>v.toLocaleString('es-ES')+'%',true],
+  ["Salario medio bruto (€/año)",32600,37900,E0,false],
+  ["Sanidad pública por habitante (€)",3137,3832,E0,false],
+  ["Vivienda pública (% del parque)",2.5,9.3,v=>v.toLocaleString('es-ES')+'%',false],
+  ["Presión fiscal (% del PIB)",37.3,40.4,v=>v.toLocaleString('es-ES')+'%',null],
+  ["Esperanza de vida (años)",83.1,81.4,v=>v.toLocaleString('es-ES'),false],
+];
+function verdict(esp,ue,low){ if(low===null) return ['neu','menos']; const better = low? esp<ue : esp>ue; return better?['better','mejor que la UE']:['worse','peor que la UE']; }
+document.getElementById('vs').innerHTML=ROWS.map(r=>{
+  const max=Math.max(r[1],r[2]); const [cls,txt]=verdict(r[1],r[2],r[4]);
+  const we=r[1]/max*100, wu=r[2]/max*100;
+  return `<div class="vsrow" data-say="${r[0]}: España ${r[3](r[1])}, media europea ${r[3](r[2])}. España ${txt}.">
+    <div class="vslab"><b>${r[0]}</b><span class="verdict ${cls}">España ${txt}</span></div>
+    <div class="barline esp"><i style="width:${we}%"></i><span class="tag" style="${we>70?'right:8px':'left:calc('+we+'% + 8px)'}">España ${r[3](r[1])}</span></div>
+    <div class="barline ue"><i style="width:${wu}%"></i><span class="tag" style="${wu>70?'right:8px':'left:calc('+wu+'% + 8px)'}">UE ${r[3](r[2])}</span></div>
+  </div>`;
+}).join('');
+
+(function(){
+const LINES=[
+  "España frente a Europa: ¿qué pagamos y qué recibimos?",
+  "Empecemos por lo que sorprende: España no es un infierno fiscal. Recaudamos alrededor del treinta y siete por ciento del PIB, por debajo de la media europea, que ronda el cuarenta.",
+  "Pero esa es casi la única buena noticia en la comparación.",
+  "El paro español es el más alto de la Unión Europea: diez coma cinco por ciento, frente al seis por ciento de media. Casi el doble.",
+  "El salario medio también es más bajo: unos treinta y dos mil seiscientos euros al año, frente a casi treinta y ocho mil de media europea. Un catorce por ciento menos.",
+  "En sanidad gastamos un veinte por ciento menos por habitante: tres mil ciento treinta y siete euros, frente a tres mil ochocientos treinta y dos.",
+  "Y en vivienda pública estamos a la cola: apenas el dos y medio por ciento del parque, frente al nueve por ciento europeo. En Países Bajos es el treinta por ciento.",
+  "Así que la sensación de pagar y no recibir encaja: en conjunto, España recibe menos que un europeo medio, y parte de una base más débil.",
+  "Pero seamos justos: hay algo que ganamos, y no es poco.",
+  "La esperanza de vida en España es de las más altas de Europa y del mundo: ochenta y tres años, por encima de la media europea.",
+  "También tenemos más seguridad, mejor clima y un coste de vida menor que el norte de Europa.",
+  "La conclusión: ni infierno fiscal, ni paraíso de servicios. Pagamos algo menos, pero cobramos menos y recibimos menos, partiendo de salarios más bajos y más paro.",
+  "Activa el dedo para que te narre cada comparación al pasar el ratón."
+];
+const SAYSEL='.card,.vsrow,.big,.lead';
+const ttsOK='speechSynthesis'in window; let i=0,playing=false,voice=null,inter=false,last=null,wd=null,hov=null;
+const play=document.getElementById('locplay'),mode=document.getElementById('locmode');
+function pick(){if(!ttsOK)return;const vs=speechSynthesis.getVoices();voice=vs.find(v=>/alvaro/i.test(v.name))||vs.find(v=>/es[-_]ES/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang))||null;}
+if(ttsOK){pick();speechSynthesis.onvoiceschanged=pick;}
+function keepAlive(){clearInterval(wd);wd=setInterval(()=>{if(!playing){clearInterval(wd);return;}try{if(speechSynthesis.speaking&&!speechSynthesis.paused)speechSynthesis.resume();}catch(e){}},9000);}
+function speak(n){if(n>=LINES.length){stop();return;}i=n;const u=new SpeechSynthesisUtterance(LINES[n]);u.lang='es-ES';u.rate=1;if(voice)u.voice=voice;
+  let adv=false;const go=()=>{if(adv)return;adv=true;if(playing)speak(n+1);};u.onend=go;u.onerror=go;
+  const est=Math.max(2600,LINES[n].length*85);setTimeout(()=>{if(playing&&!adv&&!speechSynthesis.speaking)go();},est+1600);
+  try{speechSynthesis.speak(u);}catch(e){go();}}
+function start(){if(!ttsOK)return;try{speechSynthesis.cancel();}catch(e){}playing=true;play.textContent='⏸';play.classList.add('playing');play.title='Pausar';keepAlive();setTimeout(()=>speak(i),130);}
+function stop(){playing=false;clearInterval(wd);if(ttsOK)try{speechSynthesis.cancel();}catch(e){}i=0;play.textContent='🔊';play.classList.remove('playing');play.title='Escuchar';}
+function pause(){playing=false;clearInterval(wd);if(ttsOK)try{speechSynthesis.cancel();}catch(e){}play.textContent='▶';play.classList.remove('playing');play.title='Reanudar';}
+play.onclick=()=>{playing?pause():start();};
+let wd2=null;function keepAlive2(){clearInterval(wd2);wd2=setInterval(()=>{try{if(speechSynthesis.speaking&&!speechSynthesis.paused)speechSynthesis.resume();else clearInterval(wd2);}catch(e){}},9000);}
+function sayText(t){if(!ttsOK||!t)return;try{speechSynthesis.cancel();}catch(e){}const u=new SpeechSynthesisUtterance(t);u.lang='es-ES';u.rate=1.03;if(voice)u.voice=voice;keepAlive2();speechSynthesis.speak(u);}
+function clean(el){return (el.getAttribute('data-say')||el.textContent||'').replace(/\s+/g,' ').trim().slice(0,320);}
+document.addEventListener('mouseover',e=>{if(!inter||playing)return;const el=e.target.closest(SAYSEL);if(el&&el!==last){last=el;clearTimeout(hov);hov=setTimeout(()=>sayText(clean(el)),320);}});
+document.addEventListener('mouseout',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el&&el===last&&!el.contains(e.relatedTarget))last=null;});
+document.addEventListener('click',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el){if(playing)pause();clearTimeout(hov);sayText(clean(el));}});
+mode.onclick=()=>{inter=!inter;document.body.classList.toggle('imode',inter);mode.classList.toggle('on',inter);mode.title=inter?'Narración al pasar el ratón: ACTIVADA':'Narrar al pasar el ratón';if(inter&&playing)pause();if(!inter&&ttsOK)try{speechSynthesis.cancel();}catch(e){}};
+window.addEventListener('beforeunload',()=>{if(ttsOK)try{speechSynthesis.cancel();}catch(e){}});
+})();
+</script>
+</body>
+</html>
