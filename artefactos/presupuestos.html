@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Presupuestos del Estado · 25 años</title>
+<meta name="description" content="Comparador visual de los Presupuestos Generales del Estado español (2000–2026): en qué se invierte más y en qué menos, con botón para ver porcentaje o millones de euros.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  /* Tema único vivo: fondo índigo profundo + acentos saturados. Diseño deliberadamente monotema. */
+  :root{
+    --bg1:#1c1746; --bg2:#121233; --bg3:#0c1030;
+    --ink:#f4f2ff; --ink-2:#c3bde6; --muted:#8e88b8;
+    --panel:rgba(255,255,255,.055); --panel-2:rgba(255,255,255,.09); --line:rgba(255,255,255,.12); --line-2:rgba(255,255,255,.22);
+    --c-pens:#3B82F6; --c-def:#EF4444; --c-san:#0D9488; --c-edu:#16A34A; --c-igl:#D946AF;
+    --c-idi:#D97706; --c-infra:#FB923C; --c-deuda:#A78BFA; --c-desem:#FBBF24; --c-otros:#8b8ab0;
+    --good:#22C55E; --warn:#F59E0B; --crit:#F43F5E; --accent:#FBBF24;
+    --f-disp:"Fraunces",Georgia,serif; --f-body:"IBM Plex Sans",system-ui,sans-serif;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;
+    -webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;
+    background:
+      radial-gradient(90% 60% at 85% -5%, rgba(217,70,175,.22), transparent 60%),
+      radial-gradient(80% 55% at 0% 0%, rgba(59,130,246,.22), transparent 55%),
+      linear-gradient(160deg, var(--bg1), var(--bg2) 55%, var(--bg3));
+    background-attachment:fixed;min-height:100%}
+  html,body{min-height:100%}
+  .wrap{max-width:960px;margin:0 auto;padding-inline:16px;padding-block:0}
+  h1,h2,h3{font-family:var(--f-disp);font-weight:700;line-height:1.08;text-wrap:balance;margin:0}
+  p{margin:0 0 .8em}
+
+  header.hero{padding-block:36px 10px}
+  .eyebrow{display:inline-block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#0c1030;font-weight:700;
+    background:linear-gradient(90deg,var(--accent),#fb923c);padding:5px 12px;border-radius:999px;margin-bottom:14px}
+  h1{font-size:clamp(32px,6.5vw,56px);letter-spacing:-.015em;
+    background:linear-gradient(92deg,#fff 10%,#ffd98a 55%,#ff9bdf 95%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{font-size:clamp(16px,2.4vw,20px);color:var(--ink-2);max-width:60ch;margin-top:14px}
+  .themebtn{display:none}
+
+  .warn{display:flex;gap:12px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);
+    border-radius:14px;padding:14px 16px;margin:16px 0 6px;font-size:14.5px;color:var(--ink-2)}
+  .warn .ic{font-size:20px;line-height:1}
+  .warn b{color:var(--ink)}
+
+  nav.tabs{position:sticky;top:0;z-index:30;display:flex;gap:7px;overflow-x:auto;padding:12px 0;scrollbar-width:none;
+    background:linear-gradient(180deg,var(--bg2),rgba(18,18,51,.6) 70%,transparent)}
+  nav.tabs::-webkit-scrollbar{display:none}
+  .tab{flex:0 0 auto;border:1px solid var(--line-2);background:var(--panel);color:var(--ink-2);font-family:inherit;
+    font-size:14.5px;font-weight:700;padding:9px 16px;border-radius:999px;cursor:pointer;white-space:nowrap;transition:.15s}
+  .tab:hover{background:var(--panel-2);color:var(--ink)}
+  .tab[aria-selected="true"]{background:linear-gradient(92deg,var(--accent),#fb923c);color:#120d07;border-color:transparent;
+    box-shadow:0 6px 20px rgba(251,146,60,.35)}
+
+  section.panel{padding-block:20px 10px}
+  .lead{font-size:17px;color:var(--ink-2);max-width:64ch;margin-bottom:18px}
+  .lead b,.hl{color:#fff;font-weight:700}
+
+  /* tarjetas destacadas de color */
+  .hero-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:13px;margin:0 0 22px}
+  .hcard{border-radius:18px;padding:18px 17px;position:relative;overflow:hidden;color:#fff;
+    box-shadow:0 12px 34px rgba(0,0,0,.33);border:1px solid rgba(255,255,255,.14)}
+  .hcard .k{font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;opacity:.92}
+  .hcard .v{font-family:var(--f-disp);font-weight:700;font-size:40px;line-height:1;margin:8px 0 2px;letter-spacing:-.01em}
+  .hcard .v small{font-size:16px;font-weight:600;opacity:.9}
+  .hcard .d{font-size:13px;opacity:.95;line-height:1.35}
+  .hcard .spark{position:absolute;right:-6px;bottom:-6px;font-size:66px;opacity:.16;line-height:1}
+  .b-pens{background:linear-gradient(145deg,#3B82F6,#1e51c9)}
+  .b-def{background:linear-gradient(145deg,#EF4444,#b4241f)}
+  .b-up{background:linear-gradient(145deg,#16A34A,#0b7a39)}
+  .b-warn{background:linear-gradient(145deg,#D97706,#a85a05)}
+  .b-igl{background:linear-gradient(145deg,#D946AF,#a01f82)}
+  .b-slate{background:linear-gradient(145deg,#5b6b8c,#3c4761)}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px 16px 12px;margin-bottom:18px;
+    box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .charttop{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:2px 2px 12px}
+  .charttop h3{font-size:19px;color:#fff} .charttop .unit{font-size:13px;color:var(--muted)}
+  .chartbox{position:relative}
+  svg.chart{display:block;width:100%;height:auto;overflow:visible}
+
+  .toggle{display:inline-flex;background:rgba(0,0,0,.25);border:1px solid var(--line-2);border-radius:999px;padding:3px}
+  .toggle button{border:0;background:none;color:var(--ink-2);font-family:inherit;font-size:13.5px;font-weight:700;
+    padding:6px 14px;border-radius:999px;cursor:pointer}
+  .toggle button[aria-pressed="true"]{background:var(--accent);color:#120d07}
+
+  .selector{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
+  .selector button{border:1px solid var(--line-2);background:var(--panel);color:var(--ink-2);font-family:inherit;
+    font-size:13.5px;font-weight:700;padding:8px 14px;border-radius:999px;cursor:pointer}
+  .selector button[aria-pressed="true"]{color:#120d07;border-color:transparent}
+
+  .legend{display:flex;flex-wrap:wrap;gap:15px;padding:10px 4px 2px;font-size:13px;color:var(--ink-2)}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .sw{width:14px;height:14px;border-radius:4px;display:inline-block}
+
+  .tip{position:absolute;pointer-events:none;background:#0b0a1f;color:#fff;border:1px solid var(--line-2);border-radius:10px;
+    padding:9px 12px;font-size:12.5px;line-height:1.45;box-shadow:0 10px 30px rgba(0,0,0,.5);opacity:0;transition:opacity .08s;z-index:5;min-width:120px}
+  .tip .ty{font-weight:700;margin-bottom:3px;font-family:var(--f-disp)}
+
+  details{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden}
+  summary{cursor:pointer;padding:14px 16px;font-weight:700;font-size:15.5px;list-style:none;display:flex;justify-content:space-between;gap:10px;align-items:center;color:#fff}
+  summary::-webkit-details-marker{display:none}
+  summary .chev{color:var(--accent);transition:transform .2s;font-size:13px}
+  details[open] summary .chev{transform:rotate(90deg)}
+  .dbody{padding:0 16px 16px;color:var(--ink-2);font-size:15px}
+  .dbody ul{margin:.2em 0 .6em;padding-left:1.1em} .dbody li{margin-bottom:.4em} .dbody b{color:#fff}
+  .src{font-size:12.5px;color:var(--muted);margin-top:6px}
+
+  /* comparativa año a año */
+  .cmp-h{font-family:var(--f-disp);font-weight:700;font-size:18px;color:#fff;margin:4px 2px 12px}
+  .deltas{display:flex;flex-direction:column;gap:9px;margin-bottom:16px}
+  .drow{display:grid;grid-template-columns:104px 118px 62px 1fr;align-items:center;gap:12px;
+    background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--muted);border-radius:12px;padding:11px 14px}
+  .drow.up{border-left-color:var(--good)} .drow.down{border-left-color:var(--crit)}
+  .drow.total{background:var(--panel-2);border-width:1px 1px 1px 4px}
+  .drow .dy{font-weight:700;color:var(--ink-2);font-size:13.5px}
+  .drow .dv{font-family:var(--f-disp);font-weight:700;font-size:20px}
+  .drow.up .dv{color:var(--good)} .drow.down .dv{color:var(--crit)}
+  .drow .dp{font-weight:700;font-size:13.5px;color:var(--ink-2)}
+  .drow .dtxt{font-size:13.5px;color:var(--ink-2)} .drow .dtxt b{color:#fff}
+  @media (max-width:560px){ .drow{grid-template-columns:1fr auto;row-gap:4px} .drow .dtxt{grid-column:1/-1} }
+  footer{padding:26px 0 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:22px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <span class="eyebrow">España · Presupuestos del Estado · 2000–2026</span>
+    <h1>¿En qué invierte el Estado?</h1>
+    <p class="sub">25 años de Presupuestos Generales, partida a partida: qué se dispara, qué se recorta y cuánto cuesta cada cosa. Cambia entre <b>% y millones de €</b> con un botón.</p>
+  </header>
+
+  <div class="warn"><span class="ic">⚠️</span><div><b>Ojo:</b> el Presupuesto del Estado no es todo el gasto público. La <b>sanidad y la educación las pagan las Comunidades Autónomas</b>; el Estado les manda el dinero vía financiación autonómica, por eso salen pequeñas aquí. Además, 2024–2026 van con el <b>presupuesto prorrogado de 2023</b>.</div></div>
+
+  <nav class="tabs" id="tabs" role="tablist">
+    <button class="tab" role="tab" data-tab="general" aria-selected="true">💶 Visión general</button>
+    <button class="tab" role="tab" data-tab="crece">📈 Crece vs. cae</button>
+    <button class="tab" role="tab" data-tab="partidas">🔍 Partida a partida</button>
+    <button class="tab" role="tab" data-tab="met">📋 Metodología</button>
+  </nav>
+
+  <div id="content"></div>
+
+  <footer>Fuentes: Ministerio de Hacienda (PGE), Seguridad Social, AIReF, Ministerio de Defensa, Ministerio de Igualdad, Fedea y prensa económica. Series mixtas (PGE del Estado, sistema de Seguridad Social y, donde se indica, todas las administraciones): órdenes de magnitud. Revisión: octubre de 2026.</footer>
+</div>
+
+<script>
+const cv=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const fmtE=v=> Math.abs(v)>=1000 ? (v/1000).toLocaleString('es-ES',{maximumFractionDigits:1})+' MM€' : Math.round(v).toLocaleString('es-ES')+' M€';
+const fmtPct=v=>v.toLocaleString('es-ES')+'%';
+const sign=v=>(v>0?'+':'');
+
+const TOTAL23=485986; // M€ PGE consolidado 2023
+// [nombre, %, color]
+const COMPO=[
+  ['Pensiones (Seguridad Social)',39.2,'--c-pens'],
+  ['Financiación CCAA/EELL y otras',38.8,'--c-otros'],
+  ['Intereses de la deuda',6.4,'--c-deuda'],
+  ['Desempleo y empleo',4.4,'--c-desem'],
+  ['I+D+i (incluye préstamos)',3.4,'--c-idi'],
+  ['Defensa',2.6,'--c-def'],
+  ['Infraestructuras',2.6,'--c-infra'],
+  ['Sanidad (aporta el Estado)',1.4,'--c-san'],
+  ['Educación (aporta el Estado)',1.1,'--c-edu'],
+  ['Igualdad',0.12,'--c-igl'],
+];
+const INFL=32;
+// [nombre, %var, €delta(M€), ventana]
+const GROWTH=[
+  ['Defensa',168,14633,'media 2010–20 → 2025'],
+  ['Igualdad',217,392,'2020 → 2023 · ministerio nuevo'],
+  ['Educación (Estado)',91,2554,'2010 → 2023 · aprox.'],
+  ['I+D+i',81,7328,'2010 → 2023'],
+  ['Pensiones (sistema)',79,88000,'2010 → 2025'],
+  ['Sanidad (Estado)',76,3049,'2010 → 2023 · aprox.'],
+  ['Intereses de deuda',35,9000,'2010 → 2025'],
+  ['Desempleo',-30,-9000,'2010 → 2023'],
+  ['Inversión en infraestructuras',-33,-7886,'2009 → 2025 · real ≈ −60%'],
+];
+const PART={
+  pensiones:{t:'Pensiones (Seguridad Social + Clases Pasivas)',c:'--c-pens',unit:'gasto anual',emoji:'👵',
+    pts:[[2000,56000],[2010,112000],[2015,131000],[2020,163000],[2023,190000],[2025,200000]],
+    tiles:[['2000','≈56.000 M€','🔵 ~8% del PIB'],['2010','112.000 M€','10,1% del PIB'],['2023','190.000 M€','12,9% del PIB'],['2025','≈200.000 M€','la mayor partida']],
+    note:'La partida que más crece y la que más condiciona el Presupuesto: 4 de cada 10 euros. El sistema necesita transferencias del Estado (≈57.000 M€ en 2025) para cuadrar. La revalorización con el IPC explica buena parte de la subida.'},
+  defensa:{t:'Defensa (gasto total, criterio amplio)',c:'--c-def',unit:'gasto anual',emoji:'🪖',
+    pts:[[2000,5868],[2010,8700],[2014,9508],[2020,9500],[2024,19723],[2025,23333]],
+    tiles:[['2000','5.868 M€','🔵 política de Defensa'],['2014','9.508 M€','mínimo tras la crisis'],['2024','19.723 M€','+107% desde 2014'],['2025','23.333 M€','récord · +46,5%']],
+    note:'La que más se dispara ahora, por el compromiso con la OTAN de llegar al 2% del PIB (hacia 2029). La cifra amplia incluye programas de I+D e industria de defensa de varios ministerios, por eso supera la “política de Defensa” del PGE (~12–14.000 M€).'},
+  sanidad:{t:'Sanidad que aporta el ESTADO (no las CCAA)',c:'--c-san',unit:'PGE central',emoji:'🏥',
+    pts:[[2015,4000],[2022,6606],[2023,7049]],
+    tiles:[['2023 (Estado)','7.049 M€','política del PGE'],['Realidad','≈90.000 M€','lo pagan las CCAA'],['Total país','9,5% PIB','público + privado'],['Diferencia','×13','real vs PGE']],
+    note:'AVISO: estos 7.000 M€ son solo lo que pone el Estado central. La sanidad pública real (hospitales, centros de salud) la pagan las Comunidades Autónomas: unos 90.000 M€. Ver Metodología.'},
+  educacion:{t:'Educación que aporta el ESTADO (no las CCAA)',c:'--c-edu',unit:'PGE central',emoji:'🎓',
+    pts:[[2015,2600],[2022,4164],[2023,5354]],
+    tiles:[['2023 (Estado)','5.354 M€','sobre todo becas'],['Realidad','≈60.000 M€','lo pagan las CCAA'],['Total país','4,5% PIB','todas las admin.'],['Diferencia','×11','real vs PGE']],
+    note:'Igual que en sanidad: el Estado central financia becas y universidades/políticas estatales; la enseñanza la pagan las CCAA. Por eso la cifra del PGE es una fracción del gasto educativo real (~60.000 M€).'},
+  igualdad:{t:'Ministerio de Igualdad',c:'--c-igl',unit:'presupuesto del ministerio',emoji:'⚖️',
+    pts:[[2020,181],[2021,451],[2022,525],[2023,573],[2025,502]],
+    tiles:[['2020','181 M€','primer año'],['2023','573 M€','máximo (×3)'],['V. de género','≈180 M€','Pacto de Estado'],['En el PGE','0,12%','partida pequeña']],
+    note:'Nace en 2020 y triplica su presupuesto hasta 2023. Buena parte va a las CCAA para el Pacto de Estado contra la violencia de género (~180 M€). Sobre el total del PGE es una partida muy pequeña.'},
+  idi:{t:'I+D+i (investigación, desarrollo e innovación)',c:'--c-idi',unit:'PGE',emoji:'🔬',
+    pts:[[2010,9000],[2018,7000],[2022,13300],[2023,16328]],
+    tiles:[['2018','7.000 M€','mínimo'],['2023','16.328 M€','+22,8%'],['Impulso','Fondos UE','Next Generation'],['Matiz','préstamos','parte no se ejecuta']],
+    note:'Fuerte subida reciente por los fondos europeos Next Generation. Matiz honesto: parte importante son préstamos que no siempre se ejecutan, así que el gasto efectivo es menor.'},
+  infra:{t:'Inversión en infraestructuras de transporte',c:'--c-infra',unit:'inversión',emoji:'🛣️',
+    pts:[[2009,24000],[2018,6700],[2023,12635],[2025,16114]],
+    tiles:[['2009','24.000 M€','pico (AVE)'],['2018','6.700 M€','−72%'],['2025','16.114 M€','recuperación'],['Real','−60%','vs 2009']],
+    note:'La partida más cíclica. Se hundió con la crisis y se recupera despacio; en términos reales sigue un 60% por debajo del pico de 2009. Las prórrogas frenan la inversión, lo más fácil de recortar.'},
+  deuda:{t:'Intereses de la deuda pública',c:'--c-deuda',unit:'intereses anuales',emoji:'🏦',
+    pts:[[2010,23000],[2014,35000],[2020,25000],[2023,31000],[2025,32000]],
+    tiles:[['2014','35.000 M€','pico de crisis'],['2020','25.000 M€','tipos bajos'],['2025','≈32.000 M€','vuelve a subir'],['Peso','6,4%','del PGE 2023']],
+    note:'Lo que cuesta pagar los intereses de la deuda. Bajó con tipos a cero, pero vuelve a subir con la deuda acumulada y la subida de tipos. Dinero que no va a servicios públicos.'},
+  desempleo:{t:'Desempleo y fomento del empleo',c:'--c-desem',unit:'prestaciones',emoji:'💼',
+    pts:[[2010,30000],[2013,31000],[2019,18000],[2023,21000]],
+    tiles:[['2013','31.000 M€','pico de paro'],['2019','18.000 M€','baja el paro'],['2023','≈21.000 M€','4,4% del PGE'],['Tendencia','↓','menos que antes']],
+    note:'Muy sensible al paro: se disparó en la crisis (2010–2013) y bajó con la recuperación del empleo. De las pocas grandes partidas que hoy pesa menos que hace 15 años.'},
+};
+const PART_ORDER=[['pensiones','👵 Pensiones'],['defensa','🪖 Defensa'],['sanidad','🏥 Sanidad'],['educacion','🎓 Educación'],['igualdad','⚖️ Igualdad'],['idi','🔬 I+D+i'],['infra','🛣️ Infraestructuras'],['deuda','🏦 Deuda'],['desempleo','💼 Desempleo']];
+
+/* ---------- gráficos ---------- */
+const tooltip=box=>{let t=box.querySelector('.tip');if(!t){t=document.createElement('div');t.className='tip';box.appendChild(t);}return t;};
+
+function hbars(wrap, rows, unit){ // rows:[name,pct,colorvar]; unit:'pct'|'eur'
+  const W=760,rh=38,mT=6,mB=6,mL=238,mR=104,H=mT+mB+rows.length*rh;
+  const valOf=r=> unit==='pct'? r[1] : Math.round(TOTAL23*r[1]/100);
+  const max=Math.max(...rows.map(valOf));
+  const X=v=>mL+(v/max)*(W-mL-mR);
+  const fmt=v=> unit==='pct'? fmtPct(v):fmtE(v);
+  let g='';
+  rows.forEach((r,i)=>{const y=mT+i*rh+rh/2, val=valOf(r), col=cv(r[2]);
+    g+=`<text x="${mL-10}" y="${y+4}" text-anchor="end" font-size="12.5" fill="${cv('--ink-2')}">${r[0]}</text>`;
+    const bw=Math.max(3,X(val)-mL);
+    g+=`<rect class="b" data-i="${i}" x="${mL}" y="${y-10}" width="${bw}" height="20" rx="5" fill="${col}"/>`;
+    g+=`<text x="${mL+bw+9}" y="${y+4}" font-size="13" font-weight="700" fill="#fff">${fmt(val)}</text>`;});
+  wrap.innerHTML=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Reparto del PGE">${g}</svg>`;
+  const box=wrap.closest('.chartbox'),tip=tooltip(box);
+  wrap.querySelectorAll('.b').forEach(b=>{const r=rows[+b.dataset.i];
+    b.addEventListener('mousemove',e=>{tip.innerHTML=`<div class="ty">${r[0]}</div>${fmtPct(r[1])} · ${fmtE(Math.round(TOTAL23*r[1]/100))}`;tip.style.opacity='1';
+      const bx=box.getBoundingClientRect();tip.style.left=Math.min(bx.width-170,Math.max(4,e.clientX-bx.left+12))+'px';tip.style.top=(e.clientY-bx.top-10)+'px';});
+    b.addEventListener('mouseleave',()=>tip.style.opacity='0');});
+}
+
+function growthChart(wrap, rows, unit){
+  const W=760,rh=44,mT=12,mB=30,mL=210,mR=92,H=mT+mB+rows.length*rh;
+  const valOf=r=> unit==='pct'? r[1] : r[2];
+  const vals=rows.map(valOf); const min=Math.min(0,...vals),max=Math.max(...vals);
+  const pad=(max-min)*0.12; const lo=min-(min<0?pad:0), hi=max+pad;
+  const X=v=>mL+((v-lo)/(hi-lo))*(W-mL-mR); const x0=X(0);
+  const fmt=v=> unit==='pct'? (sign(v)+fmtPct(v)) : (sign(v)+fmtE(v));
+  let g='';
+  if(unit==='pct'){const xi=X(INFL);
+    g+=`<line x1="${xi}" y1="${mT}" x2="${xi}" y2="${H-mB}" stroke="${cv('--warn')}" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+    g+=`<text x="${xi}" y="${H-mB+18}" text-anchor="middle" font-size="11.5" fill="${cv('--warn')}">inflación +32%</text>`;}
+  g+=`<line x1="${x0}" y1="${mT}" x2="${x0}" y2="${H-mB}" stroke="${cv('--line-2')}" stroke-width="1.5"/>`;
+  rows.forEach((r,i)=>{const y=mT+i*rh+rh/2, v=valOf(r);
+    const col= v<0?cv('--crit') : (r[1]<INFL? cv('--warn'):cv('--good'));
+    g+=`<text x="${mL-10}" y="${y+4}" text-anchor="end" font-size="12.5" fill="${cv('--ink-2')}">${r[0]}</text>`;
+    const xv=X(v),left=Math.min(x0,xv),bw=Math.max(3,Math.abs(xv-x0));
+    g+=`<rect class="b" data-i="${i}" x="${left}" y="${y-11}" width="${bw}" height="22" rx="5" fill="${col}"/>`;
+    const lx=v>=0?xv+8:xv-8;
+    g+=`<text x="${lx}" y="${y+4}" text-anchor="${v>=0?'start':'end'}" font-size="13" font-weight="700" fill="#fff">${fmt(v)}</text>`;});
+  wrap.innerHTML=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Variación por partida">${g}</svg>`;
+  const box=wrap.closest('.chartbox'),tip=tooltip(box);
+  wrap.querySelectorAll('.b').forEach(b=>{const r=rows[+b.dataset.i];
+    b.addEventListener('mousemove',e=>{tip.innerHTML=`<div class="ty">${r[0]}</div>${sign(r[1])+fmtPct(r[1])} · ${sign(r[2])+fmtE(r[2])}<br><span style="opacity:.7">${r[3]}</span>`;tip.style.opacity='1';
+      const bx=box.getBoundingClientRect();tip.style.left=Math.min(bx.width-180,Math.max(4,e.clientX-bx.left+12))+'px';tip.style.top=(e.clientY-bx.top-10)+'px';});
+    b.addEventListener('mouseleave',()=>tip.style.opacity='0');});
+}
+
+function lineChart(wrap, pts, colVar){
+  const W=760,H=340,mL=66,mR=74,mT=18,mB=38; const col=cv(colVar);
+  const xs=pts.map(p=>p[0]),ys=pts.map(p=>p[1]); const xmin=Math.min(...xs),xmax=Math.max(...xs); let ymax=Math.max(...ys)*1.12;
+  const X=x=>mL+(x-xmin)/(xmax-xmin)*(W-mL-mR),Y=y=>H-mB-(y/ymax)*(H-mT-mB);
+  let g=`<defs><linearGradient id="fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${col}" stop-opacity=".35"/><stop offset="1" stop-color="${col}" stop-opacity="0"/></linearGradient></defs>`;
+  for(let i=0;i<=4;i++){const val=ymax*i/4,yy=Y(val);
+    g+=`<line x1="${mL}" y1="${yy}" x2="${W-mR}" y2="${yy}" stroke="${cv('--line')}"/>`;
+    g+=`<text x="${mL-8}" y="${yy+4}" text-anchor="end" font-size="12" fill="${cv('--muted')}">${fmtE(val)}</text>`;}
+  xs.forEach(x=>{g+=`<text x="${X(x)}" y="${H-mB+20}" text-anchor="middle" font-size="12" fill="${cv('--muted')}">${x}</text>`;});
+  const line=pts.map((p,i)=>`${i?'L':'M'}${X(p[0]).toFixed(1)} ${Y(p[1]).toFixed(1)}`).join(' ');
+  g+=`<path d="${line} L ${X(xmax)} ${H-mB} L ${X(xmin)} ${H-mB} Z" fill="url(#fill)"/>`;
+  g+=`<path d="${line}" fill="none" stroke="${col}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+  pts.forEach(p=>{g+=`<circle class="pt" data-x="${p[0]}" data-y="${p[1]}" cx="${X(p[0])}" cy="${Y(p[1])}" r="4.5" fill="${cv('--bg2')}" stroke="${col}" stroke-width="2.5"/>`;});
+  const last=pts[pts.length-1];
+  g+=`<text x="${X(last[0])+9}" y="${Y(last[1])+4}" font-size="13" font-weight="700" fill="#fff">${fmtE(last[1])}</text>`;
+  wrap.innerHTML=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img">${g}</svg>`;
+  const box=wrap.closest('.chartbox'),tip=tooltip(box);
+  wrap.querySelectorAll('.pt').forEach(c=>{c.addEventListener('mousemove',e=>{tip.innerHTML=`<div class="ty">${c.dataset.x}</div>${fmtE(+c.dataset.y)}`;tip.style.opacity='1';
+      const bx=box.getBoundingClientRect();tip.style.left=Math.min(bx.width-130,Math.max(4,e.clientX-bx.left+12))+'px';tip.style.top=(e.clientY-bx.top-10)+'px';});
+    c.addEventListener('mouseleave',()=>tip.style.opacity='0');});
+}
+
+/* ---------- render ---------- */
+const el=document.getElementById('content'),tabs=document.getElementById('tabs');
+let partSel='pensiones', uGen='pct', uCrece='pct';
+
+function renderGeneral(){
+  el.innerHTML=`<section class="panel">
+    <div class="hero-cards">
+      <div class="hcard b-pens"><div class="k">Pensiones</div><div class="v">39<small>%</small></div><div class="d">190.000 M€ · la mayor partida</div><div class="spark">👵</div></div>
+      <div class="hcard b-def"><div class="k">Defensa 2025</div><div class="v">23.333<small> M€</small></div><div class="d">récord · +46,5% en un año</div><div class="spark">🪖</div></div>
+      <div class="hcard b-slate"><div class="k">Deuda + paro</div><div class="v">11<small>%</small></div><div class="d">53.000 M€ comprometidos</div><div class="spark">🏦</div></div>
+      <div class="hcard b-warn"><div class="k">Las cuentas</div><div class="v">2023</div><div class="d">prorrogado en 2024–2026</div><div class="spark">📄</div></div>
+    </div>
+    <div class="card">
+      <div class="charttop"><div><h3>En qué se reparte el Presupuesto</h3><span class="unit">PGE consolidado 2023 · ~486.000 M€</span></div>
+        <div class="toggle" role="group" aria-label="Unidad">
+          <button data-u="pct" aria-pressed="${uGen==='pct'}">%</button>
+          <button data-u="eur" aria-pressed="${uGen==='eur'}">millones €</button></div></div>
+      <div class="chartbox"><div class="plot"></div></div>
+      <div class="src">“Financiación CCAA/EELL y otras” incluye el dinero que el Estado transfiere a las autonomías, con el que pagan la sanidad y la educación reales.</div>
+    </div>
+    <details open><summary>Lo esencial en 20 segundos<span class="chev">▸</span></summary><div class="dbody"><ul>
+      <li><b>Pensiones</b> mandan: 4 de cada 10 euros, y subiendo.</li>
+      <li><b>Defensa</b> es la que más crece ahora (objetivo OTAN del 2%).</li>
+      <li><b>Sanidad y educación</b> apenas aparecen porque las pagan las CCAA.</li>
+      <li><b>Inversión y desempleo</b> pesan menos que hace 15 años.</li>
+    </ul></div></details>
+  </section>`;
+  hbars(el.querySelector('.plot'),COMPO,uGen);
+  el.querySelectorAll('.toggle button').forEach(b=>b.onclick=()=>{uGen=b.dataset.u;renderGeneral();});
+}
+
+function renderCrece(){
+  el.innerHTML=`<section class="panel">
+    <p class="lead">La respuesta directa a <b>dónde se invierte más y dónde menos que antes</b>. La línea de la <b>inflación (+32%)</b> es el truco honesto: lo que no la supera, en realidad ha perdido poder de compra.</p>
+    <div class="card">
+      <div class="charttop"><div><h3>Variación por partida</h3><span class="unit">ventana indicada al pasar el ratón</span></div>
+        <div class="toggle" role="group" aria-label="Unidad">
+          <button data-u="pct" aria-pressed="${uCrece==='pct'}">%</button>
+          <button data-u="eur" aria-pressed="${uCrece==='eur'}">millones €</button></div></div>
+      <div class="chartbox"><div class="plot"></div></div>
+      <div class="legend">
+        <span><i class="sw" style="background:var(--good)"></i>Crece de verdad (supera inflación)</span>
+        <span><i class="sw" style="background:var(--warn)"></i>Sube, pero pierde contra la inflación</span>
+        <span><i class="sw" style="background:var(--crit)"></i>Cae</span></div>
+    </div>
+    <details open><summary>Cómo leerlo<span class="chev">▸</span></summary><div class="dbody"><ul>
+      <li><b>Más que antes (de verdad):</b> Defensa, Igualdad, I+D, Pensiones; y en el PGE central, sanidad y educación (la de las CCAA va aparte).</li>
+      <li><b>Estancado:</b> los intereses de la deuda rondan la inflación.</li>
+      <li><b>Menos que antes:</b> el desempleo y, sobre todo, la <b>inversión</b>: −60% real frente a 2009.</li>
+      <li>Pulsa <b>millones €</b> para ver cuántos euros más o menos son en cada caso.</li>
+    </ul></div></details>
+  </section>`;
+  growthChart(el.querySelector('.plot'),GROWTH,uCrece);
+  el.querySelectorAll('.toggle button').forEach(b=>b.onclick=()=>{uCrece=b.dataset.u;renderCrece();});
+}
+
+function deltaRows(pts){
+  const row=(y0,y1,d,base,total)=>{const up=d>=0,pc=Math.round(d/base*100);
+    return `<div class="drow ${up?'up':'down'}${total?' total':''}">
+      <div class="dy">${y0} → ${y1}</div>
+      <div class="dv">${up?'+':'−'}${fmtE(Math.abs(d))}</div>
+      <div class="dp">${sign(pc)}${pc}%</div>
+      <div class="dtxt">${total?'En total, de':'De'} ${y0} a ${y1} se ${up?'invirtieron':'dejaron de invertir'} <b>${fmtE(Math.abs(d))}</b> ${up?'más':'menos'}${total?'':' que en '+y0}</div></div>`;};
+  const a=pts[0],b=pts[pts.length-1];
+  let out=row(a[0],b[0],b[1]-a[1],a[1],true);
+  for(let i=1;i<pts.length;i++) out+=row(pts[i-1][0],pts[i][0],pts[i][1]-pts[i-1][1],pts[i-1][1],false);
+  return out;
+}
+
+function renderPartidas(){
+  const p=PART[partSel],col=cv(p.c);
+  el.innerHTML=`<section class="panel">
+    <div class="selector">${PART_ORDER.map(([k,n])=>`<button data-k="${k}" aria-pressed="${k===partSel}" style="${k===partSel?`background:${cv(PART[k].c)}`:''}">${n}</button>`).join('')}</div>
+    <div class="hero-cards">${p.tiles.map((t,i)=>`<div class="hcard" style="background:linear-gradient(145deg,${col},${col}cc);${i?'opacity:.96':''}"><div class="k">${t[0]}</div><div class="v" style="font-size:30px">${t[1]}</div><div class="d">${t[2]}</div></div>`).join('')}</div>
+    <div class="card">
+      <div class="charttop"><div><h3>${p.emoji} ${p.t}</h3><span class="unit">${p.unit} · millones de € por año</span></div></div>
+      <div class="chartbox"><div class="plot"></div></div>
+    </div>
+    <div class="cmp-h">📊 Comparativa año a año</div>
+    <div class="deltas">${deltaRows(p.pts)}</div>
+    <details open><summary>Qué significa<span class="chev">▸</span></summary><div class="dbody"><p>${p.note}</p></div></details>
+  </section>`;
+  lineChart(el.querySelector('.plot'),p.pts,p.c);
+  el.querySelectorAll('.selector button').forEach(b=>b.onclick=()=>{partSel=b.dataset.k;renderPartidas();});
+}
+
+function renderMet(){
+  el.innerHTML=`<section class="panel">
+    <p class="lead">De dónde salen los datos, su fiabilidad y las decisiones discutibles. Sin trampas.</p>
+    <details open><summary>“Presupuesto del Estado” ≠ “gasto público”<span class="chev">▸</span></summary><div class="dbody">
+      <p>El gasto en España está muy descentralizado. El <b>PGE</b> incluye Administración central y Seguridad Social, pero <b>no</b> el gasto propio de las CCAA, que gestionan la <b>sanidad y la educación</b> reales.</p>
+      <ul><li>En el PGE, sanidad (≈7.000 M€) y educación (≈5.000 M€) son pequeñas: solo lo que pone el Estado.</li>
+      <li>El dinero real viaja en “financiación de las CCAA”, y cada autonomía decide.</li>
+      <li>La sanidad pública real ronda los <b>90.000 M€</b> y la educación los <b>60.000 M€</b>.</li></ul></div></details>
+    <details><summary>Prórrogas: 2024–2026 = “el presupuesto de 2023”<span class="chev">▸</span></summary><div class="dbody">
+      <p>Si no se aprueban cuentas nuevas, se <b>prorroga</b> el último presupuesto (2023). Pasó en 2024, 2025 y va camino de 2026. El gasto real se ajusta por decretos y créditos extraordinarios (p. ej. el refuerzo de Defensa de 2025).</p></div></details>
+    <details><summary>Fiabilidad y decisiones<span class="chev">▸</span></summary><div class="dbody"><ul>
+      <li><b>Defensa:</b> uso el “gasto total” amplio (criterio OTAN/prensa) para 2024–2025, mayor que la “política de Defensa” del PGE (~12–14.000 M€). Lo señalo por ser objeto de debate.</li>
+      <li><b>Pensiones:</b> sistema (Seguridad Social + Clases Pasivas); 2000 es estimación.</li>
+      <li><b>I+D+i:</b> incluye préstamos que no siempre se ejecutan: el gasto efectivo es menor.</li>
+      <li><b>“Crece vs cae”:</b> euros corrientes y ventanas distintas según el dato; la línea de inflación (+32%) distingue subida real de nominal.</li>
+      <li>Cifras 🔵 y anteriores a ~2010: estimaciones; úsalas como tendencia.</li></ul></div></details>
+    <details><summary>Fuentes<span class="chev">▸</span></summary><div class="dbody"><ul>
+      <li>Ministerio de Hacienda — PGE (Libros Amarillo y Rojo).</li>
+      <li>Seguridad Social y AIReF — pensiones y ejecución.</li>
+      <li>Ministerio de Defensa / Fundación Alternativas / IEEE — defensa.</li>
+      <li>Ministerio de Igualdad — presupuesto y Pacto de Estado.</li>
+      <li>Fedea — distribución del gasto por políticas (1995–2024).</li></ul></div></details>
+  </section>`;
+}
+
+function show(tab){
+  tabs.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected',String(t.dataset.tab===tab)));
+  ({general:renderGeneral,crece:renderCrece,partidas:renderPartidas,met:renderMet}[tab])();
+  window.scrollTo({top:0,behavior:'instant'});
+}
+tabs.addEventListener('click',e=>{const b=e.target.closest('.tab');if(b)show(b.dataset.tab);});
+show('general');
+</script>
+</body>
+</html>
