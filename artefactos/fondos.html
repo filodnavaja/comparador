@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fondos europeos: ¿a dónde fueron?</title>
+<meta name="description" content="Los fondos Next Generation en España: cuánto se asignó, cuánto llegó de Bruselas y cuánto llegó de verdad a la economía. El embudo y las críticas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --bg:#121233; --panel:rgba(255,255,255,.055); --panel-2:rgba(255,255,255,.10); --ink:#f4f2ff; --ink-2:#c6c0ea; --muted:#8e88b8;
+    --line:rgba(255,255,255,.12); --line-2:rgba(255,255,255,.22);
+    --accent:#FBBF24; --good:#22C55E; --bad:#F43F5E; --warn:#FB923C; --eu:#3B82F6; --verde:#16A34A; --dig:#D946AF;
+    --f-disp:"Fraunces",Georgia,serif; --f-body:"IBM Plex Sans",system-ui,sans-serif; color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+    font-variant-numeric:tabular-nums;
+    background:radial-gradient(90% 60% at 85% -5%,rgba(59,130,246,.22),transparent 60%),
+      radial-gradient(80% 55% at 0% 0%,rgba(251,191,36,.18),transparent 55%),
+      linear-gradient(160deg,#1c1746,#121233 55%,#0c1030);background-attachment:fixed;min-height:100%}
+  html,body{min-height:100%}
+  .wrap{max-width:840px;margin:0 auto;padding-inline:16px;padding-block:0}
+  h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(29px,5.8vw,50px);line-height:1.05;margin:0;
+    background:linear-gradient(92deg,#fff 10%,#ffd98a 50%,#9dc0ff 95%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  h2{font-family:var(--f-disp);font-weight:700;font-size:clamp(21px,4vw,29px);margin:32px 0 8px;color:#fff}
+  header{padding-block:34px 4px}
+  .eyebrow{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#120d07;font-weight:700;
+    background:linear-gradient(90deg,var(--accent),#fb923c);padding:5px 12px;border-radius:999px;margin-bottom:14px}
+  .sub{font-size:clamp(16px,2.4vw,19px);color:var(--ink-2);max-width:62ch;margin-top:12px}
+  p{margin:0 0 .8em} .lead{font-size:16.5px;color:var(--ink-2);max-width:64ch} b,strong{color:#fff}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:16px 0 6px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .card .k{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  .card .v{font-family:var(--f-disp);font-weight:700;font-size:27px;color:#fff;margin:6px 0 2px;line-height:1.05}
+  .card .d{font-size:13px;color:var(--ink-2)}
+  .card.bad{border-left:4px solid var(--bad)} .card.good{border-left:4px solid var(--good)} .card.eu{border-left:4px solid var(--eu)}
+
+  .funnel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;margin:12px 0}
+  .fstep{margin-bottom:14px} .fstep:last-child{margin-bottom:0}
+  .fhead{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;margin-bottom:6px}
+  .fhead b{color:#fff;font-size:15px} .fhead .val{font-family:var(--f-disp);font-weight:700;color:#fff;font-size:17px}
+  .fbar{height:30px;border-radius:9px;background:rgba(255,255,255,.07);overflow:hidden}
+  .fbar i{display:block;height:100%;border-radius:9px}
+  .floss{font-size:12.5px;color:#fda4af;margin-top:4px}
+
+  .sectors{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;margin:12px 0}
+  .srow{display:grid;grid-template-columns:200px 1fr 50px;gap:12px;align-items:center;margin-bottom:10px}
+  .srow:last-child{margin-bottom:0}
+  .srow .sl{font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px} .srow .dot{width:12px;height:12px;border-radius:3px}
+  .srow .sbar{height:20px;border-radius:6px} .srow .sv{font-size:13.5px;font-weight:700;color:#fff;text-align:right}
+  @media(max-width:560px){.srow{grid-template-columns:140px 1fr 44px}.srow .sl{font-size:12.5px}}
+
+  .big{background:linear-gradient(145deg,rgba(251,191,36,.16),rgba(59,130,246,.10));border:1px solid rgba(251,191,36,.35);border-radius:18px;padding:18px;margin:16px 0}
+  .big .q{font-family:var(--f-disp);font-weight:700;font-size:21px;color:#fff;margin-bottom:6px}
+  details{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin:12px 0;overflow:hidden}
+  summary{cursor:pointer;padding:14px 16px;font-weight:700;color:#fff;list-style:none} summary::-webkit-details-marker{display:none}
+  .dbody{padding:0 16px 16px;color:var(--ink-2);font-size:14px} .dbody b{color:#fff} .dbody li{margin-bottom:.4em}
+  .src{font-size:12.5px;color:var(--muted);margin-top:4px}
+  footer{padding:24px 0 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:22px}
+
+  .loc{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:12px;z-index:60;display:flex;align-items:center;gap:8px}
+  .loc .lbl{font-size:12px;font-weight:700;color:var(--ink-2);background:rgba(10,8,30,.6);border:1px solid var(--line);border-radius:999px;padding:6px 11px}
+  .locbtn{width:48px;height:48px;border-radius:50%;border:1px solid rgba(0,0,0,.15);cursor:pointer;font-size:19px;background:linear-gradient(92deg,var(--accent),#fb923c);color:#120d07;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+  .locbtn.playing{background:#f43f5e;color:#fff}
+  .locbtn.sec{background:rgba(255,255,255,.12);color:#fff;border:1px solid var(--line-2);width:44px;height:44px;font-size:17px}
+  .locbtn.sec.on{background:#22C55E;color:#06210f;border-color:transparent}
+  body.imode .card,body.imode .fstep,body.imode .srow,body.imode .big,body.imode .lead{cursor:pointer}
+  body.imode .card:hover,body.imode .fstep:hover{outline:2px solid var(--accent);outline-offset:2px}
+  @media(max-width:520px){ .loc .lbl{display:none} }
+</style>
+</head>
+<body>
+<div class="loc"><span class="lbl">Escúchalo</span><button class="locbtn sec" id="locmode" title="Narrar al pasar el ratón" aria-label="Narración interactiva">👆</button><button class="locbtn" id="locplay" title="Escuchar" aria-label="Escuchar">🔊</button></div>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">España · Fondos Next Generation</span>
+    <h1>Fondos europeos: ¿a dónde fueron?</h1>
+    <p class="sub">Europa aprobó para España <b>163.000 millones</b> para transformar la economía tras la pandemia. La gran pregunta no es cuánto se aprobó, sino <b>cuánto ha llegado de verdad</b>.</p>
+  </header>
+
+  <div class="cards">
+    <div class="card eu"><div class="k">Asignado a España</div><div class="v">163.000 M€</div><div class="d">80.000 en ayudas + 83.000 en préstamos</div></div>
+    <div class="card eu"><div class="k">Recibido de Bruselas</div><div class="v">&gt;100.000 M€</div><div class="d">tras 7 desembolsos (2021–2026)</div></div>
+    <div class="card bad"><div class="k">Llegado a la economía real</div><div class="v">≈61.000 M€</div><div class="d">estimación AIReF (2026)</div></div>
+    <div class="card bad"><div class="k">Ejecución</div><div class="v">de las peores</div><div class="d">España, entre los países de la UE que menos y más tarde ejecuta</div></div>
+  </div>
+
+  <h2>1. El embudo: del papel a tu bolsillo</h2>
+  <p class="lead">Lo aprobado es mucho. Pero en cada paso se pierde fuelle: lo que Bruselas transfiere es menos, y lo que <b>llega de verdad a empresas y hogares</b> es bastante menos.</p>
+  <div class="funnel" id="funnel"></div>
+
+  <h2>2. ¿En qué se suponía que iba?</h2>
+  <p class="lead">El plan priorizaba dos grandes ejes: la <b>transición ecológica</b> y la <b>digitalización</b>. Reparto orientativo por objetivos:</p>
+  <div class="sectors" id="sectors"></div>
+  <p class="src">Más los PERTE (proyectos estratégicos): coche eléctrico, chips (semiconductores), energías renovables, agroalimentario, salud… Reparto aproximado por objetivos del plan.</p>
+
+  <h2>3. La polémica</h2>
+  <div class="big">
+    <div class="q">El dinero no falta: el problema es que llega tarde, poco y con mucha burocracia.</div>
+    <p style="margin:0;color:var(--ink-2)">Las críticas principales: <b>ejecución lenta</b> (de las peores de la UE), poco dinero llegando a las <b>pymes</b>, exceso de <b>trámites</b>, y que una parte se usó para <b>gasto corriente</b> (Bruselas cifró ~10.200 M€) en lugar de inversión transformadora. Además, los <b>83.000 M€ en préstamos</b> apenas se piden: salen a devolver, así que muchas administraciones y empresas no los usan.</p>
+  </div>
+
+  <details><summary>El matiz honesto (para no caer en el "todo es un desastre")</summary><div class="dbody">
+    <ul>
+      <li><b>Parte del retraso es por diseño:</b> el plan es plurianual y la ejecución real siempre va por detrás de lo aprobado.</li>
+      <li><b>Sí hay cosas en marcha:</b> fábricas de baterías y chips, autoconsumo solar, digitalización de pymes (Kit Digital), FP, rehabilitación de viviendas.</li>
+      <li><b>Medir es difícil:</b> "asignado", "transferido por la UE" y "llegado al beneficiario final" son cosas distintas, y las cifras bailan según qué midas.</li>
+      <li>El reto real: que la inversión deje <b>transformación duradera</b> (productividad, empleo) y no solo un pico de gasto.</li>
+    </ul>
+    <p class="src">Fuentes: Plan de Recuperación (Gobierno), AIReF, Comisión Europea, Funcas, EsadeEcPol. Cifras 2025–2026, órdenes de magnitud.</p>
+  </div></details>
+
+  <footer>Síntesis divulgativa a partir del Plan de Recuperación, AIReF, Comisión Europea, Funcas y EsadeEcPol. Octubre de 2026.</footer>
+</div>
+
+<script>
+const E=v=>v.toLocaleString('es-ES')+' M€';
+const FUNNEL=[
+  ["Asignado a España (UE)",163000,'linear-gradient(90deg,#3B82F6,#60a5fa)',null],
+  ["Transferido desde Bruselas",100000,'linear-gradient(90deg,#FBBF24,#fb923c)',"se queda por el camino ~63.000 M€ aún por recibir/pedir"],
+  ["Llegado a la economía real (aprox.)",61000,'linear-gradient(90deg,#F43F5E,#fb7185)',"del dinero recibido, buena parte aún sin llegar a empresas y hogares"],
+];
+const SECTORS=[
+  ["Transición ecológica",40,'--verde'],
+  ["Transformación digital",28,'--dig'],
+  ["Cohesión social y territorial",12,'--eu'],
+  ["Educación y Formación Profesional",10,'--accent'],
+  ["I+D+i y modernización",10,'--warn'],
+];
+const cv=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const maxF=Math.max(...FUNNEL.map(f=>f[1]));
+document.getElementById('funnel').innerHTML=FUNNEL.map(f=>`
+  <div class="fstep" data-say="${f[0]}: ${E(f[1])}${f[3]?'. '+f[3]:''}">
+    <div class="fhead"><b>${f[0]}</b><span class="val">${E(f[1])}</span></div>
+    <div class="fbar"><i style="width:${(f[1]/maxF*100).toFixed(1)}%;background:${f[2]}"></i></div>
+    ${f[3]?`<div class="floss">↳ ${f[3]}</div>`:''}
+  </div>`).join('');
+document.getElementById('sectors').innerHTML=SECTORS.map(s=>`
+  <div class="srow" data-say="${s[0]}: ${s[1]}% del plan">
+    <div class="sl"><span class="dot" style="background:var(${s[2]})"></span>${s[0]}</div>
+    <div class="sbar" style="width:${s[1]/40*100}%;background:var(${s[2]})"></div>
+    <div class="sv">${s[1]}%</div>
+  </div>`).join('');
+
+(function(){
+const LINES=[
+  "Los fondos europeos Next Generation: ¿a dónde fueron?",
+  "Tras la pandemia, Europa aprobó para España ciento sesenta y tres mil millones de euros para transformar la economía.",
+  "Ochenta mil en ayudas que no hay que devolver, y ochenta y tres mil en préstamos.",
+  "Pero la pregunta de verdad no es cuánto se aprobó, sino cuánto ha llegado.",
+  "Y aquí está el embudo.",
+  "De los ciento sesenta y tres mil asignados, Bruselas ha transferido más de cien mil, tras siete pagos.",
+  "Y de ese dinero, lo que ha llegado de verdad a empresas y hogares ronda los sesenta y un mil millones, según la autoridad fiscal independiente.",
+  "España es, de hecho, uno de los países de la Unión Europea que menos y más tarde ejecuta estos fondos.",
+  "¿En qué se suponía que iban? Sobre todo en dos ejes: la transición ecológica, un cuarenta por ciento, y la digitalización, un veintiocho.",
+  "Más los proyectos estratégicos: coche eléctrico, chips, renovables, agroalimentario y salud.",
+  "¿La polémica? El dinero no falta: el problema es que llega tarde, poco, y con mucha burocracia.",
+  "Llega poco a las pymes, hay exceso de trámites, y una parte, unos diez mil millones, se usó para gasto corriente en vez de inversión.",
+  "Además, los ochenta y tres mil millones en préstamos apenas se piden, porque hay que devolverlos.",
+  "Pero seamos justos: parte del retraso es por diseño, y sí hay cosas en marcha, como fábricas de baterías, autoconsumo solar o la digitalización de pymes.",
+  "El reto real es que todo esto deje una transformación duradera, y no solo un pico de gasto.",
+  "Activa el dedo para que te narre cada dato al pasar el ratón."
+];
+const SAYSEL='.card,.fstep,.srow,.big,.lead';
+const ttsOK='speechSynthesis'in window; let i=0,playing=false,voice=null,inter=false,last=null,wd=null,hov=null;
+const play=document.getElementById('locplay'),mode=document.getElementById('locmode');
+function pick(){if(!ttsOK)return;const vs=speechSynthesis.getVoices();voice=vs.find(v=>/alvaro/i.test(v.name))||vs.find(v=>/es[-_]ES/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang))||null;}
+if(ttsOK){pick();speechSynthesis.onvoiceschanged=pick;}
+function keepAlive(){clearInterval(wd);wd=setInterval(()=>{if(!playing){clearInterval(wd);return;}try{if(speechSynthesis.speaking&&!speechSynthesis.paused)speechSynthesis.resume();}catch(e){}},9000);}
+function speak(n){if(n>=LINES.length){stop();return;}i=n;const u=new SpeechSynthesisUtterance(LINES[n]);u.lang='es-ES';u.rate=1;if(voice)u.voice=voice;
+  let adv=false;const go=()=>{if(adv)return;adv=true;if(playing)speak(n+1);};u.onend=go;u.onerror=go;
+  const est=Math.max(2600,LINES[n].length*85);setTimeout(()=>{if(playing&&!adv&&!speechSynthesis.speaking)go();},est+1600);
+  try{speechSynthesis.speak(u);}catch(e){go();}}
+function start(){if(!ttsOK)return;try{speechSynthesis.cancel();}catch(e){}playing=true;play.textContent='⏸';play.classList.add('playing');play.title='Pausar';keepAlive();setTimeout(()=>speak(i),130);}
+function stop(){playing=false;clearInterval(wd);if(ttsOK)try{speechSynthesis.cancel();}catch(e){}i=0;play.textContent='🔊';play.classList.remove('playing');play.title='Escuchar';}
+function pause(){playing=false;clearInterval(wd);if(ttsOK)try{speechSynthesis.cancel();}catch(e){}play.textContent='▶';play.classList.remove('playing');play.title='Reanudar';}
+play.onclick=()=>{playing?pause():start();};
+let wd2=null;function keepAlive2(){clearInterval(wd2);wd2=setInterval(()=>{try{if(speechSynthesis.speaking&&!speechSynthesis.paused)speechSynthesis.resume();else clearInterval(wd2);}catch(e){}},9000);}
+function sayText(t){if(!ttsOK||!t)return;try{speechSynthesis.cancel();}catch(e){}const u=new SpeechSynthesisUtterance(t);u.lang='es-ES';u.rate=1.03;if(voice)u.voice=voice;keepAlive2();speechSynthesis.speak(u);}
+function clean(el){return (el.getAttribute('data-say')||el.textContent||'').replace(/\s+/g,' ').trim().slice(0,320);}
+document.addEventListener('mouseover',e=>{if(!inter||playing)return;const el=e.target.closest(SAYSEL);if(el&&el!==last){last=el;clearTimeout(hov);hov=setTimeout(()=>sayText(clean(el)),320);}});
+document.addEventListener('mouseout',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el&&el===last&&!el.contains(e.relatedTarget))last=null;});
+document.addEventListener('click',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el){if(playing)pause();clearTimeout(hov);sayText(clean(el));}});
+mode.onclick=()=>{inter=!inter;document.body.classList.toggle('imode',inter);mode.classList.toggle('on',inter);mode.title=inter?'Narración al pasar el ratón: ACTIVADA':'Narrar al pasar el ratón';if(inter&&playing)pause();if(!inter&&ttsOK)try{speechSynthesis.cancel();}catch(e){}};
+window.addEventListener('beforeunload',()=>{if(ttsOK)try{speechSynthesis.cancel();}catch(e){}});
+})();
+</script>
+</body>
+</html>
