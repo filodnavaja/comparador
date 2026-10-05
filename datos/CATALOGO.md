@@ -12,3 +12,5 @@
 | short.html / short-30s.html | Shorts verticales 9:16 narrados | — |
 
 Norma del proyecto: todo artefacto nuevo se guarda aquí automáticamente (HTML + .md).
+
+**Norma de locutor:** todo artefacto lleva un locutor fijo en la esquina superior derecha (botón 🔊 lee el contenido; botón 👆 activa la narración al pasar el ratón o tocar cada bloque).

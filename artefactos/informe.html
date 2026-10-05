@@ -74,6 +74,19 @@
     border-radius:18px;padding:20px;margin:16px 0}
   .big .q{font-family:var(--f-disp);font-weight:700;font-size:22px;color:#fff;margin-bottom:8px}
   .src{font-size:13px;color:var(--muted)}
+  /* Locutor fijo (norma del proyecto): esquina superior derecha */
+  .loc{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:12px;z-index:60;display:flex;align-items:center;gap:8px}
+  .loc .lbl{font-size:12px;font-weight:700;color:var(--ink-2);background:rgba(18,18,51,.8);backdrop-filter:blur(6px);
+    border:1px solid var(--line);border-radius:999px;padding:6px 11px}
+  .locbtn{width:48px;height:48px;border-radius:50%;border:1px solid rgba(0,0,0,.15);cursor:pointer;font-size:19px;
+    background:linear-gradient(92deg,var(--accent),#fb923c);color:#120d07;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+  .locbtn.playing{background:#f43f5e;color:#fff}
+  .locbtn.sec{background:var(--panel-2);color:#fff;border:1px solid var(--line-2);width:44px;height:44px;font-size:17px}
+  .locbtn.sec.on{background:#22C55E;color:#06210f;border-color:transparent}
+  body.imode .card,body.imode .vsrow,body.imode .frow,body.imode .big,body.imode .myth,body.imode .fact,body.imode h2,body.imode .lead{cursor:pointer}
+  body.imode .card:hover,body.imode .big:hover,body.imode .myth:hover,body.imode .fact:hover{outline:2px solid var(--accent);outline-offset:2px}
+  body.imode h2:hover,body.imode .lead:hover{color:#fff}
+  @media(max-width:520px){ .loc .lbl{display:none} }
   details{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin:12px 0;overflow:hidden}
   summary{cursor:pointer;padding:14px 16px;font-weight:700;color:#fff;list-style:none}
   summary::-webkit-details-marker{display:none}
@@ -83,6 +96,8 @@
 </style>
 </head>
 <body>
+<div class="loc"><span class="lbl">Escúchalo</span><button class="locbtn sec" id="locmode" title="Narrar al pasar el ratón" aria-label="Narración interactiva">👆</button><button class="locbtn" id="locplay" title="Escuchar el estudio" aria-label="Escuchar el estudio">🔊</button></div>
+
 <div class="wrap">
   <header>
     <span class="eyebrow">Estudio crítico · España</span>
@@ -205,5 +220,72 @@
 
   <footer>Estudio de síntesis a partir de datos oficiales (INE, Hacienda, AIReF, Banco de España, OCDE, Eurostat, Fedea). Es un análisis divulgativo, no un dictamen técnico; las cifras son órdenes de magnitud. Octubre de 2026.</footer>
 </div>
+
+<script>
+const LINES=[
+  "Pagas impuestos y sientes que los servicios públicos empeoran. Es una sospecha legítima, y vamos a ver qué dicen los datos.",
+  "Primero, una sorpresa: España no es un infierno fiscal.",
+  "Recaudamos alrededor del treinta y siete por ciento del PIB, por debajo de la media europea, que ronda el cuarenta.",
+  "Estamos lejísimos de Francia, con casi un cuarenta y ocho por ciento, o de Alemania, con un cuarenta y dos.",
+  "Lo que duele de verdad es que el peso recae sobre todo en el asalariado, a través de las cotizaciones.",
+  "Segundo dato: gastamos más de lo que ingresamos.",
+  "Cada año el déficit ronda los cuarenta y cinco mil millones de euros; ese agujero se tapa con deuda.",
+  "La deuda pública ya supera el cien por cien del PIB, y pagar solo sus intereses cuesta unos treinta y dos mil millones al año.",
+  "Ese dinero no compra ni un hospital ni un colegio: solo paga intereses.",
+  "Tercero: en sanidad pública gastamos un veinte por ciento menos por habitante que la media europea.",
+  "Por eso notas las listas de espera: no es casualidad, es presupuesto.",
+  "Entonces, ¿a dónde va el dinero?",
+  "De cada cien euros del Presupuesto del Estado, casi cuarenta van a pensiones.",
+  "Sumando los intereses de la deuda y el desempleo, más de la mitad está comprometido antes de decidir nada.",
+  "La sanidad y la educación que usas las pagan, en realidad, las Comunidades Autónomas, con el dinero que el Estado les transfiere.",
+  "Así que el dinero no desaparece: se va, cada vez más, a transferencias y a deuda, no a los servicios del día a día.",
+  "¿Se mantiene a demasiada gente? Con los números en la mano, la respuesta es no, al menos no como se suele decir.",
+  "El gran gasto son las pensiones contributivas, las que se han cotizado, de nueve millones y medio de pensionistas.",
+  "El gasto en desempleo, en cambio, ha bajado: de treinta y un mil millones en plena crisis a unos veintiuno hoy.",
+  "El problema no son los vagos: es el envejecimiento, cada vez más mayores con menos trabajadores.",
+  "Si las pensiones ya son el trece por ciento del PIB, ¿quién pagará el dieciséis o diecisiete por ciento de dos mil cincuenta?",
+  "El sistema ya necesita cincuenta y siete mil millones al año de ayuda del Estado para cuadrar.",
+  "Y queda una pregunta personal: ¿por qué, pagando dos sueldos, no llegáis a fin de mes?",
+  "Un dato que choca: hoy una pareja ingresa más dinero real que aquel sueldo único de hace veinte años.",
+  "El problema no es cuánto entra, sino cuánto cuesta vivir.",
+  "El salario real apenas ha subido un dos coma siete por ciento en treinta años, cuando en la OCDE subió más de un treinta.",
+  "Pero comprar una casa cuesta hoy siete años y medio de sueldo, el doble que en mil novecientos noventa y nueve, y el alquiler se lleva casi la mitad de la nómina.",
+  "Aquella familia vivía con mucho menos y ya tenía casa; por eso un sueldo bastaba, a duras penas.",
+  "Hoy trabajáis dos para pagar lo que antes pagaba uno, porque la vivienda se soltó de los salarios.",
+  "En resumen: tu instinto acierta en el síntoma, pero se equivoca en la causa.",
+  "No es que paguemos impuestos desorbitados, ni que se mantenga a vagos; es demografía, déficit crónico e ingresos por debajo de Europa.",
+  "El dinero no se evapora: se recompromete hacia pensiones y deuda, dejando los servicios por debajo de la media europea.",
+  "Los datos están sobre la mesa; el juicio, es tuyo."
+];
+const ttsOK=('speechSynthesis' in window);
+let idx=0, playing=false, voice=null, interactive=false;
+const play=document.getElementById('locplay'), mode=document.getElementById('locmode');
+function pick(){ if(!ttsOK)return; const vs=speechSynthesis.getVoices();
+  voice=vs.find(v=>/alvaro/i.test(v.name))||vs.find(v=>/es[-_]ES/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang))||null; }
+if(ttsOK){ pick(); speechSynthesis.onvoiceschanged=pick; }
+// --- lectura completa del estudio ---
+function speak(i){ if(i>=LINES.length){ stop(); return; } idx=i;
+  const u=new SpeechSynthesisUtterance(LINES[i]); u.lang='es-ES'; u.rate=1.0; if(voice)u.voice=voice;
+  u.onend=()=>{ if(playing) speak(i+1); }; u.onerror=()=>{ if(playing) speak(i+1); };
+  speechSynthesis.speak(u); }
+function start(){ if(!ttsOK){ play.title='Tu navegador no admite voz'; return; }
+  speechSynthesis.cancel(); playing=true; play.textContent='⏸'; play.classList.add('playing'); play.title='Pausar'; speak(idx); }
+function stop(){ playing=false; if(ttsOK)speechSynthesis.cancel(); idx=0; play.textContent='🔊'; play.classList.remove('playing'); play.title='Escuchar el estudio'; }
+function doPause(){ playing=false; if(ttsOK)speechSynthesis.cancel(); play.textContent='▶'; play.classList.remove('playing'); play.title='Reanudar'; }
+play.onclick=()=>{ if(playing) doPause(); else start(); };
+// --- narración interactiva: al pasar el ratón o tocar ---
+const SAYSEL='.card,.vsrow,.frow,.big,.myth,.fact,h2,.lead';
+function sayText(t){ if(!ttsOK||!t)return; speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(t);
+  u.lang='es-ES'; u.rate=1.03; if(voice)u.voice=voice; speechSynthesis.speak(u); }
+function cleanText(el){ return (el.getAttribute('data-say')||el.textContent||'').replace(/\s+/g,' ').trim(); }
+document.querySelectorAll(SAYSEL).forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ if(interactive && !playing) sayText(cleanText(el)); });
+  el.addEventListener('click',()=>{ if(interactive){ if(playing)doPause(); sayText(cleanText(el)); } });
+});
+mode.onclick=()=>{ interactive=!interactive; document.body.classList.toggle('imode',interactive);
+  mode.classList.toggle('on',interactive); mode.title=interactive?'Narración al pasar el ratón: ACTIVADA':'Narrar al pasar el ratón';
+  if(interactive && playing) doPause(); if(!interactive && ttsOK) speechSynthesis.cancel(); };
+window.addEventListener('beforeunload',()=>{ if(ttsOK)speechSynthesis.cancel(); });
+</script>
 </body>
 </html>

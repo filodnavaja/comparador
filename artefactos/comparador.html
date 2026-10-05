@@ -125,6 +125,15 @@
     border-radius:5px;padding:1px 5px;margin-left:6px;vertical-align:1px}
   .src{font-size:13px;color:var(--muted);margin-top:4px}
   .src a{color:var(--muted)}
+  .loc{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:12px;z-index:60;display:flex;align-items:center;gap:8px}
+  .loc .lbl{font-size:12px;font-weight:700;color:var(--ink-2);background:rgba(10,8,30,.6);border:1px solid var(--line);border-radius:999px;padding:6px 11px}
+  .locbtn{width:48px;height:48px;border-radius:50%;border:1px solid rgba(0,0,0,.15);cursor:pointer;font-size:19px;background:linear-gradient(92deg,var(--accent),#fb923c);color:#120d07;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+  .locbtn.playing{background:#f43f5e;color:#fff}
+  .locbtn.sec{background:rgba(255,255,255,.12);color:#fff;border:1px solid var(--line-2);width:44px;height:44px;font-size:17px}
+  .locbtn.sec.on{background:#22C55E;color:#06210f;border-color:transparent}
+  body.imode .tile,body.imode .lead,body.imode summary,body.imode .legend span{cursor:pointer}
+  body.imode .tile:hover{outline:2px solid var(--accent);outline-offset:2px}
+  @media(max-width:520px){ .loc .lbl{display:none} }
   footer{padding:30px 0 50px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:24px}
   .hl{color:var(--ink);font-weight:600}
   @media (max-width:520px){ .tile .v{font-size:25px} h1{letter-spacing:0} }
@@ -132,6 +141,7 @@
 </head>
 <body>
 <button class="themebtn" id="themebtn" aria-label="Cambiar tema">◐</button>
+<div class="loc"><span class="lbl">Escúchalo</span><button class="locbtn sec" id="locmode" title="Narrar al pasar el ratón" aria-label="Narración interactiva">👆</button><button class="locbtn" id="locplay" title="Escuchar" aria-label="Escuchar">🔊</button></div>
 
 <div class="wrap">
   <header class="hero">
@@ -515,6 +525,38 @@ tb.onclick=()=>{const n=cur()==='dark'?'light':'dark';document.documentElement.s
   const sel=tabs.querySelector('[aria-selected="true"]').dataset.tab;show(sel);};
 
 show('overview');
+</script>
+<script>
+(function(){
+const LINES=[
+  "Comparador del gasto público de España, de mil novecientos ochenta a hoy.",
+  "Todo se mide en porcentaje del PIB, para comparar de forma justa pese a la inflación y a la población.",
+  "En Educación ves cómo pasó del dos al cinco por ciento del PIB, y el peso de la enseñanza concertada.",
+  "En Sanidad, la pública frente a la privada, con el salto al ocho por ciento en la pandemia.",
+  "En Iglesia, la casilla del cero coma siete por ciento del IRPF, con cuatrocientos veintinueve millones en dos mil veinticuatro.",
+  "En Infraestructuras, el ciclo de la inversión, del pico de dos mil nueve al hundimiento posterior.",
+  "Y en Público hacia privado, el dinero público que acaba en manos privadas: conciertos, concertada y mutualidades.",
+  "Cada gráfico tiene un botón para ver porcentaje o euros corrientes.",
+  "Activa el botón del dedo y te narro cada bloque al pasar el ratón o al tocarlo."
+];
+const SAYSEL='.tile,.charttop h3,.lead,summary,.legend span';
+const ttsOK='speechSynthesis'in window; let i=0,playing=false,voice=null,inter=false,last=null;
+const play=document.getElementById('locplay'),mode=document.getElementById('locmode');
+function pick(){const vs=speechSynthesis.getVoices();voice=vs.find(v=>/alvaro/i.test(v.name))||vs.find(v=>/es[-_]ES/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang))||null;}
+if(ttsOK){pick();speechSynthesis.onvoiceschanged=pick;}
+function speak(n){if(n>=LINES.length){stop();return;}i=n;const u=new SpeechSynthesisUtterance(LINES[n]);u.lang='es-ES';if(voice)u.voice=voice;u.onend=()=>{if(playing)speak(n+1)};u.onerror=()=>{if(playing)speak(n+1)};speechSynthesis.speak(u);}
+function start(){if(!ttsOK)return;speechSynthesis.cancel();playing=true;play.textContent='⏸';play.classList.add('playing');play.title='Pausar';speak(i);}
+function stop(){playing=false;if(ttsOK)speechSynthesis.cancel();i=0;play.textContent='🔊';play.classList.remove('playing');play.title='Escuchar';}
+function pause(){playing=false;if(ttsOK)speechSynthesis.cancel();play.textContent='▶';play.classList.remove('playing');play.title='Reanudar';}
+play.onclick=()=>{playing?pause():start();};
+function sayText(t){if(!ttsOK||!t)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='es-ES';u.rate=1.03;if(voice)u.voice=voice;speechSynthesis.speak(u);}
+function clean(el){return (el.getAttribute('data-say')||el.textContent||'').replace(/\s+/g,' ').trim().slice(0,320);}
+document.addEventListener('mouseover',e=>{if(!inter||playing)return;const el=e.target.closest(SAYSEL);if(el&&el!==last){last=el;sayText(clean(el));}});
+document.addEventListener('mouseout',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el&&el===last&&!el.contains(e.relatedTarget))last=null;});
+document.addEventListener('click',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el){if(playing)pause();sayText(clean(el));}});
+mode.onclick=()=>{inter=!inter;document.body.classList.toggle('imode',inter);mode.classList.toggle('on',inter);mode.title=inter?'Narración al pasar el ratón: ACTIVADA':'Narrar al pasar el ratón';if(inter&&playing)pause();if(!inter&&ttsOK)speechSynthesis.cancel();};
+window.addEventListener('beforeunload',()=>{if(ttsOK)speechSynthesis.cancel();});
+})();
 </script>
 </body>
 </html>

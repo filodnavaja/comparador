@@ -122,10 +122,21 @@
   .drow .dp{font-weight:700;font-size:13.5px;color:var(--ink-2)}
   .drow .dtxt{font-size:13.5px;color:var(--ink-2)} .drow .dtxt b{color:#fff}
   @media (max-width:560px){ .drow{grid-template-columns:1fr auto;row-gap:4px} .drow .dtxt{grid-column:1/-1} }
+  .loc{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:12px;z-index:60;display:flex;align-items:center;gap:8px}
+  .loc .lbl{font-size:12px;font-weight:700;color:var(--ink-2);background:rgba(10,8,30,.6);border:1px solid var(--line);border-radius:999px;padding:6px 11px}
+  .locbtn{width:48px;height:48px;border-radius:50%;border:1px solid rgba(0,0,0,.15);cursor:pointer;font-size:19px;background:linear-gradient(92deg,var(--accent),#fb923c);color:#120d07;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+  .locbtn.playing{background:#f43f5e;color:#fff}
+  .locbtn.sec{background:rgba(255,255,255,.12);color:#fff;border:1px solid var(--line-2);width:44px;height:44px;font-size:17px}
+  .locbtn.sec.on{background:#22C55E;color:#06210f;border-color:transparent}
+  body.imode .tile,body.imode .hcard,body.imode .drow,body.imode .card,body.imode .lead{cursor:pointer}
+  body.imode .hcard:hover,body.imode .tile:hover,body.imode .drow:hover{outline:2px solid var(--accent);outline-offset:2px}
+  @media(max-width:520px){ .loc .lbl{display:none} }
   footer{padding:26px 0 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:22px}
 </style>
 </head>
 <body>
+<div class="loc"><span class="lbl">Escúchalo</span><button class="locbtn sec" id="locmode" title="Narrar al pasar el ratón" aria-label="Narración interactiva">👆</button><button class="locbtn" id="locplay" title="Escuchar" aria-label="Escuchar">🔊</button></div>
+
 <div class="wrap">
   <header class="hero">
     <span class="eyebrow">España · Presupuestos del Estado · 2000–2026</span>
@@ -483,6 +494,38 @@ function show(tab){
 }
 tabs.addEventListener('click',e=>{const b=e.target.closest('.tab');if(b)show(b.dataset.tab);});
 show('general');
+</script>
+<script>
+(function(){
+const LINES=[
+  "Comparador de los Presupuestos del Estado, de dos mil a dos mil veintiséis.",
+  "Ojo: el Presupuesto del Estado no es todo el gasto público; la sanidad y la educación las pagan las Comunidades Autónomas.",
+  "En la pestaña Visión general ves en qué se reparte cada cien euros: casi cuarenta van a pensiones.",
+  "En Crece contra cae descubres qué sube y qué baja, con la línea de la inflación para no engañarte.",
+  "La partida que más se dispara es Defensa; las que caen son el desempleo y la inversión.",
+  "En Partida a partida eliges pensiones, defensa, sanidad, educación, igualdad y más, con la comparativa año a año.",
+  "Y en Público hacia privado ves el dinero público que va a manos privadas: conciertos, concertada y mutualidades, unos veinte mil millones al año.",
+  "Usa el botón de porcentaje para cambiar entre porcentaje y millones de euros.",
+  "Activa el botón del dedo y te narro cada bloque al pasar el ratón o al tocarlo."
+];
+const SAYSEL='.hcard,.tile,.drow,.cmp-h,.charttop h3,.lead,.frow';
+const ttsOK='speechSynthesis'in window; let i=0,playing=false,voice=null,inter=false,last=null;
+const play=document.getElementById('locplay'),mode=document.getElementById('locmode');
+function pick(){const vs=speechSynthesis.getVoices();voice=vs.find(v=>/alvaro/i.test(v.name))||vs.find(v=>/es[-_]ES/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang))||null;}
+if(ttsOK){pick();speechSynthesis.onvoiceschanged=pick;}
+function speak(n){if(n>=LINES.length){stop();return;}i=n;const u=new SpeechSynthesisUtterance(LINES[n]);u.lang='es-ES';if(voice)u.voice=voice;u.onend=()=>{if(playing)speak(n+1)};u.onerror=()=>{if(playing)speak(n+1)};speechSynthesis.speak(u);}
+function start(){if(!ttsOK)return;speechSynthesis.cancel();playing=true;play.textContent='⏸';play.classList.add('playing');play.title='Pausar';speak(i);}
+function stop(){playing=false;if(ttsOK)speechSynthesis.cancel();i=0;play.textContent='🔊';play.classList.remove('playing');play.title='Escuchar';}
+function pause(){playing=false;if(ttsOK)speechSynthesis.cancel();play.textContent='▶';play.classList.remove('playing');play.title='Reanudar';}
+play.onclick=()=>{playing?pause():start();};
+function sayText(t){if(!ttsOK||!t)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='es-ES';u.rate=1.03;if(voice)u.voice=voice;speechSynthesis.speak(u);}
+function clean(el){return (el.getAttribute('data-say')||el.textContent||'').replace(/\s+/g,' ').trim().slice(0,320);}
+document.addEventListener('mouseover',e=>{if(!inter||playing)return;const el=e.target.closest(SAYSEL);if(el&&el!==last){last=el;sayText(clean(el));}});
+document.addEventListener('mouseout',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el&&el===last&&!el.contains(e.relatedTarget))last=null;});
+document.addEventListener('click',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el){if(playing)pause();sayText(clean(el));}});
+mode.onclick=()=>{inter=!inter;document.body.classList.toggle('imode',inter);mode.classList.toggle('on',inter);mode.title=inter?'Narración al pasar el ratón: ACTIVADA':'Narrar al pasar el ratón';if(inter&&playing)pause();if(!inter&&ttsOK)speechSynthesis.cancel();};
+window.addEventListener('beforeunload',()=>{if(ttsOK)speechSynthesis.cancel();});
+})();
 </script>
 </body>
 </html>
