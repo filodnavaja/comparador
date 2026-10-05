@@ -250,18 +250,23 @@ function highlight(i){ $('script').querySelectorAll('.s').forEach(sp=>sp.classLi
   const on=$('script').querySelector('.s.on'); if(on)on.scrollIntoView({block:'center',behavior:'smooth'}); }
 function setProg(){ const t=SCRIPTS[sel].sents.length; $('prog').style.width=(playing||paused?Math.min(100,(idx/t)*100):0)+'%'; }
 
+let wd=null;
+function keepAlive(){ clearInterval(wd); wd=setInterval(()=>{ if(!playing){clearInterval(wd);return;}
+  try{ if(speechSynthesis.speaking && !speechSynthesis.paused) speechSynthesis.resume(); }catch(e){} }, 9000); }
 function speakFrom(i){
   if(!ttsOK) return;
-  const sc=SCRIPTS[sel]; if(i>=sc.sents.length){ playing=false; paused=false; idx=0; highlight(-1); setProg(); $('play').textContent='▶ Escuchar'; return; }
+  const sc=SCRIPTS[sel]; if(i>=sc.sents.length){ playing=false; paused=false; idx=0; clearInterval(wd); highlight(-1); setProg(); $('play').textContent='▶ Escuchar'; return; }
   idx=i; highlight(i); setProg();
   const u=new SpeechSynthesisUtterance(sc.sents[i]); u.lang='es-ES'; u.rate=1.0; u.pitch=1; if(esVoice)u.voice=esVoice;
-  u.onend=()=>{ if(playing) speakFrom(i+1); };
-  u.onerror=()=>{ if(playing) speakFrom(i+1); };
-  speechSynthesis.speak(u);
+  let adv=false; const go=()=>{ if(adv)return; adv=true; if(playing) speakFrom(i+1); };
+  u.onend=go; u.onerror=go;
+  const est=Math.max(2600, sc.sents[i].length*85);
+  setTimeout(()=>{ if(playing && !adv && !speechSynthesis.speaking) go(); }, est+1600);
+  try{ speechSynthesis.speak(u); }catch(e){ go(); }
 }
-function play(){ if(!ttsOK){alert&&0;return;} speechSynthesis.cancel(); playing=true; paused=false; $('play').textContent='▶ Reproduciendo…'; speakFrom(idx); }
-function stop(){ playing=false; speechSynthesis.cancel(); }
-function pause(){ if(!playing)return; playing=false; paused=true; speechSynthesis.cancel(); $('play').textContent='▶ Reanudar'; }
+function play(){ if(!ttsOK){return;} try{speechSynthesis.cancel();}catch(e){} playing=true; paused=false; $('play').textContent='▶ Reproduciendo…'; keepAlive(); setTimeout(()=>speakFrom(idx),130); }
+function stop(){ playing=false; clearInterval(wd); try{speechSynthesis.cancel();}catch(e){} }
+function pause(){ if(!playing)return; playing=false; paused=true; clearInterval(wd); try{speechSynthesis.cancel();}catch(e){} $('play').textContent='▶ Reanudar'; }
 function restart(){ stop(); paused=false; idx=0; $('play').textContent='▶ Escuchar'; highlight(-1); setProg(); }
 
 $('play').onclick=()=>{ if(playing){pause();} else {play();} };
