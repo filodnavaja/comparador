@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>¿Quién se queda tu dinero?</title>
+<meta name="description" content="Poder, corrupción y reparto desigual en España: lo que cuesta la Casa Real frente al agujero real de la corrupción, casos con recorrido judicial y qué comunidades salen ganando o perdiendo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --bg:#121233; --panel:rgba(255,255,255,.055); --panel-2:rgba(255,255,255,.10); --ink:#f4f2ff; --ink-2:#c6c0ea; --muted:#8e88b8;
+    --line:rgba(255,255,255,.12); --line-2:rgba(255,255,255,.22);
+    --accent:#FBBF24; --good:#22C55E; --bad:#F43F5E; --warn:#FB923C; --blue:#3B82F6;
+    --pp:#2563EB; --psoe:#EF4444; --conv:#F59E0B; --otros:#8e88b8;
+    --f-disp:"Fraunces",Georgia,serif; --f-body:"IBM Plex Sans",system-ui,sans-serif; color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+    font-variant-numeric:tabular-nums;
+    background:radial-gradient(90% 60% at 85% -5%,rgba(244,63,94,.20),transparent 60%),
+      radial-gradient(80% 55% at 0% 0%,rgba(251,191,36,.18),transparent 55%),
+      linear-gradient(160deg,#1c1746,#121233 55%,#0c1030);background-attachment:fixed;min-height:100%}
+  html,body{min-height:100%}
+  .wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:0}
+  h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(29px,5.8vw,52px);line-height:1.04;margin:0;
+    background:linear-gradient(92deg,#fff 8%,#ffd98a 50%,#ff9bae 95%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  h2{font-family:var(--f-disp);font-weight:700;font-size:clamp(21px,4vw,29px);margin:34px 0 8px;color:#fff}
+  header{padding-block:34px 4px}
+  .eyebrow{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#120d07;font-weight:700;
+    background:linear-gradient(90deg,var(--accent),#fb923c);padding:5px 12px;border-radius:999px;margin-bottom:14px}
+  .sub{font-size:clamp(16px,2.4vw,19px);color:var(--ink-2);max-width:63ch;margin-top:12px}
+  p{margin:0 0 .8em} .lead{font-size:16.5px;color:var(--ink-2);max-width:64ch} b,strong{color:#fff}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:12px;margin:16px 0 6px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .card .k{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  .card .v{font-family:var(--f-disp);font-weight:700;font-size:26px;color:#fff;margin:6px 0 2px;line-height:1.05}
+  .card .d{font-size:13px;color:var(--ink-2)}
+  .card.bad{border-left:4px solid var(--bad)} .card.good{border-left:4px solid var(--good)} .card.warn{border-left:4px solid var(--warn)}
+
+  .ba{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0}
+  .barow{display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:center;margin-bottom:12px}
+  .barow:last-child{margin-bottom:0}
+  .barow .lab{font-size:13.5px;color:var(--ink-2)}
+  .ab{position:relative;height:24px;border-radius:7px;background:rgba(255,255,255,.07);overflow:hidden}
+  .ab i{position:absolute;left:0;top:0;height:100%;border-radius:7px}
+  .ab .t{position:absolute;right:8px;top:3px;font-size:12px;font-weight:700;color:#fff}
+  .ab.before i{background:rgba(142,136,184,.55)} .ab.now i{background:linear-gradient(90deg,var(--accent),#fb923c)}
+  .mini{display:flex;gap:16px;font-size:12px;color:var(--muted);margin-top:2px}
+
+  .cases{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+  @media(max-width:620px){.cases{grid-template-columns:1fr}}
+  .case{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--otros);border-radius:14px;padding:14px}
+  .case.pp{border-left-color:var(--pp)} .case.psoe{border-left-color:var(--psoe)} .case.conv{border-left-color:var(--conv)}
+  .case .p{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  .case h4{margin:3px 0 4px;font-size:16px;color:#fff;font-family:var(--f-disp)}
+  .case .m{font-family:var(--f-disp);font-weight:700;color:#fff;font-size:18px}
+  .case p{font-size:13px;color:var(--ink-2);margin:4px 0 0}
+  .st{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;margin-top:7px}
+  .st.firme{background:rgba(244,63,94,.18);color:#fda4af} .st.anul{background:rgba(251,146,60,.18);color:#fdba74} .st.abierta{background:rgba(142,136,184,.22);color:#c6c0ea}
+
+  .ccaa{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 16px 10px;margin:12px 0}
+  .chartbox{position:relative} svg.chart{display:block;width:100%;height:auto;overflow:visible}
+  .tip{position:absolute;pointer-events:none;background:#0b0a1f;color:#fff;border:1px solid var(--line-2);border-radius:10px;padding:8px 11px;font-size:12.5px;opacity:0;transition:opacity .08s;z-index:5} .tip b{color:#fff}
+
+  .big{background:linear-gradient(145deg,rgba(251,191,36,.16),rgba(244,63,94,.10));border:1px solid rgba(251,191,36,.35);border-radius:18px;padding:18px;margin:16px 0}
+  .big .q{font-family:var(--f-disp);font-weight:700;font-size:21px;color:#fff;margin-bottom:6px}
+  .disc{background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.35);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--ink-2);margin:14px 0}
+  details{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin:12px 0;overflow:hidden}
+  summary{cursor:pointer;padding:14px 16px;font-weight:700;color:#fff;list-style:none} summary::-webkit-details-marker{display:none}
+  .dbody{padding:0 16px 16px;color:var(--ink-2);font-size:14px} .dbody b{color:#fff} .dbody li{margin-bottom:.4em}
+  .src{font-size:12.5px;color:var(--muted);margin-top:4px}
+  footer{padding:24px 0 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:22px}
+
+  .loc{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:12px;z-index:60;display:flex;align-items:center;gap:8px}
+  .loc .lbl{font-size:12px;font-weight:700;color:var(--ink-2);background:rgba(10,8,30,.6);border:1px solid var(--line);border-radius:999px;padding:6px 11px}
+  .locbtn{width:48px;height:48px;border-radius:50%;border:1px solid rgba(0,0,0,.15);cursor:pointer;font-size:19px;background:linear-gradient(92deg,var(--accent),#fb923c);color:#120d07;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+  .locbtn.playing{background:#f43f5e;color:#fff}
+  .locbtn.sec{background:rgba(255,255,255,.12);color:#fff;border:1px solid var(--line-2);width:44px;height:44px;font-size:17px}
+  .locbtn.sec.on{background:#22C55E;color:#06210f;border-color:transparent}
+  body.imode .card,body.imode .case,body.imode .barow,body.imode .ccaa,body.imode .big,body.imode .lead{cursor:pointer}
+  body.imode .card:hover,body.imode .case:hover{outline:2px solid var(--accent);outline-offset:2px}
+  @media(max-width:520px){ .loc .lbl{display:none} }
+</style>
+</head>
+<body>
+<div class="loc"><span class="lbl">Escúchalo</span><button class="locbtn sec" id="locmode" title="Narrar al pasar el ratón" aria-label="Narración interactiva">👆</button><button class="locbtn" id="locplay" title="Escuchar" aria-label="Escuchar">🔊</button></div>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">España · Poder, corrupción y reparto</span>
+    <h1>¿Quién se queda tu dinero?</h1>
+    <p class="sub">Te indignas con la Casa Real, y es legítimo. Pero los datos dicen algo incómodo: <b>eso es calderilla</b>. El dinero de verdad se pierde en otro sitio. Vamos a seguir el rastro.</p>
+  </header>
+
+  <div class="cards">
+    <div class="card warn"><div class="k">Casa Real</div><div class="v">8,4 M€<span style="font-size:14px;color:var(--ink-2)">/año</span></div><div class="d">lo que más indigna… pero es el 0,002% del presupuesto</div></div>
+    <div class="card bad"><div class="k">Corrupción</div><div class="v">40.000–90.000 M€<span style="font-size:14px;color:var(--ink-2)">/año</span></div><div class="d">estimaciones del coste total (4,5%–8% del PIB)</div></div>
+    <div class="card bad"><div class="k">Sobrecoste en contratos</div><div class="v">≈48.000 M€<span style="font-size:14px;color:var(--ink-2)">/año</span></div><div class="d">lo que se infla en la contratación pública</div></div>
+    <div class="card bad"><div class="k">Brecha entre comunidades</div><div class="v">977 €<span style="font-size:14px;color:var(--ink-2)">/hab</span></div><div class="d">de la mejor (Cantabria) a la peor financiada</div></div>
+  </div>
+
+  <h2>1. La calderilla que indigna: la Casa Real</h2>
+  <p class="lead">La Corona cuesta <b>8,4 millones</b> al año (unos 9,4 con remanentes). Comparado con el presupuesto del Estado (~500.000 millones), es <b>una gota</b>. Y así ha ido antes y ahora:</p>
+  <div class="ba">
+    <div class="barow"><div class="lab">2011 (antes)</div><div class="ab before"><i style="width:95%"></i><span class="t">8,9 M€</span></div></div>
+    <div class="barow"><div class="lab">2015 (recorte)</div><div class="ab before"><i style="width:83%"></i><span class="t">7,8 M€</span></div></div>
+    <div class="barow"><div class="lab">2025 (ahora)</div><div class="ab now"><i style="width:90%"></i><span class="t">8,4 M€</span></div></div>
+    <div class="src">Dotación de la Casa del Rey. Es un debate legítimo (transparencia, símbolo), pero en dinero es marginal.</div>
+  </div>
+
+  <h2>2. El agujero de verdad: la corrupción</h2>
+  <p class="lead">Aquí sí está el dinero. Las estimaciones varían muchísimo según el método, pero todas hablan de <b>decenas de miles de millones al año</b>:</p>
+  <div class="ba">
+    <div class="barow"><div class="lab">FMI</div><div class="ab now"><i style="width:40%"></i><span class="t">60.000 M€</span></div></div>
+    <div class="barow"><div class="lab">Grupo Verdes (PE)</div><div class="ab now"><i style="width:60%"></i><span class="t">90.000 M€</span></div></div>
+    <div class="barow"><div class="lab">Sobrecoste contratos</div><div class="ab now"><i style="width:32%"></i><span class="t">48.000 M€</span></div></div>
+    <div class="src">Son estimaciones indirectas (recaudación perdida, sobrecostes); tómalas como órdenes de magnitud, no al euro.</div>
+  </div>
+  <p class="lead">Para que te hagas una idea: la cifra baja (60.000 M€) es <b>como todo lo que España gasta en pensiones cada cuatro meses</b>, o <b>varias veces el presupuesto de educación</b>. Eso es lo que se pierde, no los 8 millones de la Corona.</p>
+
+  <h2>3. Los grandes casos (con recorrido judicial)</h2>
+  <p class="lead">Una selección de las tramas más grandes. Fíjate en el <b>estado judicial</b> de cada una: no es lo mismo una condena firme que una causa abierta.</p>
+  <div class="cases">
+    <div class="case pp"><div class="p">PP</div><h4>Gürtel</h4><div class="m">Red más extensa</div><p>El Tribunal Supremo (2018) condenó a la cúpula de la trama y declaró al PP <b>partícipe a título lucrativo</b>: primera condena a un partido por beneficiarse de fondos ilícitos.</p><span class="st firme">Condena firme</span></div>
+    <div class="case psoe"><div class="p">PSOE (Andalucía)</div><h4>ERE</h4><div class="m">≈680 M€</div><p>Ayudas y ERE irregulares durante años. Hubo condenas, pero el Tribunal Constitucional <b>anuló en 2024</b> las de los expresidentes Chaves y Griñán; los hechos de malversación siguen probados.</p><span class="st anul">Condenas (algunas anuladas por el TC)</span></div>
+    <div class="case conv"><div class="p">Convergència (CDC)</div><h4>Caso Palau / 3%</h4><div class="m">Financiación ilegal</div><p>Desvío de fondos del Palau de la Música para financiar al partido mediante comisiones de obra pública. Con <b>condenas firmes</b>.</p><span class="st firme">Condena firme</span></div>
+    <div class="case pp"><div class="p">PP (Madrid)</div><h4>Púnica / Lezo</h4><div class="m">Amaños y desvíos</div><p>Tramas de adjudicaciones y mordidas en la Comunidad de Madrid. Con condenas y causas aún <b>en juicio</b>.</p><span class="st abierta">Condenas + causas abiertas</span></div>
+    <div class="case"><div class="p">Entorno de la Corona</div><h4>Caso Nóos</h4><div class="m">Fondos públicos desviados</div><p>Iñaki Urdangarin, entonces cuñado del Rey, fue <b>condenado</b>. (El rey emérito Juan Carlos I regularizó pagos a Hacienda; sus causas fueron archivadas, sin condena.)</p><span class="st firme">Condena firme (Urdangarin)</span></div>
+    <div class="case"><div class="p">Partidos más nuevos</div><h4>Vox y Podemos</h4><div class="m">Menos recorrido</div><p>Al ser más recientes y haber gobernado menos, acumulan <b>menos casos</b> y, hasta ahora, sin grandes condenas firmes de desvío de fondos públicos. (Sí hay causas menores.)</p><span class="st abierta">Sin grandes condenas firmes</span></div>
+  </div>
+  <div class="disc">⚠️ <b>Importante:</b> una acusación o una imputación <b>no es una condena</b>. Arriba se distingue el estado de cada caso, que además puede cambiar con el tiempo. Que PP y PSOE acumulen los casos más grandes se explica también porque son quienes más han gobernado. Esto no es una lista completa, es una selección documentada.</div>
+
+  <h2>4. El baremo: comunidades ganadoras y perdedoras</h2>
+  <p class="lead">Aquí está el otro gran reparto injusto. Con el <b>mismo sistema</b>, unas comunidades reciben mucho más por habitante que otras. Financiación por habitante ajustado (2024):</p>
+  <div class="ccaa"><div class="chartbox"><div class="plotCCAA"></div></div>
+    <div class="src">🟢 por encima de la media · 🔴 por debajo. Régimen común. <b>País Vasco y Navarra</b> van aparte (régimen foral) y reciben bastante más que todas. Fuente: Fedea / Ministerio de Hacienda.</div></div>
+  <p class="lead">Un valenciano recibe unos <b>3.215 €</b> y un cántabro <b>4.349 €</b>: casi <b>1.100 € más por cabeza</b>, para pagar los mismos colegios y hospitales. El sistema <b>no se reforma desde 2009</b>, y ahí no hay mala gestión autonómica: es la <b>caja común mal repartida</b>.</p>
+
+  <h2>5. Entonces, ¿por qué no llega a la sociedad?</h2>
+  <div class="big">
+    <div class="q">No es (solo) la Casa Real ni "los políticos cobran mucho". Es el sistema.</div>
+    <p style="margin:0;color:var(--ink-2)">El dinero se queda por el camino en cuatro sumideros: la <b>corrupción y el sobrecoste</b> de los contratos (decenas de miles de millones), la <b>burocracia y las duplicidades</b> de 17 administraciones, la <b>economía sumergida</b> (16–20% del PIB sin tributar) y un <b>reparto territorial</b> injusto y congelado. Comparado con eso, el sueldo del Rey o de un diputado es una anécdota. La indignación, bien dirigida, apunta ahí.</p>
+  </div>
+
+  <details><summary>Fuentes y cómo leer estas cifras</summary><div class="dbody">
+    <ul>
+      <li><b>Casa Real:</b> dotación oficial (8,43 M€ en 2021–2025).</li>
+      <li><b>Coste de la corrupción:</b> estimaciones del FMI (~60.000 M€), Grupo de Los Verdes del Parlamento Europeo (~90.000 M€) y análisis sobre sobrecostes (~48.000 M€). Son indirectas y muy variables.</li>
+      <li><b>Casos judiciales:</b> resumen de sentencias y causas públicas; el estado puede cambiar. Una imputación no es una condena.</li>
+      <li><b>Financiación autonómica:</b> liquidación 2024 analizada por Fedea; € por habitante "ajustado" (corrige por población, dispersión, envejecimiento).</li>
+    </ul>
+    <p class="src">INE, Ministerio de Hacienda, Fedea, FMI, Parlamento Europeo, Tribunal Supremo/Constitucional y prensa. Octubre de 2026. Síntesis divulgativa, no asesoramiento ni acusación.</p>
+  </div></details>
+
+  <footer>Estudio de síntesis con fuentes oficiales y judiciales. Distingue hechos probados de causas abiertas; las estimaciones de corrupción son órdenes de magnitud. Octubre de 2026.</footer>
+</div>
+
+<script>
+const CCAA=[
+  ["Cantabria",4349],["La Rioja",4114],["Extremadura",4056],["Baleares",4001],["Canarias",3900],
+  ["Castilla y León",3850],["Asturias",3830],["Cataluña",3780],["Galicia",3749],["Aragón",3650],
+  ["Madrid",3600],["Andalucía",3520],["C.-La Mancha",3450],["Murcia",3372],["C. Valenciana",3215]
+];
+const MEDIA=3700;
+const cv=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+function tipFor(box){let t=box.querySelector('.tip');if(!t){t=document.createElement('div');t.className='tip';box.appendChild(t);}return t;}
+(function(){
+  const wrap=document.querySelector('.plotCCAA');
+  const W=760,rh=27,mT=6,mB=22,mL=130,mR=66,H=mT+mB+CCAA.length*rh,max=Math.max(...CCAA.map(c=>c[1]));
+  const X=v=>mL+(v/max)*(W-mL-mR);let g='';
+  const xm=X(MEDIA);
+  CCAA.forEach((c,i)=>{const y=mT+i*rh+rh/2,col=c[1]>=MEDIA?cv('--good'):cv('--bad');
+    g+=`<text x="${mL-8}" y="${y+4}" text-anchor="end" font-size="11.5" fill="${cv('--ink-2')}">${c[0]}</text>`;
+    const bw=Math.max(3,X(c[1])-mL);
+    g+=`<rect class="b" data-n="${c[0]}" data-v="${c[1]}" x="${mL}" y="${y-8}" width="${bw}" height="16" rx="4" fill="${col}"/>`;
+    g+=`<text x="${mL+bw+6}" y="${y+4}" font-size="11.5" font-weight="700" fill="#fff">${c[1].toLocaleString('es-ES')}</text>`;});
+  g+=`<line x1="${xm}" y1="${mT-2}" x2="${xm}" y2="${H-mB+2}" stroke="${cv('--accent')}" stroke-width="1.5" stroke-dasharray="4 4"/>`;
+  g+=`<text x="${xm}" y="${H-6}" text-anchor="middle" font-size="11" fill="${cv('--accent')}">media ≈ 3.700 €</text>`;
+  wrap.innerHTML=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Financiación por habitante por comunidad">${g}</svg>`;
+  const box=wrap.closest('.chartbox'),tip=tipFor(box);
+  wrap.querySelectorAll('.b').forEach(b=>{b.addEventListener('mousemove',e=>{tip.innerHTML=`<b>${b.dataset.n}</b> · ${(+b.dataset.v).toLocaleString('es-ES')} € por habitante`;tip.style.opacity='1';const bx=box.getBoundingClientRect();tip.style.left=Math.min(bx.width-190,Math.max(4,e.clientX-bx.left+12))+'px';tip.style.top=(e.clientY-bx.top-10)+'px';});b.addEventListener('mouseleave',()=>tip.style.opacity='0');});
+})();
+
+(function(){
+const LINES=[
+  "¿Quién se queda tu dinero? Sigamos el rastro.",
+  "Te indignas con la Casa Real, y es legítimo. Pero los datos dicen algo incómodo: eso es calderilla.",
+  "La Corona cuesta ocho coma cuatro millones de euros al año. Comparado con el presupuesto del Estado, unos quinientos mil millones, es una gota de agua.",
+  "El dinero de verdad se pierde en otro sitio: la corrupción.",
+  "Las estimaciones varían mucho, pero todas hablan de decenas de miles de millones al año: el Fondo Monetario calcula sesenta mil; otros estudios, hasta noventa mil.",
+  "Solo el sobrecoste de inflar los contratos públicos se estima en cuarenta y ocho mil millones al año.",
+  "Para que te hagas una idea: la cifra baja equivale a varias veces todo el presupuesto de educación. Eso es lo que se pierde, no los ocho millones de la Corona.",
+  "¿Y los grandes casos? Hay que ser rigurosos y mirar el estado judicial.",
+  "El caso Gürtel acabó con una condena firme del Tribunal Supremo que declaró al PP partícipe a título lucrativo.",
+  "El caso de los ERE en Andalucía, del PSOE, movió unos seiscientos ochenta millones; hubo condenas, aunque el Constitucional anuló en dos mil veinticuatro las de los expresidentes.",
+  "Convergència fue condenada en el caso Palau por financiación ilegal. Y en el entorno de la Corona, Urdangarin fue condenado por el caso Nóos.",
+  "Importante: una acusación no es una condena, y que PP y PSOE acumulen los casos más grandes se explica también porque son quienes más han gobernado.",
+  "Y hay otro reparto injusto: entre comunidades.",
+  "Con el mismo sistema, un cántabro recibe cuatro mil trescientos cuarenta y nueve euros por habitante, y un valenciano solo tres mil doscientos quince: casi mil cien euros menos por cabeza, para pagar los mismos colegios y hospitales.",
+  "Y el País Vasco y Navarra, con su régimen foral, reciben aún más que todas.",
+  "Ese sistema no se reforma desde dos mil nueve.",
+  "Entonces, ¿por qué el dinero no llega a la sociedad?",
+  "No es solo la Casa Real ni que los políticos cobren mucho. Es el sistema: corrupción y sobrecostes, burocracia y duplicidades, economía sumergida y un reparto territorial injusto y congelado.",
+  "Comparado con eso, el sueldo del Rey o de un diputado es una anécdota. La indignación, bien dirigida, apunta ahí."
+];
+const SAYSEL='.card,.case,.barow,.ccaa,.big,.lead';
+const ttsOK='speechSynthesis'in window; let i=0,playing=false,voice=null,inter=false,last=null,wd=null,hov=null;
+const play=document.getElementById('locplay'),mode=document.getElementById('locmode');
+function pick(){if(!ttsOK)return;const vs=speechSynthesis.getVoices();voice=vs.find(v=>/alvaro/i.test(v.name))||vs.find(v=>/es[-_]ES/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang))||null;}
+if(ttsOK){pick();speechSynthesis.onvoiceschanged=pick;}
+function keepAlive(){clearInterval(wd);wd=setInterval(()=>{if(!playing){clearInterval(wd);return;}try{if(speechSynthesis.speaking&&!speechSynthesis.paused)speechSynthesis.resume();}catch(e){}},9000);}
+function speak(n){if(n>=LINES.length){stop();return;}i=n;const u=new SpeechSynthesisUtterance(LINES[n]);u.lang='es-ES';u.rate=1;if(voice)u.voice=voice;
+  let adv=false;const go=()=>{if(adv)return;adv=true;if(playing)speak(n+1);};u.onend=go;u.onerror=go;
+  const est=Math.max(2600,LINES[n].length*85);setTimeout(()=>{if(playing&&!adv&&!speechSynthesis.speaking)go();},est+1600);
+  try{speechSynthesis.speak(u);}catch(e){go();}}
+function start(){if(!ttsOK)return;try{speechSynthesis.cancel();}catch(e){}playing=true;play.textContent='⏸';play.classList.add('playing');play.title='Pausar';keepAlive();setTimeout(()=>speak(i),130);}
+function stop(){playing=false;clearInterval(wd);if(ttsOK)try{speechSynthesis.cancel();}catch(e){}i=0;play.textContent='🔊';play.classList.remove('playing');play.title='Escuchar';}
+function pause(){playing=false;clearInterval(wd);if(ttsOK)try{speechSynthesis.cancel();}catch(e){}play.textContent='▶';play.classList.remove('playing');play.title='Reanudar';}
+play.onclick=()=>{playing?pause():start();};
+let wd2=null;function keepAlive2(){clearInterval(wd2);wd2=setInterval(()=>{try{if(speechSynthesis.speaking&&!speechSynthesis.paused)speechSynthesis.resume();else clearInterval(wd2);}catch(e){}},9000);}
+function sayText(t){if(!ttsOK||!t)return;try{speechSynthesis.cancel();}catch(e){}const u=new SpeechSynthesisUtterance(t);u.lang='es-ES';u.rate=1.03;if(voice)u.voice=voice;keepAlive2();speechSynthesis.speak(u);}
+function clean(el){return (el.getAttribute('data-say')||el.textContent||'').replace(/\s+/g,' ').trim().slice(0,340);}
+document.addEventListener('mouseover',e=>{if(!inter||playing)return;const el=e.target.closest(SAYSEL);if(el&&el!==last){last=el;clearTimeout(hov);hov=setTimeout(()=>sayText(clean(el)),320);}});
+document.addEventListener('mouseout',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el&&el===last&&!el.contains(e.relatedTarget))last=null;});
+document.addEventListener('click',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el){if(playing)pause();clearTimeout(hov);sayText(clean(el));}});
+mode.onclick=()=>{inter=!inter;document.body.classList.toggle('imode',inter);mode.classList.toggle('on',inter);mode.title=inter?'Narración al pasar el ratón: ACTIVADA':'Narrar al pasar el ratón';if(inter&&playing)pause();if(!inter&&ttsOK)try{speechSynthesis.cancel();}catch(e){}};
+window.addEventListener('beforeunload',()=>{if(ttsOK)try{speechSynthesis.cancel();}catch(e){}});
+})();
+</script>
+</body>
+</html>

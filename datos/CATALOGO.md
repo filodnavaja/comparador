@@ -20,3 +20,4 @@ Norma del proyecto: todo artefacto nuevo se guarda aquí automáticamente (HTML 
 | comunidades.html | ¿Dónde rinde más tu dinero? Comparativa por CCAA (sanidad/hab, listas de espera, vivienda) + selector | comunidades.md |
 | europa.html | España vs Europa (impuestos, salarios, paro, sanidad, vivienda, esperanza de vida) | europa.md |
 | fondos.html | Fondos europeos Next Generation: el embudo (asignado/recibido/ejecutado), reparto y críticas | fondos.md |
+| poder.html | ¿Quién se queda tu dinero? Poder, corrupción (casos con estado judicial) y baremo de CCAA ganadoras/perdedoras | poder.md |
