@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Andalucía: la más grande, la última en la fila</title>
+<meta name="description" content="La comunidad más poblada y con más sol y campo de España, pero la última en renta. EREs, PAC, placas solares, paro y deuda: números, comparaciones y poder.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --bg:#101a2e; --panel:rgba(255,255,255,.055); --panel-2:rgba(255,255,255,.10); --ink:#eef6f0; --ink-2:#bfd6c8; --muted:#86a393;
+    --line:rgba(255,255,255,.12); --line-2:rgba(255,255,255,.22);
+    --accent:#2FBF71; --accent-2:#6EE7A8; --gold:#FBBF24; --good:#2FBF71; --bad:#F43F5E; --warn:#FB923C; --cool:#38BDF8; --esp:#8aa0b8;
+    --f-disp:"Fraunces",Georgia,serif; --f-body:"IBM Plex Sans",system-ui,sans-serif; color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+    font-variant-numeric:tabular-nums;
+    background:radial-gradient(90% 60% at 85% -5%,rgba(251,191,36,.18),transparent 60%),
+      radial-gradient(80% 55% at 0% 0%,rgba(47,191,113,.22),transparent 55%),
+      linear-gradient(160deg,#14331f,#101a2e 55%,#0b1424);background-attachment:fixed;min-height:100%}
+  html,body{min-height:100%}
+  .wrap{max-width:840px;margin:0 auto;padding-inline:16px}
+  h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(27px,5.4vw,49px);line-height:1.05;margin:0;
+    background:linear-gradient(92deg,#fff 10%,#d6f5e2 45%,#fbbf24 98%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  h2{font-family:var(--f-disp);font-weight:700;font-size:clamp(21px,4vw,29px);margin:32px 0 8px;color:#fff}
+  header{padding-block:34px 4px}
+  .eyebrow{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#07271a;font-weight:700;
+    background:linear-gradient(90deg,var(--accent),var(--gold));padding:5px 12px;border-radius:999px;margin-bottom:14px}
+  .sub{font-size:clamp(16px,2.4vw,19px);color:var(--ink-2);max-width:63ch;margin-top:12px}
+  p{margin:0 0 .8em} .lead{font-size:16.5px;color:var(--ink-2);max-width:64ch} b,strong{color:#fff}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:16px 0 6px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .card .k{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  .card .v{font-family:var(--f-disp);font-weight:700;font-size:25px;color:#fff;margin:6px 0 2px;line-height:1.05}
+  .card .d{font-size:13px;color:var(--ink-2)}
+  .card.good{border-left:4px solid var(--good)} .card.bad{border-left:4px solid var(--bad)} .card.gold{border-left:4px solid var(--gold)} .card.warn{border-left:4px solid var(--warn)}
+
+  .ba{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0}
+  .barow{display:grid;grid-template-columns:140px 1fr;gap:12px;align-items:center;margin-bottom:11px}
+  .barow:last-child{margin-bottom:0}
+  .barow .lab{font-size:13px;color:var(--ink-2)}
+  .ab{position:relative;height:24px;border-radius:7px;background:rgba(255,255,255,.07);overflow:hidden}
+  .ab i{position:absolute;left:0;top:0;height:100%;border-radius:7px}
+  .ab .t{position:absolute;right:8px;top:3px;font-size:12px;font-weight:700;color:#fff}
+  .ab.and i{background:linear-gradient(90deg,var(--accent),var(--gold))} .ab.esp i{background:rgba(138,160,184,.6)}
+  .ab.before i{background:rgba(134,163,147,.55)} .ab.now i{background:linear-gradient(90deg,var(--accent),var(--gold))}
+  .vlegend{display:flex;gap:16px;font-size:12.5px;color:var(--ink-2);margin:2px 0 10px}
+  .vlegend span{display:inline-flex;align-items:center;gap:6px} .dot{width:11px;height:11px;border-radius:3px;display:inline-block}
+
+  .ccaa{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 16px 10px;margin:12px 0}
+  .chartbox{position:relative} svg.chart{display:block;width:100%;height:auto;overflow:visible}
+  .tip{position:absolute;pointer-events:none;background:#07160e;color:#fff;border:1px solid var(--line-2);border-radius:10px;padding:8px 11px;font-size:12.5px;opacity:0;transition:opacity .08s;z-index:5} .tip b{color:#fff}
+  .src{font-size:12.5px;color:var(--muted);margin-top:4px}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+  @media(max-width:560px){.two{grid-template-columns:1fr}}
+  .tbox{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px}
+  .tbox h4{margin:0 0 6px;font-size:16px;color:#fff;font-family:var(--f-disp)} .tbox p{font-size:14px;color:var(--ink-2);margin:0}
+  .tbox .ic{font-size:22px;margin-bottom:6px}
+
+  .case{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--bad);border-radius:14px;padding:15px;margin:12px 0}
+  .case h4{margin:0 0 4px;font-size:17px;color:#fff;font-family:var(--f-disp)}
+  .chip{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px;margin-left:6px;vertical-align:middle}
+  .chip.firme{background:rgba(244,63,94,.2);color:#fda4b4;border:1px solid rgba(244,63,94,.45)}
+  .chip.rev{background:rgba(251,146,60,.18);color:#fdba74;border:1px solid rgba(251,146,60,.45)}
+
+  .big{background:linear-gradient(145deg,rgba(47,191,113,.16),rgba(251,191,36,.10));border:1px solid rgba(47,191,113,.35);border-radius:18px;padding:18px;margin:16px 0}
+  .big .q{font-family:var(--f-disp);font-weight:700;font-size:21px;color:#fff;margin-bottom:6px}
+  .disc{background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.35);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--ink-2);margin:14px 0}
+  details{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin:12px 0;overflow:hidden}
+  summary{cursor:pointer;padding:14px 16px;font-weight:700;color:#fff;list-style:none} summary::-webkit-details-marker{display:none}
+  .dbody{padding:0 16px 16px;color:var(--ink-2);font-size:14px} .dbody b{color:#fff} .dbody li{margin-bottom:.4em}
+  footer{padding:24px 0 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:22px}
+
+  .loc{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:12px;z-index:60;display:flex;align-items:center;gap:8px}
+  .loc .lbl{font-size:12px;font-weight:700;color:var(--ink-2);background:rgba(7,20,12,.6);border:1px solid var(--line);border-radius:999px;padding:6px 11px}
+  .locbtn{width:48px;height:48px;border-radius:50%;border:1px solid rgba(0,0,0,.15);cursor:pointer;font-size:19px;background:linear-gradient(92deg,var(--accent),var(--gold));color:#07271a;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+  .locbtn.playing{background:#f43f5e;color:#fff}
+  .locbtn.sec{background:rgba(255,255,255,.12);color:#fff;border:1px solid var(--line-2);width:44px;height:44px;font-size:17px}
+  .locbtn.sec.on{background:#2FBF71;color:#06210f;border-color:transparent}
+  body.imode .card,body.imode .barow,body.imode .tbox,body.imode .ccaa,body.imode .big,body.imode .case,body.imode .lead{cursor:pointer}
+  body.imode .card:hover,body.imode .tbox:hover,body.imode .case:hover{outline:2px solid var(--gold);outline-offset:2px}
+  @media(max-width:520px){ .loc .lbl{display:none} }
+</style>
+</head>
+<body>
+<div class="loc"><span class="lbl">Escúchalo</span><button class="locbtn sec" id="locmode" title="Narrar al pasar el ratón" aria-label="Narración interactiva">👆</button><button class="locbtn" id="locplay" title="Escuchar" aria-label="Escuchar">🔊</button></div>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Comunidad Autónoma de Andalucía</span>
+    <h1>Andalucía: la más grande, la última en la fila</h1>
+    <p class="sub">La comunidad <b>más poblada</b> de España. La que tiene <b>más sol</b> y <b>más campo</b>. Y, aun así, <b>la última en renta por habitante</b>. ¿Por qué la tierra con más recursos es la más pobre? Esta es la foto, con números.</p>
+  </header>
+
+  <div class="cards">
+    <div class="card gold"><div class="k">Población</div><div class="v">8,7 millones</div><div class="d">la más poblada: 17,8% de España</div></div>
+    <div class="card bad"><div class="k">PIB por habitante</div><div class="v">23.218 €</div><div class="d">el más bajo del país: −25% vs media</div></div>
+    <div class="card bad"><div class="k">Paro</div><div class="v">18,2 %</div><div class="d">casi el doble de la media nacional</div></div>
+    <div class="card warn"><div class="k">Caso ERE</div><div class="v">680 M€</div><div class="d">el mayor fraude de la democracia</div></div>
+  </div>
+
+  <h2>1. La paradoja andaluza (vs media de España)</h2>
+  <p class="lead">Tiene de todo, pero sus indicadores van por detrás. Comparada con la media nacional:</p>
+  <div class="ba">
+    <div class="vlegend"><span><i class="dot" style="background:linear-gradient(90deg,var(--accent),var(--gold))"></i>Andalucía</span><span><i class="dot" style="background:rgba(138,160,184,.8)"></i>España (media)</span></div>
+    <div class="barow"><div class="lab">PIB/hab · Andalucía</div><div class="ab and"><i style="width:75%"></i><span class="t">23.218 €</span></div></div>
+    <div class="barow"><div class="lab">PIB/hab · España</div><div class="ab esp"><i style="width:100%"></i><span class="t">30.968 €</span></div></div>
+    <div class="barow"><div class="lab">Paro · Andalucía</div><div class="ab and"><i style="width:100%;background:linear-gradient(90deg,var(--bad),var(--warn))"></i><span class="t">18,2 %</span></div></div>
+    <div class="barow"><div class="lab">Paro · España</div><div class="ab esp"><i style="width:57%"></i><span class="t">10,4 %</span></div></div>
+    <div class="src">PIB per cápita en paridad de poder: Andalucía 69, España 91 (UE-27 = 100). Última entre las CCAA, solo por delante de Ceuta y Melilla.</div>
+  </div>
+
+  <h2>2. El poder: 37 años de un color, y el vuelco</h2>
+  <p class="lead">Andalucía fue el <b>granero electoral</b> del PSOE: gobernó <b>sin interrupción de 1982 a 2019</b> (casi cuatro décadas). En 2019 llegó el PP de Juanma Moreno (con apoyo de Cs y Vox) y en 2022 revalidó con <b>mayoría absoluta</b>. Dos modelos, un mismo reto: dejar de ser la cola de España.</p>
+  <div class="two">
+    <div class="tbox"><div class="ic">🌹</div><h4>1982 – 2019 · PSOE</h4><p>37 años seguidos (Borbolla, Chaves, Griñán, Díaz). Expansión del Estado autonómico… y el caldo de cultivo de los grandes casos de corrupción.</p></div>
+    <div class="tbox"><div class="ic">🔵</div><h4>2019 – hoy · PP</h4><p>Juanma Moreno rompe la hegemonía; mayoría absoluta en 2022. Baja impuestos y deuda/PIB, pero arrastra listas de espera y servicios tensionados.</p></div>
+  </div>
+
+  <h2>3. La corrupción: los EREs</h2>
+  <p class="lead">El mayor caso de corrupción de la democracia española salió, precisamente, de aquí.</p>
+  <div class="case">
+    <h4>Caso de los ERE <span class="chip rev">condenas revisadas</span></h4>
+    <p style="color:var(--ink-2);margin:0">Entre 2000 y 2010 se repartieron <b>680 M€</b> de fondos públicos en ayudas sociolaborales con un sistema "a dedo", sin control. La Audiencia de Sevilla condenó a <b>19 ex altos cargos</b>; el Supremo confirmó <b>6 años de cárcel a Griñán</b> y <b>9 de inhabilitación a Chaves</b> (ambos expresidentes). En 2024 el <b>Tribunal Constitucional</b> anuló o mandó revisar varias condenas, lo que reabrió el caso y la polémica.</p>
+  </div>
+  <div class="disc">⚖️ <b>Matiz honesto:</b> que el <b>fraude de los 680 M€ existió</b> es un hecho probado en sentencia; el <b>vaivén judicial</b> posterior (TC) afecta a las <b>penas personales</b>, no borra el agujero. A la vez, una revisión del TC merece respeto: no todo condenado inicial acabó con pena firme. Ni "fueron todos inocentes" ni "da igual lo que diga la justicia".</div>
+
+  <h2>4. El campo: 83% del aceite de España (y dependencia)</h2>
+  <div class="two">
+    <div class="tbox"><div class="ic">🫒</div><h4>Capital mundial del olivo</h4><p>Andalucía produce el <b>83%</b> del aceite de oliva de España, líder mundial. El oro líquido es identidad y economía… pero también precios volátiles y sequía.</p></div>
+    <div class="tbox"><div class="ic">🇪🇺</div><h4>La más beneficiada por la PAC</h4><p>Es la comunidad que <b>más fondos agrarios europeos</b> recibe. La ayuda al olivar tradicional (~27,5 M€/año) va en su mayor parte aquí. Sostén real, pero crea <b>dependencia</b> de la subvención.</p></div>
+    <div class="tbox"><div class="ic">👷</div><h4>Jornaleros y estacionalidad</h4><p>Mucho empleo agrario es <b>temporal</b>. Explica parte del paro estructural: campañas cortas, contratos cortos y poca industria que transforme el producto.</p></div>
+    <div class="tbox"><div class="ic">🏭</div><h4>Vende barato, compra caro</h4><p>Exporta <b>materia prima</b> (aceituna, hortaliza) y compra producto elaborado. Falta cadena de valor: donde está el margen, no está Andalucía.</p></div>
+  </div>
+
+  <h2>5. Las placas solares: aquí sí es la primera</h2>
+  <p class="lead">Donde el sol manda, Andalucía lidera. Y la transformación de los últimos años es brutal. Autoconsumo solar instalado:</p>
+  <div class="ba">
+    <div class="barow"><div class="lab">2018</div><div class="ab before"><i style="width:2%"></i><span class="t">8 MW</span></div></div>
+    <div class="barow"><div class="lab">2025</div><div class="ab now"><i style="width:100%"></i><span class="t">1.740 MW</span></div></div>
+    <div class="src">×220 en siete años. Más de 190.000 instalaciones de autoconsumo: lidera España.</div>
+  </div>
+  <div class="cards">
+    <div class="card good"><div class="k">Solar producida (2025)</div><div class="v">15.549 GWh</div><div class="d">la que más de toda España</div></div>
+    <div class="card good"><div class="k">Parque renovable</div><div class="v">71,4 %</div><div class="d">de su generación ya es limpia</div></div>
+    <div class="card good"><div class="k">Nueva potencia 2025</div><div class="v">+2.888 MW</div><div class="d">+20%; 2º puesto nacional en potencia</div></div>
+  </div>
+
+  <h2>6. Andalucía frente a España y Europa</h2>
+  <p class="lead">PIB por habitante en poder de compra (UE-27 = 100). Cuanto más corta la barra, más lejos de la media europea:</p>
+  <div class="ccaa"><div class="chartbox"><div class="plotA"></div></div>
+    <div class="src">Fuente: Eurostat / INE / CaixaBank Research (2024). La línea marca la media de la UE-27 (100).</div></div>
+
+  <div class="big">
+    <div class="q">Andalucía no es pobre por falta de recursos: tiene sol, campo y gente de sobra. Es pobre en renta por cómo se ha gestionado y repartido lo que produce.</div>
+    <p style="margin:0;color:var(--ink-2)">Décadas de <b>clientelismo</b> y escándalos como los <b>EREs</b>, una economía <b>enganchada a la subvención</b> y con <b>poca industria</b> que transforme el producto. La buena noticia: en <b>energía</b> ya demuestra que, cuando aprovecha lo que tiene, puede ser la <b>primera</b>.</p>
+  </div>
+
+  <details><summary>Fuentes y cómo leerlo</summary><div class="dbody">
+    <ul>
+      <li><b>Población/renta/paro:</b> INE, Eurostat, CaixaBank Research (2024–2025). PIB/hab 23.218 € (el más bajo); paro 18,2%; población ~8,7 M.</li>
+      <li><b>EREs:</b> 680 M€ (2000–2010); 19 condenados en la Audiencia de Sevilla; Supremo (Griñán 6 años, Chaves 9 inhabilitación); TC anula/revisa en 2024.</li>
+      <li><b>Campo:</b> 83% del aceite de oliva de España; mayor receptora de la PAC; ayuda olivar tradicional ~27,5 M€/año.</li>
+      <li><b>Solar:</b> 15.549 GWh (2025, la que más); 71,4% renovable; autoconsumo 8 MW (2018) → 1.740 MW (2025), ×220; +2.888 MW renovables en 2025.</li>
+      <li><b>Deuda:</b> ~40.721 M€ (~4.700 €/hab, por debajo de la media autonómica).</li>
+    </ul>
+    <p class="src">Fuentes: INE, Eurostat, CaixaBank Research, Red Eléctrica (REE), MAPA, Banco de España, sentencias del Tribunal Supremo y Tribunal Constitucional, prensa. Octubre de 2026. Síntesis divulgativa; cifras redondeadas.</p>
+  </div></details>
+
+  <footer>Estudio de síntesis con fuentes oficiales. Distingue el hecho (los números) de la interpretación (qué significan). Trato equilibrado de los gobiernos; una acusación no es una condena. Octubre de 2026.</footer>
+</div>
+
+<script>
+// PIB per cápita en PPS, UE-27 = 100
+const A=[["Andalucía",69],["España",91],["Media UE-27",100]];
+const REF=100;
+const cv=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+function tipFor(box){let t=box.querySelector('.tip');if(!t){t=document.createElement('div');t.className='tip';box.appendChild(t);}return t;}
+(function(){
+  const wrap=document.querySelector('.plotA');
+  const W=760,rh=44,mT=8,mB=24,mL=150,mR=58,H=mT+mB+A.length*rh,max=110;
+  const X=v=>mL+(v/max)*(W-mL-mR);let g='';const xr=X(REF);
+  A.forEach((c,i)=>{const y=mT+i*rh+rh/2,col=c[0]==='Andalucía'?cv('--gold'):c[0]==='España'?cv('--esp'):cv('--accent');
+    g+=`<text x="${mL-8}" y="${y+4}" text-anchor="end" font-size="13" font-weight="${c[0]==='Andalucía'?'700':'400'}" fill="${c[0]==='Andalucía'?'#fff':cv('--ink-2')}">${c[0]}</text>`;
+    const bw=Math.max(3,X(c[1])-mL);
+    g+=`<rect class="b" data-n="${c[0]}" data-v="${c[1]}" x="${mL}" y="${y-12}" width="${bw}" height="24" rx="6" fill="${col}"/>`;
+    g+=`<text x="${mL+bw+8}" y="${y+4}" font-size="13" font-weight="700" fill="#fff">${c[1]}</text>`;});
+  g+=`<line x1="${xr}" y1="${mT-2}" x2="${xr}" y2="${H-mB+2}" stroke="${cv('--accent')}" stroke-width="1.5" stroke-dasharray="4 4"/>`;
+  g+=`<text x="${xr}" y="${H-7}" text-anchor="middle" font-size="11" fill="${cv('--accent')}">media UE = 100</text>`;
+  wrap.innerHTML=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="PIB per cápita Andalucía, España y UE">${g}</svg>`;
+  const box=wrap.closest('.chartbox'),tip=tipFor(box);
+  wrap.querySelectorAll('.b').forEach(b=>{b.addEventListener('mousemove',e=>{tip.innerHTML=`<b>${b.dataset.n}</b> · ${b.dataset.v} (UE-27 = 100)`;tip.style.opacity='1';const bx=box.getBoundingClientRect();tip.style.left=Math.min(bx.width-190,Math.max(4,e.clientX-bx.left+12))+'px';tip.style.top=(e.clientY-bx.top-10)+'px';});b.addEventListener('mouseleave',()=>tip.style.opacity='0');});
+})();
+
+(function(){
+const LINES=[
+  "Andalucía: la más grande, y la última en la fila.",
+  "Es la comunidad más poblada de España, con casi ocho millones setecientos mil habitantes. La que tiene más sol y más campo. Y, aun así, la última en renta por habitante.",
+  "Su PIB por habitante es de veintitrés mil euros, el más bajo del país, un veinticinco por ciento por debajo de la media. Y su paro, del dieciocho por ciento, casi el doble que la media nacional.",
+  "En poder de compra, Andalucía está en sesenta y nueve puntos, cuando la media europea es cien. La última entre las comunidades, solo por delante de Ceuta y Melilla.",
+  "¿Por qué la tierra con más recursos es la más pobre? Hablemos del poder.",
+  "Andalucía fue el granero del PSOE: gobernó sin interrupción desde mil novecientos ochenta y dos hasta dos mil diecinueve, casi cuarenta años. En dos mil diecinueve llegó el Partido Popular de Juanma Moreno, y en dos mil veintidós revalidó con mayoría absoluta.",
+  "Y de aquí salió el mayor caso de corrupción de la democracia: los ERE.",
+  "Entre dos mil y dos mil diez se repartieron seiscientos ochenta millones de euros de fondos públicos en ayudas, a dedo y sin control. La Audiencia de Sevilla condenó a diecinueve ex altos cargos.",
+  "El Tribunal Supremo confirmó seis años de cárcel para el expresidente Griñán y nueve de inhabilitación para Chaves. En dos mil veinticuatro, el Constitucional anuló o mandó revisar varias condenas.",
+  "Seamos justos: el fraude de los seiscientos ochenta millones existió, está probado. El vaivén judicial afecta a las penas personales, no borra el agujero.",
+  "El campo: Andalucía produce el ochenta y tres por ciento del aceite de oliva de España, y es la comunidad que más fondos de la PAC europea recibe.",
+  "Pero ese modelo crea dependencia de la subvención, y mucho empleo agrario es temporal: campañas cortas, contratos cortos. Vende la materia prima barata y compra elaborado caro.",
+  "Y ahora la buena noticia: donde el sol manda, Andalucía es la primera.",
+  "Es la que más energía solar produce de España, el autoconsumo se ha multiplicado por doscientos veinte desde dos mil dieciocho, y ya el setenta y uno por ciento de su electricidad es renovable.",
+  "La conclusión: Andalucía no es pobre por falta de recursos. Tiene sol, campo y gente de sobra. Es pobre en renta por cómo se ha gestionado y repartido lo que produce.",
+  "Activa el dedo para que te narre cada dato al pasar el ratón."
+];
+const SAYSEL='.card,.barow,.tbox,.case,.ccaa,.big,.lead';
+const ttsOK='speechSynthesis'in window; let i=0,playing=false,voice=null,inter=false,last=null,wd=null,hov=null;
+const play=document.getElementById('locplay'),mode=document.getElementById('locmode');
+function pick(){if(!ttsOK)return;const vs=speechSynthesis.getVoices();voice=vs.find(v=>/alvaro/i.test(v.name))||vs.find(v=>/es[-_]ES/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang))||null;}
+if(ttsOK){pick();speechSynthesis.onvoiceschanged=pick;}
+function keepAlive(){clearInterval(wd);wd=setInterval(()=>{if(!playing){clearInterval(wd);return;}try{if(speechSynthesis.speaking&&!speechSynthesis.paused)speechSynthesis.resume();}catch(e){}},9000);}
+function speak(n){if(n>=LINES.length){stop();return;}i=n;const u=new SpeechSynthesisUtterance(LINES[n]);u.lang='es-ES';u.rate=1;if(voice)u.voice=voice;
+  let adv=false;const go=()=>{if(adv)return;adv=true;if(playing)speak(n+1);};u.onend=go;u.onerror=go;
+  const est=Math.max(2600,LINES[n].length*85);setTimeout(()=>{if(playing&&!adv&&!speechSynthesis.speaking)go();},est+1600);
+  try{speechSynthesis.speak(u);}catch(e){go();}}
+function start(){if(!ttsOK)return;try{speechSynthesis.cancel();}catch(e){}playing=true;play.textContent='⏸';play.classList.add('playing');play.title='Pausar';keepAlive();setTimeout(()=>speak(i),130);}
+function stop(){playing=false;clearInterval(wd);if(ttsOK)try{speechSynthesis.cancel();}catch(e){}i=0;play.textContent='🔊';play.classList.remove('playing');play.title='Escuchar';}
+function pause(){playing=false;clearInterval(wd);if(ttsOK)try{speechSynthesis.cancel();}catch(e){}play.textContent='▶';play.classList.remove('playing');play.title='Reanudar';}
+play.onclick=()=>{playing?pause():start();};
+let wd2=null;function keepAlive2(){clearInterval(wd2);wd2=setInterval(()=>{try{if(speechSynthesis.speaking&&!speechSynthesis.paused)speechSynthesis.resume();else clearInterval(wd2);}catch(e){}},9000);}
+function sayText(t){if(!ttsOK||!t)return;try{speechSynthesis.cancel();}catch(e){}const u=new SpeechSynthesisUtterance(t);u.lang='es-ES';u.rate=1.03;if(voice)u.voice=voice;keepAlive2();speechSynthesis.speak(u);}
+function clean(el){return (el.getAttribute('data-say')||el.textContent||'').replace(/\s+/g,' ').trim().slice(0,340);}
+document.addEventListener('mouseover',e=>{if(!inter||playing)return;const el=e.target.closest(SAYSEL);if(el&&el!==last){last=el;clearTimeout(hov);hov=setTimeout(()=>sayText(clean(el)),320);}});
+document.addEventListener('mouseout',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el&&el===last&&!el.contains(e.relatedTarget))last=null;});
+document.addEventListener('click',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el){if(playing)pause();clearTimeout(hov);sayText(clean(el));}});
+mode.onclick=()=>{inter=!inter;document.body.classList.toggle('imode',inter);mode.classList.toggle('on',inter);mode.title=inter?'Narración al pasar el ratón: ACTIVADA':'Narrar al pasar el ratón';if(inter&&playing)pause();if(!inter&&ttsOK)try{speechSynthesis.cancel();}catch(e){}};
+window.addEventListener('beforeunload',()=>{if(ttsOK)try{speechSynthesis.cancel();}catch(e){}});
+})();
+</script>
+</body>
+</html>
