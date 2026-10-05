@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>¿Dónde va tu dinero?</title>
+<meta name="description" content="Estudio crítico: por qué los españoles pagan impuestos y sienten que los servicios públicos empeoran. A dónde va realmente el dinero.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --bg:#121233; --panel:rgba(255,255,255,.055); --panel-2:rgba(255,255,255,.10); --ink:#f4f2ff; --ink-2:#c6c0ea; --muted:#8e88b8;
+    --line:rgba(255,255,255,.12); --line-2:rgba(255,255,255,.22);
+    --accent:#FBBF24; --good:#22C55E; --bad:#F43F5E; --blue:#3B82F6; --mag:#D946AF; --teal:#2DD4BF; --orange:#FB923C;
+    --f-disp:"Fraunces",Georgia,serif; --f-body:"IBM Plex Sans",system-ui,sans-serif; color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+    font-variant-numeric:tabular-nums;
+    background:radial-gradient(90% 60% at 85% -5%,rgba(217,70,175,.22),transparent 60%),
+      radial-gradient(80% 55% at 0% 0%,rgba(59,130,246,.22),transparent 55%),
+      linear-gradient(160deg,#1c1746,#121233 55%,#0c1030);background-attachment:fixed;min-height:100%}
+  html,body{min-height:100%}
+  .wrap{max-width:820px;margin:0 auto;padding-inline:16px;padding-block:0}
+  h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(32px,6.5vw,56px);line-height:1.05;margin:0;
+    background:linear-gradient(92deg,#fff 10%,#ffd98a 55%,#ff9bdf 95%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  h2{font-family:var(--f-disp);font-weight:700;font-size:clamp(22px,4vw,30px);margin:34px 0 6px;color:#fff;text-wrap:balance}
+  .num{color:var(--accent)}
+  header{padding-block:36px 6px}
+  .eyebrow{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#120d07;font-weight:700;
+    background:linear-gradient(90deg,var(--accent),#fb923c);padding:5px 12px;border-radius:999px;margin-bottom:14px}
+  .sub{font-size:clamp(17px,2.5vw,20px);color:var(--ink-2);max-width:62ch;margin-top:14px}
+  p{margin:0 0 .85em} .lead{font-size:17px;color:var(--ink-2);max-width:64ch}
+  b,strong{color:#fff}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:13px;margin:16px 0 6px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:17px 17px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .card .k{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  .card .v{font-family:var(--f-disp);font-weight:700;font-size:34px;line-height:1.05;margin:7px 0 4px;color:#fff}
+  .card .d{font-size:14px;color:var(--ink-2)}
+  .card.bad{border-left:4px solid var(--bad)} .card.good{border-left:4px solid var(--good)} .card.warn{border-left:4px solid var(--accent)}
+
+  /* versus bars */
+  .vs{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;margin:14px 0}
+  .vsrow{margin-bottom:16px}
+  .vsrow:last-child{margin-bottom:0}
+  .vslab{display:flex;justify-content:space-between;font-size:14px;margin-bottom:7px}
+  .vslab b{color:#fff} .vslab span{color:var(--muted)}
+  .track{position:relative;height:34px}
+  .barline{position:relative;height:13px;border-radius:999px;margin-bottom:6px;background:rgba(255,255,255,.08)}
+  .barline i{position:absolute;left:0;top:0;height:100%;border-radius:999px}
+  .barline .tag{position:absolute;right:8px;top:-3px;font-size:11.5px;font-weight:700;color:#fff}
+  .esp i{background:linear-gradient(90deg,#3B82F6,#60a5fa)} .ue i{background:linear-gradient(90deg,#8e88b8,#b7b2d8)}
+
+  .flow{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;margin:14px 0}
+  .frow{display:grid;grid-template-columns:150px 1fr 70px;gap:12px;align-items:center;margin-bottom:11px}
+  .frow:last-child{margin-bottom:0}
+  .frow .fl{font-size:14px;font-weight:600}
+  .frow .fbar{height:20px;border-radius:6px;min-width:4px}
+  .frow .fv{font-size:14px;font-weight:700;color:#fff;text-align:right}
+  @media(max-width:520px){.frow{grid-template-columns:120px 1fr 56px}}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:14px 0}
+  @media(max-width:560px){.split{grid-template-columns:1fr}}
+  .myth,.fact{border-radius:16px;padding:17px;border:1px solid var(--line)}
+  .myth{background:rgba(244,63,94,.10);border-color:rgba(244,63,94,.35)}
+  .fact{background:rgba(34,197,94,.10);border-color:rgba(34,197,94,.35)}
+  .myth .h,.fact .h{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+  .myth .h{color:#fda4af} .fact .h{color:#86efac}
+  .myth p,.fact p{font-size:14.5px;color:var(--ink-2);margin:0}
+
+  .big{background:linear-gradient(145deg,rgba(251,191,36,.16),rgba(251,146,60,.08));border:1px solid rgba(251,191,36,.35);
+    border-radius:18px;padding:20px;margin:16px 0}
+  .big .q{font-family:var(--f-disp);font-weight:700;font-size:22px;color:#fff;margin-bottom:8px}
+  .src{font-size:13px;color:var(--muted)}
+  details{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin:12px 0;overflow:hidden}
+  summary{cursor:pointer;padding:14px 16px;font-weight:700;color:#fff;list-style:none}
+  summary::-webkit-details-marker{display:none}
+  .dbody{padding:0 16px 16px;color:var(--ink-2);font-size:14.5px}
+  .dbody li{margin-bottom:.4em}
+  footer{padding:26px 0 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:26px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Estudio crítico · España</span>
+    <h1>¿Dónde va tu dinero?</h1>
+    <p class="sub">Pagas impuestos y sientes que los servicios públicos empeoran. Es una sospecha legítima. Esto es lo que dicen los datos: qué parte acierta, qué parte es un mito y a dónde va de verdad el dinero.</p>
+  </header>
+
+  <h2>1. Tu intuición, a examen</h2>
+  <p class="lead">Tres datos incómodos de arranque, para situarnos:</p>
+  <div class="cards">
+    <div class="card good"><div class="k">Impuestos (presión fiscal)</div><div class="v">37% <span style="font-size:16px;color:var(--ink-2)">del PIB</span></div><div class="d">Por <b>debajo</b> de la media UE (40,4%) y lejos de Francia (48%) o Alemania (42%). No somos un infierno fiscal.</div></div>
+    <div class="card bad"><div class="k">Pero gastamos de más</div><div class="v">−2,8% <span style="font-size:16px;color:var(--ink-2)">déficit</span></div><div class="d">Cada año gastamos ~45.000 M€ más de lo que ingresamos. Ese agujero se cubre con deuda.</div></div>
+    <div class="card bad"><div class="k">Deuda acumulada</div><div class="v">102% <span style="font-size:16px;color:var(--ink-2)">del PIB</span></div><div class="d">Muy por encima de la eurozona (87%). Pagar sus intereses cuesta ~32.000 M€/año.</div></div>
+    <div class="card warn"><div class="k">Sanidad pública</div><div class="v">−20% <span style="font-size:16px;color:var(--ink-2)">vs UE</span></div><div class="d">3.137 € por habitante frente a 3.832 € de media europea. De ahí las listas de espera.</div></div>
+  </div>
+
+  <h2>2. España paga menos que Europa… ¿sorprende?</h2>
+  <p class="lead">La sensación de "pago mucho" es real para el asalariado (las cotizaciones pesan más aquí), pero el total recaudado está por debajo de la media. Y aun así, en sanidad gastamos menos por persona.</p>
+  <div class="vs">
+    <div class="vsrow">
+      <div class="vslab"><b>Presión fiscal (% del PIB)</b><span>España vs media UE</span></div>
+      <div class="barline esp"><i style="width:74%"></i><span class="tag">España 37,3%</span></div>
+      <div class="barline ue"><i style="width:80%"></i><span class="tag">UE 40,4%</span></div>
+    </div>
+    <div class="vsrow">
+      <div class="vslab"><b>Gasto sanitario por habitante (€/año)</b><span>España vs media UE</span></div>
+      <div class="barline esp"><i style="width:82%"></i><span class="tag">España 3.137 €</span></div>
+      <div class="barline ue"><i style="width:100%"></i><span class="tag">UE 3.832 €</span></div>
+    </div>
+    <div class="vsrow">
+      <div class="vslab"><b>Lo que pagas de tu bolsillo en salud</b><span>España vs media UE</span></div>
+      <div class="barline esp"><i style="width:100%"></i><span class="tag">España 21%</span></div>
+      <div class="barline ue"><i style="width:76%"></i><span class="tag">UE 16%</span></div>
+    </div>
+    <div class="src">Fuentes: OCDE/Eurostat (presión fiscal 2024), OCDE «Health at a Glance 2024».</div>
+  </div>
+
+  <h2>3. ¿A dónde va de verdad el dinero?</h2>
+  <p class="lead">De cada 100 € del Presupuesto del Estado, <b>más de la mitad está comprometido</b> antes de decidir nada. Y lo que manda es una sola cosa: las <b>pensiones</b>.</p>
+  <div class="flow">
+    <div class="frow"><div class="fl">Pensiones</div><div class="fbar" style="width:98%;background:#3B82F6"></div><div class="fv">39 €</div></div>
+    <div class="frow"><div class="fl">Financiación de CCAA y otras políticas</div><div class="fbar" style="width:97%;background:#8e88b8"></div><div class="fv">39 €</div></div>
+    <div class="frow"><div class="fl">Intereses de la deuda</div><div class="fbar" style="width:16%;background:#A78BFA"></div><div class="fv">6,4 €</div></div>
+    <div class="frow"><div class="fl">Desempleo</div><div class="fbar" style="width:11%;background:#FBBF24"></div><div class="fv">4,4 €</div></div>
+    <div class="frow"><div class="fl">Defensa</div><div class="fbar" style="width:7%;background:#EF4444"></div><div class="fv">2,6 €</div></div>
+    <div class="frow"><div class="fl">Sanidad + Educación (Estado)</div><div class="fbar" style="width:6%;background:#22C55E"></div><div class="fv">2,5 €</div></div>
+    <div class="src">PGE consolidado 2023. La sanidad y la educación reales las pagan las CCAA con la “financiación de CCAA”.</div>
+  </div>
+  <p class="lead">Traducción: el dinero no "desaparece". Va, cada vez más, a <b>transferencias (pensiones)</b> y a <b>pagar deuda</b>, no a los hospitales y colegios que usas a diario. Y como ingresamos menos que Europa, queda menos para esos servicios.</p>
+
+  <h2>4. El mito y el dato</h2>
+  <p class="lead">Tu pregunta —"¿se mantiene a demasiada gente?"— merece una respuesta directa.</p>
+  <div class="split">
+    <div class="myth"><div class="h">✖ El mito</div><p>"El dinero se va en subsidios a gente que no trabaja y vive del Estado."</p></div>
+    <div class="fact"><div class="h">✓ El dato</div><p>El gran gasto son <b>pensiones contributivas</b> (cotizadas) de <b>9,3 millones</b> de pensionistas. El <b>desempleo ha BAJADO</b> (de 31.000 a 21.000 M€). Las ayudas no contributivas son una fracción pequeña. No es "vagos": es <b>envejecimiento</b>.</p></div>
+  </div>
+  <p class="lead">Lo que sí es cierto es que <b>cada vez hay que mantener a más personas mayores con menos trabajadores</b>: hoy ~2,3 cotizantes por pensionista, camino de ~1 por pensionista hacia 2050.</p>
+
+  <h2>5. La pregunta incómoda (la de verdad)</h2>
+  <div class="big">
+    <div class="q">Si hoy las pensiones ya son el 13% del PIB… ¿quién paga el 16–17% de 2050?</div>
+    <p style="margin:0;color:var(--ink-2)">El baby boom se jubila entre 2022 y 2045. El sistema ya necesita <b>57.000 M€ al año</b> de transferencia del Estado para cuadrar. Sin más ingresos, más deuda o reformas, ese dinero saldrá de… los mismos servicios que notas que empeoran. Ese es el debate real, y nadie quiere abrirlo.</p>
+  </div>
+
+  <h2>6. Conclusión</h2>
+  <p class="lead"><b>Tu instinto acierta en el síntoma y se equivoca en la causa.</b> El síntoma es real: pagas y los servicios que usas no mejoran. Pero la causa no es "mantener a vagos" ni un exceso brutal de impuestos. Es una combinación de:</p>
+  <div class="dbody" style="padding-left:0">
+    <ul>
+      <li><b>Demografía:</b> pensiones y sanidad de una población que envejece, el mayor y más rígido gasto.</li>
+      <li><b>Déficit crónico:</b> gastamos más de lo que ingresamos → deuda → intereses que no compran servicios.</li>
+      <li><b>Ingresos por debajo de Europa:</b> con menos recaudación, menos margen para hospitales y colegios.</li>
+      <li><b>Ineficiencia y economía sumergida</b> (~16–20% del PIB sin tributar): menos ingresos de los que debería haber.</li>
+    </ul>
+  </div>
+  <p class="lead">El dinero no se evapora: se está <b>recomprometiendo</b> hacia pensiones y deuda, dejando a los servicios del día a día por debajo de la media europea. Esa es la respuesta honesta.</p>
+
+  <details><summary>Fuentes y matices</summary><div class="dbody">
+    <ul>
+      <li>Presión fiscal: OCDE/Eurostat 2024 (España ~37%, UE-27 40,4%).</li>
+      <li>Déficit 2024: 2,8% del PIB (44.597 M€) · Deuda 2024: 101,8% del PIB — Banco de España / Hacienda.</li>
+      <li>Gasto sanitario per cápita: OCDE «Health at a Glance 2024» (España 3.137 €, UE 3.832 €; pago directo hogares 21% vs 16%).</li>
+      <li>Pensiones: 9,3 M pensionistas; ~13% del PIB (2023), proyección 16–17% en 2050 (Ageing Report 2024); ~2,3 cotizantes/pensionista.</li>
+      <li>Composición PGE 2023 y transferencias a la Seguridad Social (~57.000 M€ en 2025) — Hacienda / AIReF.</li>
+      <li>Matiz: "presión fiscal" no mide el esfuerzo por tramos; el asalariado medio soporta proporcionalmente más (cotizaciones) que otras bases.</li>
+    </ul>
+  </div></details>
+
+  <footer>Estudio de síntesis a partir de datos oficiales (INE, Hacienda, AIReF, Banco de España, OCDE, Eurostat, Fedea). Es un análisis divulgativo, no un dictamen técnico; las cifras son órdenes de magnitud. Octubre de 2026.</footer>
+</div>
+</body>
+</html>

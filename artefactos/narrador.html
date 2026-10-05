@@ -39,6 +39,7 @@
   .tab small{display:block;font-weight:500;font-size:12.5px;color:var(--muted);margin-top:3px}
   .tab.a[aria-selected="true"]{background:linear-gradient(145deg,#3B82F6,#1e51c9)}
   .tab.b[aria-selected="true"]{background:linear-gradient(145deg,#D946AF,#a01f82)}
+  .tab.c[aria-selected="true"]{background:linear-gradient(145deg,#0D9488,#0b6e63)}
 
   .player{position:sticky;top:0;z-index:10;background:rgba(18,18,51,.86);backdrop-filter:blur(8px);
     border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:16px;box-shadow:0 10px 30px rgba(0,0,0,.3)}
@@ -72,6 +73,7 @@
   <div class="tabs" role="tablist">
     <button class="tab a" role="tab" data-k="a" aria-selected="true">💶 Gasto público 1980–2025<small>educación, sanidad, Iglesia, infraestructuras</small></button>
     <button class="tab b" role="tab" data-k="b" aria-selected="false">🏛️ Presupuestos del Estado<small>pensiones, defensa, igualdad, público→privado</small></button>
+    <button class="tab c" role="tab" data-k="c" aria-selected="false">🔎 ¿Dónde va tu dinero?<small>estudio crítico: impuestos y servicios</small></button>
   </div>
 
   <div class="player">
@@ -178,6 +180,44 @@ const SCRIPTS={
     "Eso congela decisiones y perjudica, sobre todo, a la inversión, que es lo más fácil de recortar.",
     "En resumen: pensiones y defensa marcan el rumbo, el Estado del bienestar real lo ejecutan las autonomías, y una parte creciente del dinero público pasa por el sector privado.",
     "Los datos están; el juicio, es tuyo."
+  ]},
+  c:{title:'¿Dónde va tu dinero? (estudio crítico)', color:'#0D9488', sents:[
+    "Pagas impuestos y sientes que los servicios públicos empeoran. Es una sospecha legítima, y vamos a ver qué dicen los datos.",
+    "Primero, una sorpresa: España no es un infierno fiscal.",
+    "Recaudamos alrededor del treinta y siete por ciento del PIB, por debajo de la media europea, que ronda el cuarenta.",
+    "Estamos lejísimos de Francia, con casi un cuarenta y ocho por ciento, o de Alemania, con un cuarenta y dos.",
+    "Lo que duele de verdad es que el peso recae sobre todo en el asalariado, a través de las cotizaciones.",
+    "Segundo dato: gastamos más de lo que ingresamos.",
+    "Cada año el déficit ronda los cuarenta y cinco mil millones de euros; ese agujero se tapa con deuda.",
+    "La deuda pública ya supera el cien por cien del PIB, y pagar solo sus intereses cuesta unos treinta y dos mil millones al año.",
+    "Ese dinero no compra ni un hospital ni un colegio: solo paga intereses.",
+    "Tercero: en sanidad pública gastamos un veinte por ciento menos por habitante que la media europea.",
+    "Tres mil ciento treinta y siete euros por persona, frente a casi tres mil ochocientos en Europa.",
+    "Por eso notas las listas de espera: no es casualidad, es presupuesto.",
+    "Entonces, ¿a dónde va el dinero?",
+    "De cada cien euros del Presupuesto del Estado, casi cuarenta van a pensiones.",
+    "Sumando los intereses de la deuda y el desempleo, más de la mitad está comprometido antes de decidir nada.",
+    "La sanidad y la educación que usas las pagan, en realidad, las Comunidades Autónomas, con el dinero que el Estado les transfiere.",
+    "Así que el dinero no desaparece: se va, cada vez más, a transferencias y a deuda, no a los servicios del día a día.",
+    "Y ahora, la pregunta que todos hacen: ¿se mantiene a demasiada gente?",
+    "Con los números en la mano, la respuesta es no, al menos no como se suele decir.",
+    "El gran gasto son las pensiones contributivas, las que se han cotizado, de nueve millones y medio de pensionistas.",
+    "El gasto en desempleo, en cambio, ha bajado: de treinta y un mil millones en plena crisis a unos veintiuno hoy.",
+    "Las ayudas a quien no trabaja son una parte pequeña del total.",
+    "El problema no son los vagos: es el envejecimiento.",
+    "Cada vez hay que sostener a más mayores con menos trabajadores.",
+    "Hoy hay algo más de dos cotizantes por cada pensionista, camino de uno por uno hacia 2050.",
+    "Y aquí está la pregunta incómoda de verdad.",
+    "Si las pensiones ya son el trece por ciento del PIB, ¿quién pagará el dieciséis o diecisiete por ciento de 2050?",
+    "El baby boom se jubila entre 2022 y 2045, y el sistema ya necesita cincuenta y siete mil millones al año de ayuda del Estado para cuadrar.",
+    "Sin más ingresos, más deuda o reformas, ese dinero saldrá de los mismos servicios que notas empeorar.",
+    "En resumen: tu instinto acierta en el síntoma, pero se equivoca en la causa.",
+    "No es que paguemos impuestos desorbitados, ni que se mantenga a vagos.",
+    "Es demografía: pensiones y sanidad de una población que envejece.",
+    "Es déficit crónico: gastar más de lo que se ingresa, y pagar la deuda.",
+    "Y son ingresos por debajo de Europa, con mucha economía sumergida sin tributar.",
+    "El dinero no se evapora: se está recomprometiendo hacia pensiones y deuda, dejando los servicios por debajo de la media europea.",
+    "Los datos están sobre la mesa; el juicio, es tuyo."
   ]}
 };
 
