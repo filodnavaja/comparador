@@ -22,3 +22,4 @@ Norma del proyecto: todo artefacto nuevo se guarda aquí automáticamente (HTML 
 | fondos.html | Fondos europeos Next Generation: el embudo (asignado/recibido/ejecutado), reparto y críticas | fondos.md |
 | poder.html | ¿Quién se queda tu dinero? Poder, corrupción (casos con estado judicial) y baremo de CCAA ganadoras/perdedoras | poder.md |
 | medios.html | ¿Quién te informa (y quién lo paga)? Dinero público a los medios: publicidad institucional, TVs públicas y subvenciones + baremo TV autonómica/hab | medios.md |
+| deuda.html | La deuda: la factura que nadie firma. Deuda total y por habitante, intereses anuales, a dónde va + baremo de deuda autonómica/hab | deuda.md |

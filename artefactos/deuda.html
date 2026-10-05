@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>La deuda: la factura que nadie firma</title>
+<meta name="description" content="Cuánto debe España, cuánto pagas tú en intereses cada año y cuánto de ese dinero deja de llegar a los servicios públicos. Con baremo por comunidades.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --bg:#121233; --panel:rgba(255,255,255,.055); --panel-2:rgba(255,255,255,.10); --ink:#f4f2ff; --ink-2:#c9c3ec; --muted:#908ab8;
+    --line:rgba(255,255,255,.12); --line-2:rgba(255,255,255,.22);
+    --accent:#F43F5E; --accent-2:#FB7185; --good:#22C55E; --bad:#F43F5E; --warn:#FB923C; --cool:#38BDF8;
+    --f-disp:"Fraunces",Georgia,serif; --f-body:"IBM Plex Sans",system-ui,sans-serif; color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+    font-variant-numeric:tabular-nums;
+    background:radial-gradient(90% 60% at 85% -5%,rgba(244,63,94,.22),transparent 60%),
+      radial-gradient(80% 55% at 0% 0%,rgba(56,189,248,.16),transparent 55%),
+      linear-gradient(160deg,#2a1540,#121233 55%,#0c1030);background-attachment:fixed;min-height:100%}
+  html,body{min-height:100%}
+  .wrap{max-width:840px;margin:0 auto;padding-inline:16px}
+  h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(28px,5.6vw,50px);line-height:1.05;margin:0;
+    background:linear-gradient(92deg,#fff 10%,#ffd1d9 45%,#fb7185 95%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  h2{font-family:var(--f-disp);font-weight:700;font-size:clamp(21px,4vw,29px);margin:32px 0 8px;color:#fff}
+  header{padding-block:34px 4px}
+  .eyebrow{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#2a0a10;font-weight:700;
+    background:linear-gradient(90deg,var(--accent),#fb923c);padding:5px 12px;border-radius:999px;margin-bottom:14px}
+  .sub{font-size:clamp(16px,2.4vw,19px);color:var(--ink-2);max-width:63ch;margin-top:12px}
+  p{margin:0 0 .8em} .lead{font-size:16.5px;color:var(--ink-2);max-width:64ch} b,strong{color:#fff}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:12px;margin:16px 0 6px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .card .k{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  .card .v{font-family:var(--f-disp);font-weight:700;font-size:26px;color:#fff;margin:6px 0 2px;line-height:1.05}
+  .card .d{font-size:13px;color:var(--ink-2)}
+  .card.bad{border-left:4px solid var(--bad)} .card.warn{border-left:4px solid var(--warn)} .card.cool{border-left:4px solid var(--cool)}
+
+  .ba{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0}
+  .barow{display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:center;margin-bottom:11px}
+  .barow:last-child{margin-bottom:0}
+  .barow .lab{font-size:13.5px;color:var(--ink-2)}
+  .ab{position:relative;height:24px;border-radius:7px;background:rgba(255,255,255,.07);overflow:hidden}
+  .ab i{position:absolute;left:0;top:0;height:100%;border-radius:7px}
+  .ab .t{position:absolute;right:8px;top:3px;font-size:12px;font-weight:700;color:#fff}
+  .ab.before i{background:rgba(144,138,184,.55)} .ab.now i{background:linear-gradient(90deg,var(--accent),#fb923c)}
+
+  .ccaa{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 16px 10px;margin:12px 0}
+  .chartbox{position:relative} svg.chart{display:block;width:100%;height:auto;overflow:visible}
+  .tip{position:absolute;pointer-events:none;background:#0b0a1f;color:#fff;border:1px solid var(--line-2);border-radius:10px;padding:8px 11px;font-size:12.5px;opacity:0;transition:opacity .08s;z-index:5} .tip b{color:#fff}
+  .src{font-size:12.5px;color:var(--muted);margin-top:4px}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+  @media(max-width:560px){.two{grid-template-columns:1fr}}
+  .tbox{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px}
+  .tbox h4{margin:0 0 6px;font-size:16px;color:#fff;font-family:var(--f-disp)} .tbox p{font-size:14px;color:var(--ink-2);margin:0}
+  .tbox .ic{font-size:22px;margin-bottom:6px}
+
+  .big{background:linear-gradient(145deg,rgba(244,63,94,.17),rgba(251,146,60,.08));border:1px solid rgba(244,63,94,.35);border-radius:18px;padding:18px;margin:16px 0}
+  .big .q{font-family:var(--f-disp);font-weight:700;font-size:21px;color:#fff;margin-bottom:6px}
+  .disc{background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.35);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--ink-2);margin:14px 0}
+  details{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin:12px 0;overflow:hidden}
+  summary{cursor:pointer;padding:14px 16px;font-weight:700;color:#fff;list-style:none} summary::-webkit-details-marker{display:none}
+  .dbody{padding:0 16px 16px;color:var(--ink-2);font-size:14px} .dbody b{color:#fff} .dbody li{margin-bottom:.4em}
+  footer{padding:24px 0 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:22px}
+
+  .loc{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:12px;z-index:60;display:flex;align-items:center;gap:8px}
+  .loc .lbl{font-size:12px;font-weight:700;color:var(--ink-2);background:rgba(10,8,30,.6);border:1px solid var(--line);border-radius:999px;padding:6px 11px}
+  .locbtn{width:48px;height:48px;border-radius:50%;border:1px solid rgba(0,0,0,.15);cursor:pointer;font-size:19px;background:linear-gradient(92deg,var(--accent),#fb923c);color:#2a0a10;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+  .locbtn.playing{background:#f43f5e;color:#fff}
+  .locbtn.sec{background:rgba(255,255,255,.12);color:#fff;border:1px solid var(--line-2);width:44px;height:44px;font-size:17px}
+  .locbtn.sec.on{background:#22C55E;color:#06210f;border-color:transparent}
+  body.imode .card,body.imode .barow,body.imode .tbox,body.imode .ccaa,body.imode .big,body.imode .lead{cursor:pointer}
+  body.imode .card:hover,body.imode .tbox:hover{outline:2px solid var(--accent);outline-offset:2px}
+  @media(max-width:520px){ .loc .lbl{display:none} }
+</style>
+</head>
+<body>
+<div class="loc"><span class="lbl">Escúchalo</span><button class="locbtn sec" id="locmode" title="Narrar al pasar el ratón" aria-label="Narración interactiva">👆</button><button class="locbtn" id="locplay" title="Escuchar" aria-label="Escuchar">🔊</button></div>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">España · La deuda pública</span>
+    <h1>La deuda: la factura que nadie firma</h1>
+    <p class="sub">Hay un gasto del que casi nunca se habla y que te quita dinero <b>antes</b> de que llegue a la sanidad o a la educación: los <b>intereses de la deuda</b>. No la firmaste tú, pero la pagas tú.</p>
+  </header>
+
+  <div class="cards">
+    <div class="card bad"><div class="k">Deuda total (2025)</div><div class="v">1,698 billones €</div><div class="d">100,8% del PIB · récord histórico</div></div>
+    <div class="card bad"><div class="k">Te toca a ti</div><div class="v">≈ 35.000 €<span style="font-size:14px;color:var(--ink-2)">/habitante</span></div><div class="d">eras 9.163 € en 2004: ×3,6 en 20 años</div></div>
+    <div class="card warn"><div class="k">Intereses (2025)</div><div class="v">≈ 42.500 M€<span style="font-size:14px;color:var(--ink-2)">/año</span></div><div class="d">unos 116 M€ cada día, solo en intereses</div></div>
+    <div class="card warn"><div class="k">Intereses por cabeza</div><div class="v">≈ 890 €<span style="font-size:14px;color:var(--ink-2)">/año</span></div><div class="d">lo pagas aunque no veas nada a cambio</div></div>
+  </div>
+
+  <h2>1. Cómo se ha disparado (antes / ahora)</h2>
+  <p class="lead">La deuda no es nueva, pero su tamaño sí. Deuda por habitante:</p>
+  <div class="ba">
+    <div class="barow"><div class="lab">2004</div><div class="ab before"><i style="width:27%"></i><span class="t">9.163 €</span></div></div>
+    <div class="barow"><div class="lab">2024</div><div class="ab now"><i style="width:100%"></i><span class="t">33.332 €</span></div></div>
+    <div class="src">Se ha multiplicado por 3,6 en veinte años. En % del PIB: pasó de ~36% (2007) al 100,8% (2025).</div>
+  </div>
+  <p class="lead">Y lo que más duele: los intereses que pagamos cada año (suben al subir los tipos):</p>
+  <div class="ba">
+    <div class="barow"><div class="lab">2021</div><div class="ab before"><i style="width:61%"></i><span class="t">≈ 26.000 M€</span></div></div>
+    <div class="barow"><div class="lab">2025</div><div class="ab now"><i style="width:100%"></i><span class="t">≈ 42.500 M€</span></div></div>
+    <div class="src">+63% en cuatro años. La AIReF advierte: hacia 2041 los intereses podrían superar todo el gasto público en educación.</div>
+  </div>
+
+  <h2>2. ¿A dónde va ese dinero (y de dónde sale)?</h2>
+  <div class="two">
+    <div class="tbox"><div class="ic">🏦</div><h4>A los tenedores de bonos</h4><p>Bancos, fondos y aseguradoras, españoles y extranjeros. Casi la mitad de la deuda está en manos de inversores de fuera: cada año salen miles de millones del país solo en intereses.</p></div>
+    <div class="tbox"><div class="ic">🔁</div><h4>No se devuelve: se refinancia</h4><p>Cuando vence una deuda, el Estado emite otra nueva para pagarla. La bola no se reduce, se renueva. Por eso el nivel de tipos de interés lo cambia todo.</p></div>
+    <div class="tbox"><div class="ic">✂️</div><h4>Lo que deja de llegar</h4><p>42.500 M€ en intereses equivalen a casi la mitad de todo el gasto sanitario público. Es dinero comprometido antes de decidir una sola política.</p></div>
+    <div class="tbox"><div class="ic">⏳</div><h4>La pagan tus hijos</h4><p>Es deuda intergeneracional: se gasta hoy y se devuelve (o se refinancia) durante décadas. Quien vota el gasto no es quien paga la factura.</p></div>
+  </div>
+
+  <h2>3. Baremo: ¿cuánto debe TU comunidad por habitante?</h2>
+  <p class="lead">Las comunidades también tienen su propia deuda, y la diferencia es enorme. Deuda autonómica por habitante (la línea marca la media, 6.955 €):</p>
+  <div class="ccaa"><div class="chartbox"><div class="plotD"></div></div>
+    <div class="src">Fuente: Banco de España (deuda autonómica) e INE (población), 2025. A esto se suma tu parte de la deuda del Estado (~32.000 €/hab).</div></div>
+
+  <div class="big">
+    <div class="q">Pagas los intereses de una deuda que no firmaste, antes de que un solo euro llegue a un hospital o a un colegio.</div>
+    <p style="margin:0;color:var(--ink-2)">Por eso puedes pagar <b>más impuestos</b> y notar <b>peores servicios</b>: una parte creciente del presupuesto está <b>hipotecada</b> en intereses y compromisos previos. No es magia ni es solo corrupción: es también <b>la factura de décadas de gastar más de lo que se ingresa</b>.</p>
+  </div>
+
+  <div class="disc">⚠️ <b>Matiz honesto:</b> endeudarse no es malo en sí. La deuda tiene sentido para <b>inversión</b> (infraestructuras, crisis, pandemias) que benefician también al futuro. El problema aparece cuando se usa para <b>gasto corriente</b> de forma crónica y cuando los <b>tipos suben</b>: entonces los intereses comen presupuesto. Ni "la deuda no importa" ni "estamos en quiebra": importa <b>para qué</b> se usa y <b>a qué coste</b>.</div>
+
+  <details><summary>Fuentes y cómo leerlo</summary><div class="dbody">
+    <ul>
+      <li><b>Deuda total 2025:</b> 1,698 billones € (100,8% del PIB), máximo histórico; +78.108 M€ en el año. Banco de España.</li>
+      <li><b>Deuda por habitante:</b> 9.163 € (2004) → 33.332 € (2024). Con la deuda autonómica incluida, ~35.000 €/hab.</li>
+      <li><b>Intereses:</b> ≈42.500 M€ en 2025 (≈116 M€/día); ~2,4% del PIB, en subida. AIReF proyecta que superen la educación hacia 2041.</li>
+      <li><b>Deuda autonómica/hab (2025):</b> C. Valenciana 11.349 €, Cataluña 11.195 €, Murcia 8.503 €, Castilla-La Mancha 7.711 €, media 6.955 €, Andalucía ~4.700 €, Madrid ~5.400 €.</li>
+    </ul>
+    <p class="src">Fuentes: Banco de España, Ministerio de Hacienda, AIReF, INE, prensa económica. Octubre de 2026. Síntesis divulgativa; cifras redondeadas.</p>
+  </div></details>
+
+  <footer>Estudio de síntesis con fuentes oficiales. Distingue el hecho (cuánto se debe y se paga) de la interpretación (qué significa). Octubre de 2026.</footer>
+</div>
+
+<script>
+// deuda autonómica por habitante (€)
+const D=[["C. Valenciana",11349],["Cataluña",11195],["Murcia",8503],["Castilla-La Mancha",7711],["Madrid",5400],["Andalucía",4700]];
+const MEDIA=6955;
+const cv=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+function tipFor(box){let t=box.querySelector('.tip');if(!t){t=document.createElement('div');t.className='tip';box.appendChild(t);}return t;}
+(function(){
+  const wrap=document.querySelector('.plotD');
+  const W=760,rh=38,mT=6,mB=22,mL=160,mR=66,H=mT+mB+D.length*rh,max=Math.max(...D.map(c=>c[1]));
+  const X=v=>mL+(v/max)*(W-mL-mR);let g='';const xm=X(MEDIA);
+  D.forEach((c,i)=>{const y=mT+i*rh+rh/2,col=c[1]>=MEDIA?cv('--bad'):cv('--good');
+    g+=`<text x="${mL-8}" y="${y+4}" text-anchor="end" font-size="12.5" fill="${cv('--ink-2')}">${c[0]}</text>`;
+    const bw=Math.max(3,X(c[1])-mL);
+    g+=`<rect class="b" data-n="${c[0]}" data-v="${c[1]}" x="${mL}" y="${y-11}" width="${bw}" height="22" rx="5" fill="${col}"/>`;
+    g+=`<text x="${mL+bw+7}" y="${y+4}" font-size="12.5" font-weight="700" fill="#fff">${c[1].toLocaleString('es-ES')} €</text>`;});
+  g+=`<line x1="${xm}" y1="${mT-2}" x2="${xm}" y2="${H-mB+2}" stroke="${cv('--accent')}" stroke-width="1.5" stroke-dasharray="4 4"/>`;
+  g+=`<text x="${xm}" y="${H-6}" text-anchor="middle" font-size="11" fill="${cv('--accent')}">media 6.955 €</text>`;
+  wrap.innerHTML=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Deuda autonómica por habitante">${g}</svg>`;
+  const box=wrap.closest('.chartbox'),tip=tipFor(box);
+  wrap.querySelectorAll('.b').forEach(b=>{b.addEventListener('mousemove',e=>{const v=(+b.dataset.v).toLocaleString('es-ES');tip.innerHTML=`<b>${b.dataset.n}</b> · ${v} € por habitante`;tip.style.opacity='1';const bx=box.getBoundingClientRect();tip.style.left=Math.min(bx.width-200,Math.max(4,e.clientX-bx.left+12))+'px';tip.style.top=(e.clientY-bx.top-10)+'px';});b.addEventListener('mouseleave',()=>tip.style.opacity='0');});
+})();
+
+(function(){
+const LINES=[
+  "La deuda: la factura que nadie firma.",
+  "Hay un gasto del que casi nunca se habla y que te quita dinero antes de que llegue a la sanidad o a la educación: los intereses de la deuda. No la firmaste tú, pero la pagas tú.",
+  "España debe ya un billón seiscientos noventa y ocho mil millones de euros, el cien coma ocho por ciento de todo lo que produce el país en un año. Es un récord histórico.",
+  "Repartido, te toca a unos treinta y cinco mil euros por habitante. Hace veinte años eran nueve mil: se ha multiplicado por más de tres.",
+  "Pero lo que de verdad duele son los intereses: unos cuarenta y dos mil quinientos millones de euros al año. Ciento dieciséis millones cada día, solo en intereses.",
+  "Eso son unos ochocientos noventa euros por cabeza al año, que pagas aunque no veas nada a cambio.",
+  "¿A dónde va ese dinero? A los tenedores de los bonos: bancos y fondos, y casi la mitad están fuera de España.",
+  "Y ojo: la deuda no se devuelve, se refinancia. Cuando vence una, se emite otra para pagarla. Por eso, cuando suben los tipos de interés, sube la factura de todos.",
+  "Cuarenta y dos mil millones en intereses equivalen a casi la mitad de todo el gasto sanitario público. Es dinero comprometido antes de decidir una sola política.",
+  "Y es deuda que pagarán tus hijos: quien vota el gasto no es siempre quien paga la factura.",
+  "Por comunidades, la diferencia es enorme. La Comunidad Valenciana y Cataluña deben más de once mil euros por habitante; Madrid y Andalucía, menos de la mitad.",
+  "La conclusión: pagas los intereses de una deuda que no firmaste, antes de que un solo euro llegue a un hospital o a un colegio.",
+  "Seamos justos: endeudarse no es malo en sí. Tiene sentido para invertir, o para una crisis. El problema es usarlo para el gasto de cada día, de forma crónica, y que al subir los tipos los intereses se coman el presupuesto.",
+  "Activa el dedo para que te narre cada dato al pasar el ratón."
+];
+const SAYSEL='.card,.barow,.tbox,.ccaa,.big,.lead';
+const ttsOK='speechSynthesis'in window; let i=0,playing=false,voice=null,inter=false,last=null,wd=null,hov=null;
+const play=document.getElementById('locplay'),mode=document.getElementById('locmode');
+function pick(){if(!ttsOK)return;const vs=speechSynthesis.getVoices();voice=vs.find(v=>/alvaro/i.test(v.name))||vs.find(v=>/es[-_]ES/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang))||null;}
+if(ttsOK){pick();speechSynthesis.onvoiceschanged=pick;}
+function keepAlive(){clearInterval(wd);wd=setInterval(()=>{if(!playing){clearInterval(wd);return;}try{if(speechSynthesis.speaking&&!speechSynthesis.paused)speechSynthesis.resume();}catch(e){}},9000);}
+function speak(n){if(n>=LINES.length){stop();return;}i=n;const u=new SpeechSynthesisUtterance(LINES[n]);u.lang='es-ES';u.rate=1;if(voice)u.voice=voice;
+  let adv=false;const go=()=>{if(adv)return;adv=true;if(playing)speak(n+1);};u.onend=go;u.onerror=go;
+  const est=Math.max(2600,LINES[n].length*85);setTimeout(()=>{if(playing&&!adv&&!speechSynthesis.speaking)go();},est+1600);
+  try{speechSynthesis.speak(u);}catch(e){go();}}
+function start(){if(!ttsOK)return;try{speechSynthesis.cancel();}catch(e){}playing=true;play.textContent='⏸';play.classList.add('playing');play.title='Pausar';keepAlive();setTimeout(()=>speak(i),130);}
+function stop(){playing=false;clearInterval(wd);if(ttsOK)try{speechSynthesis.cancel();}catch(e){}i=0;play.textContent='🔊';play.classList.remove('playing');play.title='Escuchar';}
+function pause(){playing=false;clearInterval(wd);if(ttsOK)try{speechSynthesis.cancel();}catch(e){}play.textContent='▶';play.classList.remove('playing');play.title='Reanudar';}
+play.onclick=()=>{playing?pause():start();};
+let wd2=null;function keepAlive2(){clearInterval(wd2);wd2=setInterval(()=>{try{if(speechSynthesis.speaking&&!speechSynthesis.paused)speechSynthesis.resume();else clearInterval(wd2);}catch(e){}},9000);}
+function sayText(t){if(!ttsOK||!t)return;try{speechSynthesis.cancel();}catch(e){}const u=new SpeechSynthesisUtterance(t);u.lang='es-ES';u.rate=1.03;if(voice)u.voice=voice;keepAlive2();speechSynthesis.speak(u);}
+function clean(el){return (el.getAttribute('data-say')||el.textContent||'').replace(/\s+/g,' ').trim().slice(0,340);}
+document.addEventListener('mouseover',e=>{if(!inter||playing)return;const el=e.target.closest(SAYSEL);if(el&&el!==last){last=el;clearTimeout(hov);hov=setTimeout(()=>sayText(clean(el)),320);}});
+document.addEventListener('mouseout',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el&&el===last&&!el.contains(e.relatedTarget))last=null;});
+document.addEventListener('click',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el){if(playing)pause();clearTimeout(hov);sayText(clean(el));}});
+mode.onclick=()=>{inter=!inter;document.body.classList.toggle('imode',inter);mode.classList.toggle('on',inter);mode.title=inter?'Narración al pasar el ratón: ACTIVADA':'Narrar al pasar el ratón';if(inter&&playing)pause();if(!inter&&ttsOK)try{speechSynthesis.cancel();}catch(e){}};
+window.addEventListener('beforeunload',()=>{if(ttsOK)try{speechSynthesis.cancel();}catch(e){}});
+})();
+</script>
+</body>
+</html>
