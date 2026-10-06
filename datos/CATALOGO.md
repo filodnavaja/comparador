@@ -25,3 +25,4 @@ Norma del proyecto: todo artefacto nuevo se guarda aquí automáticamente (HTML 
 | deuda.html | La deuda: la factura que nadie firma. Deuda total y por habitante, intereses anuales, a dónde va + baremo de deuda autonómica/hab | deuda.md |
 | andalucia.html | Andalucía: la más grande, la última en la fila. Paradoja (renta/paro), poder (37 años PSOE→PP), EREs, campo/PAC/olivar, liderazgo solar + comparativa con España/UE | andalucia.md |
 | pensiones.html | Pensiones: ¿quién mantiene a quién? Gasto, sistema de reparto, ratio cotizantes/pensionista, hucha vaciada, déficit real + baremo de pensión por CCAA | pensiones.md |
+| politico.html | ¿Cuánto te cuesta un político? Coste "todo incluido" (sueldo, coche, chófer, escolta, asesores), el bulo de los 470.000, aforamiento + baremo aforados España vs Europa | politico.md |
