@@ -17,7 +17,19 @@ Archivo: `artefactos/politico.html` · Artefacto: https://claude.ai/artifact/6JB
 
 ## El bulo que se desmonta primero
 
-"470.000 políticos con sueldazo" es **falso** (Maldita.es). Realidad: ~73.197 cargos no funcionarios, de los que **67.121 son alcaldes y concejales**, la mayoría de pueblos pequeños sin sueldo o con sueldos simbólicos. Con asesores, ~100.000. El problema no es el número, es el **círculo** de los de arriba y los **privilegios**.
+El número "470.000 políticos con sueldazo" es **falso** (Maldita.es). Realidad: ~73.197 cargos no funcionarios, de los que **67.121 son alcaldes y concejales**. Con asesores, ~100.000. Pero ojo: eso **no** significa que "no cobren" — solo en los pueblos más pequeños el cargo es gratis.
+
+### Alcaldes y concejales SÍ cobran (tope por población, brutos/año)
+
+| Municipio (habitantes) | Sueldo máximo alcalde |
+|---|---|
+| +500.000 | 116.160 € (más que el presidente del Gobierno) |
+| 150.001–300.000 | 84.904 € |
+| 20.001–50.000 | 58.372 € |
+| 1.000–5.000 | 42.452 € |
+| menos de 1.000 | 0 € (sin sueldo) |
+
+Un alcalde de ciudad mediana ronda los **6.000–7.000 €/mes**. Los **concejales** con dedicación exclusiva cobran sueldo completo; con dedicación parcial, una parte; muchos superan los **2.000–3.000 €/mes**. Solo los de pueblos pequeños cobran solo dietas, o nada.
 
 ## 1. El iceberg — coste de UN alto cargo/año (estimación ilustrativa)
 
