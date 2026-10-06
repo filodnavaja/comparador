@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tres preguntas incómodas</title>
+<meta name="description" content="Sanidad pública vs privada, la factura de la luz y la inmigración en España: datos, comparaciones y matices honestos en un solo estudio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --bg:#111426; --panel:rgba(255,255,255,.055); --panel-2:rgba(255,255,255,.10); --ink:#eef1f8; --ink-2:#c3c8de; --muted:#8b90b0;
+    --line:rgba(255,255,255,.12); --line-2:rgba(255,255,255,.22);
+    --sani:#14B8A6; --luz:#F59E0B; --inmi:#3B82F6; --gold:#FBBF24; --good:#22C55E; --bad:#F43F5E; --warn:#FB923C; --grey:#8aa0b8;
+    --accent:var(--sani);
+    --f-disp:"Fraunces",Georgia,serif; --f-body:"IBM Plex Sans",system-ui,sans-serif; color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+    font-variant-numeric:tabular-nums;
+    background:radial-gradient(85% 50% at 90% -5%,rgba(59,130,246,.18),transparent 60%),
+      radial-gradient(70% 45% at 5% 2%,rgba(20,184,166,.20),transparent 55%),
+      radial-gradient(60% 40% at 50% 100%,rgba(245,158,11,.12),transparent 60%),
+      linear-gradient(160deg,#1a1f3a,#111426 60%,#0b0e1c);background-attachment:fixed;min-height:100%}
+  html,body{min-height:100%}
+  .wrap{max-width:860px;margin:0 auto;padding-inline:16px}
+  h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(27px,5.4vw,49px);line-height:1.05;margin:0;
+    background:linear-gradient(92deg,#fff 5%,#8fe9dc 38%,#ffd98a 68%,#9dc0ff 98%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  h2{font-family:var(--f-disp);font-weight:700;font-size:clamp(22px,4.2vw,31px);margin:10px 0 8px;color:#fff;display:flex;align-items:center;gap:10px}
+  h2 .em{font-size:28px}
+  header{padding-block:34px 4px}
+  .eyebrow{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#0b1020;font-weight:700;
+    background:linear-gradient(90deg,var(--sani),var(--inmi));padding:5px 12px;border-radius:999px;margin-bottom:14px}
+  .sub{font-size:clamp(16px,2.4vw,19px);color:var(--ink-2);max-width:64ch;margin-top:12px}
+  p{margin:0 0 .8em} .lead{font-size:16.5px;color:var(--ink-2);max-width:65ch} b,strong{color:#fff}
+
+  .nav{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 6px;position:sticky;top:0;z-index:20;padding:10px 0;background:linear-gradient(180deg,rgba(17,20,38,.95),rgba(17,20,38,.75) 70%,transparent);backdrop-filter:blur(6px)}
+  .nav a{flex:1 1 auto;min-width:130px;text-align:center;text-decoration:none;padding:9px 12px;border-radius:11px;font-weight:700;font-size:13.5px;border:1px solid var(--line-2)}
+  .nav a.a1{color:#7fe6da;border-color:rgba(20,184,166,.5)} .nav a.a2{color:#ffd98a;border-color:rgba(245,158,11,.5)} .nav a.a3{color:#9dc0ff;border-color:rgba(59,130,246,.5)}
+
+  section{scroll-margin-top:64px;border-top:1px solid var(--line);padding-top:14px;margin-top:26px}
+  section.s1{--accent:var(--sani)} section.s2{--accent:var(--luz)} section.s3{--accent:var(--inmi)}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px;margin:14px 0 6px}
+  .card{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:16px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .card .k{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  .card .v{font-family:var(--f-disp);font-weight:700;font-size:24px;color:#fff;margin:6px 0 2px;line-height:1.05}
+  .card .d{font-size:13px;color:var(--ink-2)}
+
+  .ba{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0}
+  .barow{display:grid;grid-template-columns:160px 1fr;gap:12px;align-items:center;margin-bottom:11px}
+  .barow:last-child{margin-bottom:0}
+  .barow .lab{font-size:13px;color:var(--ink-2)}
+  .ab{position:relative;height:26px;border-radius:7px;background:rgba(255,255,255,.07);overflow:hidden}
+  .ab i{position:absolute;left:0;top:0;height:100%;border-radius:7px;background:var(--accent)}
+  .ab.alt i{background:rgba(138,160,184,.55)}
+  .ab .t{position:absolute;right:8px;top:4px;font-size:12px;font-weight:700;color:#fff}
+  .src{font-size:12.5px;color:var(--muted);margin-top:4px}
+
+  .tbox{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px;margin:12px 0}
+  .tbox h4{margin:0 0 6px;font-size:16px;color:#fff;font-family:var(--f-disp)} .tbox p{font-size:14px;color:var(--ink-2);margin:0}
+  .disc{background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.35);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--ink-2);margin:14px 0}
+  .disc b{color:#fff}
+  .big{background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.02));border:1px solid var(--line-2);border-radius:18px;padding:18px;margin:22px 0}
+  .big .q{font-family:var(--f-disp);font-weight:700;font-size:21px;color:#fff;margin-bottom:6px}
+  details{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin:12px 0;overflow:hidden}
+  summary{cursor:pointer;padding:14px 16px;font-weight:700;color:#fff;list-style:none} summary::-webkit-details-marker{display:none}
+  .dbody{padding:0 16px 16px;color:var(--ink-2);font-size:14px} .dbody b{color:#fff} .dbody li{margin-bottom:.4em}
+  footer{padding:24px 0 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:22px}
+
+  .loc{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:12px;z-index:60;display:flex;align-items:center;gap:8px}
+  .loc .lbl{font-size:12px;font-weight:700;color:var(--ink-2);background:rgba(11,14,28,.6);border:1px solid var(--line);border-radius:999px;padding:6px 11px}
+  .locbtn{width:48px;height:48px;border-radius:50%;border:1px solid rgba(0,0,0,.15);cursor:pointer;font-size:19px;background:linear-gradient(92deg,var(--sani),var(--inmi));color:#0b1020;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+  .locbtn.playing{background:#f43f5e;color:#fff}
+  .locbtn.sec{background:rgba(255,255,255,.12);color:#fff;border:1px solid var(--line-2);width:44px;height:44px;font-size:17px}
+  .locbtn.sec.on{background:#22C55E;color:#06210f;border-color:transparent}
+  body.imode .card,body.imode .barow,body.imode .tbox,body.imode .big,body.imode .lead{cursor:pointer}
+  body.imode .card:hover,body.imode .tbox:hover{outline:2px solid var(--gold);outline-offset:2px}
+  @media(max-width:520px){ .loc .lbl{display:none} }
+</style>
+</head>
+<body>
+<div class="loc"><span class="lbl">Escúchalo</span><button class="locbtn sec" id="locmode" title="Narrar al pasar el ratón" aria-label="Narración interactiva">👆</button><button class="locbtn" id="locplay" title="Escuchar" aria-label="Escuchar">🔊</button></div>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">España · Tres debates, con datos</span>
+    <h1>Tres preguntas incómodas</h1>
+    <p class="sub">Tres temas que encienden cualquier conversación: <b>la sanidad</b>, <b>la factura de la luz</b> y <b>la inmigración</b>. Aquí no hay consignas: hay cifras, comparaciones y el <b>matiz honesto</b> que casi nadie te cuenta. Incluso cuando el dato contradice al tópico.</p>
+  </header>
+
+  <nav class="nav">
+    <a class="a1" href="#sani">🏥 Sanidad</a>
+    <a class="a2" href="#luz">⚡ La luz</a>
+    <a class="a3" href="#inmi">🌍 Inmigración</a>
+  </nav>
+
+  <!-- ============ SANIDAD ============ -->
+  <section class="s1" id="sani">
+    <h2><span class="em">🏥</span> 1. Sanidad: lo público que paga lo privado</h2>
+    <p class="lead">Tienes una de las mejores sanidades del mundo… y cada vez más gente paga, <b>además</b>, un seguro privado porque la pública no llega a tiempo. Pagas dos veces.</p>
+    <div class="cards">
+      <div class="card"><div class="k">Gasto sanitario total</div><div class="v">≈ 130.000 M€</div><div class="d">26% ya es privado (34.056 M€)</div></div>
+      <div class="card"><div class="k">Con seguro privado</div><div class="v">≈ 12 millones</div><div class="d">casi 1 de cada 4 españoles</div></div>
+      <div class="card"><div class="k">Espera para operarte</div><div class="v">≈ 120 días</div><div class="d">de media, con picos mucho mayores</div></div>
+      <div class="card"><div class="k">MUFACE (funcionarios)</div><div class="v">1.337 M€</div><div class="d">1,5 M mutualistas, 2/3 en la privada</div></div>
+    </div>
+    <p class="lead">A dónde va el gasto sanitario (público frente a privado):</p>
+    <div class="ba">
+      <div class="barow"><div class="lab">Sanidad pública</div><div class="ab"><i style="width:100%"></i><span class="t">≈ 96.000 M€ (74%)</span></div></div>
+      <div class="barow"><div class="lab">Sanidad privada</div><div class="ab alt"><i style="width:35%"></i><span class="t">34.056 M€ (26%)</span></div></div>
+      <div class="src">Parte de ese dinero "privado" sale, en realidad, de lo público: conciertos con clínicas y mutualidades como MUFACE, que pagan a aseguradoras privadas con dinero del Estado.</div>
+    </div>
+    <div class="disc">⚠️ <b>Matiz honesto:</b> la sanidad pública española es <b>buena y barata</b> (cuesta menos por habitante que en casi toda Europa y cubre a todos). El problema no es privatización total, sino el <b>deterioro</b>: listas de espera que empujan a quien puede a pagar un seguro, creando una sanidad <b>de dos velocidades</b>. MUFACE, además, demuestra que a veces lo privado sale más barato por persona (1.030 € frente a 1.736 € en la pública): el debate es más complejo que "público bueno, privado malo".</div>
+  </section>
+
+  <!-- ============ LUZ ============ -->
+  <section class="s2" id="luz">
+    <h2><span class="em">⚡</span> 2. La factura de la luz: el tópico que ya no es cierto</h2>
+    <p class="lead">"España paga la luz más cara de Europa." Es el tópico de siempre… y en 2025 <b>ya no es verdad</b>. Pero hay letra pequeña.</p>
+    <div class="cards">
+      <div class="card"><div class="k">Precio hogar (2025)</div><div class="v">26,08 c€<span style="font-size:13px;color:var(--ink-2)">/kWh</span></div><div class="d">por debajo de la media UE (28,72)</div></div>
+      <div class="card"><div class="k">Más baratos que España</div><div class="v">15 países</div><div class="d">ni la más cara ni la más barata</div></div>
+      <div class="card"><div class="k">Mayorista vs UE</div><div class="v">−32%</div><div class="d">gracias a las renovables</div></div>
+      <div class="card"><div class="k">Gran industria</div><div class="v">2,7×<span style="font-size:13px;color:var(--ink-2)"> Francia</span></div><div class="d">aquí sí pagamos de más</div></div>
+    </div>
+    <p class="lead">Precio doméstico con impuestos, primer semestre de 2025:</p>
+    <div class="ba">
+      <div class="barow"><div class="lab">España</div><div class="ab"><i style="width:91%"></i><span class="t">26,08 c€/kWh</span></div></div>
+      <div class="barow"><div class="lab">Media UE-27</div><div class="ab alt"><i style="width:100%"></i><span class="t">28,72 c€/kWh</span></div></div>
+      <div class="src">El precio mayorista español fue un 32% inferior a la media europea en 2025 porque las renovables marcan el precio la mayor parte de las horas.</div>
+    </div>
+    <div class="disc">⚠️ <b>Matiz honesto:</b> el recibo lleva <b>mucho impuesto y peaje</b> (IVA, impuesto eléctrico, costes del sistema), y la <b>gran industria</b> sí paga carísimo frente a Francia o Alemania. Pero el relato de "la luz más cara de Europa" está <b>desfasado</b>: en 2025, gracias a las renovables, el hogar español paga por debajo de la media de la UE. Que algo te indigne no lo hace cierto: el dato manda.</div>
+  </section>
+
+  <!-- ============ INMIGRACIÓN ============ -->
+  <section class="s3" id="inmi">
+    <h2><span class="em">🌍</span> 3. Inmigración: ¿cuestan o aportan?</h2>
+    <p class="lead">El debate más caliente, y donde más bulos circulan por los dos lados. Vamos a los números fríos de la Seguridad Social.</p>
+    <div class="cards">
+      <div class="card"><div class="k">Afiliados extranjeros</div><div class="v">3,1 millones</div><div class="d">máximo histórico; +45% desde 2019</div></div>
+      <div class="card"><div class="k">De las cotizaciones</div><div class="v">14,1 %</div><div class="d">las aportan trabajadores extranjeros</div></div>
+      <div class="card"><div class="k">Del gasto público</div><div class="v">≈ 1 %</div><div class="d">asociado a población extranjera</div></div>
+      <div class="card"><div class="k">Balance</div><div class="v">Superávit</div><div class="d">aportan más de lo que reciben</div></div>
+    </div>
+    <p class="lead">Lo que aportan a la Seguridad Social frente a lo que cuestan al gasto público:</p>
+    <div class="ba">
+      <div class="barow"><div class="lab">Aportan (cotizaciones)</div><div class="ab"><i style="width:100%"></i><span class="t">14,1%</span></div></div>
+      <div class="barow"><div class="lab">Gasto que generan</div><div class="ab alt"><i style="width:7%"></i><span class="t">≈ 1%</span></div></div>
+      <div class="src">Las cotizaciones de extranjeros son ya ~10% de los ingresos de la Seguridad Social, mientras el gasto público asociado ronda el 1%. Hoy, ayudan a sostener las pensiones.</div>
+    </div>
+    <div class="disc">⚠️ <b>Matiz honesto:</b> con los datos en la mano, la inmigración laboral <b>aporta más de lo que recibe</b> y hoy <b>sostiene parte de las pensiones</b>. Eso no borra los problemas <b>reales y locales</b>: presión puntual en barrios, colegios o urgencias, y casos de economía sumergida o delincuencia que <b>no se deben ocultar</b>. Pero el "nos arruinan" no se sostiene en los números, igual que tampoco es la <b>solución mágica</b> para las pensiones (los inmigrantes también envejecen). Ni xenofobia ni buenismo: datos.</div>
+  </section>
+
+  <div class="big">
+    <div class="q">En los tres temas, el tópico fácil falla: ni la privada es el demonio, ni la luz es "la más cara de Europa", ni la inmigración "nos arruina". La realidad tiene matices.</div>
+    <p style="margin:0;color:var(--ink-2)">Ser crítico de verdad no es creer siempre lo peor: es <b>seguir el dato aunque te incomode</b>. La sanidad se deteriora y crea dos velocidades; la luz pesa por impuestos y por la industria, no por el tópico; y la inmigración, hoy, <b>aporta</b>. Quien te vende certezas absolutas sobre estos temas, te está vendiendo algo.</p>
+  </div>
+
+  <details><summary>Fuentes y cómo leerlo</summary><div class="dbody">
+    <ul>
+      <li><b>Sanidad:</b> gasto privado 34.056 M€ (26% del total); ~12 M con seguro privado; MUFACE 1.337 M€ (2025), 1,5 M mutualistas; público 1.736 €/persona vs MUFACE 1.030 €. Fuentes: IDIS, AIReF, Ministerio de Sanidad.</li>
+      <li><b>Luz:</b> hogar 26,08 c€/kWh (1er sem. 2025) vs UE 28,72; 15 países más baratos; mayorista −32% vs UE; gran industria 2,7× Francia. Fuentes: Eurostat, REE, prensa energética.</li>
+      <li><b>Inmigración:</b> 3,1 M de afiliados (máx. histórico), 14,1% de las cotizaciones, ~10% de los ingresos de la SS, ~1% del gasto público asociado. Fuentes: Seguridad Social, Ministerio de Inclusión, The Conversation.</li>
+    </ul>
+    <p class="src">Síntesis divulgativa, octubre de 2026. Cifras redondeadas. Cada bloque distingue el hecho del tópico.</p>
+  </div></details>
+
+  <footer>Estudio de síntesis con fuentes oficiales. Tres debates tratados con el mismo criterio: el dato por encima de la consigna, venga de donde venga. Octubre de 2026.</footer>
+</div>
+
+<script>
+(function(){
+const LINES=[
+  "Tres preguntas incómodas: la sanidad, la factura de la luz y la inmigración.",
+  "Aquí no hay consignas: hay cifras, comparaciones y el matiz honesto que casi nadie te cuenta, incluso cuando el dato contradice al tópico.",
+  "Primero, la sanidad. Tienes una de las mejores del mundo, y aun así cada vez más gente paga, además, un seguro privado porque la pública no llega a tiempo. Pagas dos veces.",
+  "El gasto sanitario total ronda los ciento treinta mil millones, y ya el veintiséis por ciento es privado. Casi doce millones de españoles tienen seguro privado, y la espera media para operarte ronda los ciento veinte días.",
+  "Parte de ese dinero privado sale, en realidad, de lo público: conciertos con clínicas y mutualidades como MUFACE, que pagan a aseguradoras con dinero del Estado.",
+  "Seamos honestos: la sanidad pública española es buena y barata. El problema no es la privatización total, sino el deterioro: listas de espera que crean una sanidad de dos velocidades.",
+  "Segundo, la factura de la luz. El tópico dice que España paga la luz más cara de Europa. Y en dos mil veinticinco, ya no es verdad.",
+  "El hogar español paga veintiséis céntimos por kilovatio hora, por debajo de la media de la Unión Europea. Hay quince países más caros que nosotros.",
+  "Eso sí, el recibo lleva mucho impuesto y peaje, y la gran industria sí paga carísimo, dos coma siete veces más que en Francia. Pero el relato de la luz más cara de Europa está desfasado: que algo te indigne no lo hace cierto.",
+  "Y tercero, el más caliente: la inmigración. ¿Cuestan o aportan? Vamos a los números fríos de la Seguridad Social.",
+  "Hay tres coma uno millones de afiliados extranjeros, máximo histórico. Aportan el catorce por ciento de las cotizaciones, y en cambio el gasto público asociado a la población extranjera ronda solo el uno por ciento.",
+  "Es decir: aportan mucho más de lo que reciben, y hoy ayudan a sostener las pensiones.",
+  "El matiz honesto: eso no borra problemas reales y locales, como la presión en barrios o urgencias, o casos de economía sumergida. Pero el nos arruinan no se sostiene en los números. Ni xenofobia ni buenismo: datos.",
+  "La conclusión de las tres: el tópico fácil falla. Ser crítico de verdad no es creer siempre lo peor, es seguir el dato aunque te incomode. Quien te vende certezas absolutas, te está vendiendo algo.",
+  "Activa el dedo para que te narre cada dato al pasar el ratón."
+];
+const SAYSEL='.card,.barow,.tbox,.big,.lead,.disc';
+const ttsOK='speechSynthesis'in window; let i=0,playing=false,voice=null,inter=false,last=null,wd=null,hov=null;
+const play=document.getElementById('locplay'),mode=document.getElementById('locmode');
+function pick(){if(!ttsOK)return;const vs=speechSynthesis.getVoices();voice=vs.find(v=>/alvaro/i.test(v.name))||vs.find(v=>/es[-_]ES/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang))||null;}
+if(ttsOK){pick();speechSynthesis.onvoiceschanged=pick;}
+function keepAlive(){clearInterval(wd);wd=setInterval(()=>{if(!playing){clearInterval(wd);return;}try{if(speechSynthesis.speaking&&!speechSynthesis.paused)speechSynthesis.resume();}catch(e){}},9000);}
+function speak(n){if(n>=LINES.length){stop();return;}i=n;const u=new SpeechSynthesisUtterance(LINES[n]);u.lang='es-ES';u.rate=1;if(voice)u.voice=voice;
+  let adv=false;const go=()=>{if(adv)return;adv=true;if(playing)speak(n+1);};u.onend=go;u.onerror=go;
+  const est=Math.max(2600,LINES[n].length*85);setTimeout(()=>{if(playing&&!adv&&!speechSynthesis.speaking)go();},est+1600);
+  try{speechSynthesis.speak(u);}catch(e){go();}}
+function start(){if(!ttsOK)return;try{speechSynthesis.cancel();}catch(e){}playing=true;play.textContent='⏸';play.classList.add('playing');play.title='Pausar';keepAlive();setTimeout(()=>speak(i),130);}
+function stop(){playing=false;clearInterval(wd);if(ttsOK)try{speechSynthesis.cancel();}catch(e){}i=0;play.textContent='🔊';play.classList.remove('playing');play.title='Escuchar';}
+function pause(){playing=false;clearInterval(wd);if(ttsOK)try{speechSynthesis.cancel();}catch(e){}play.textContent='▶';play.classList.remove('playing');play.title='Reanudar';}
+play.onclick=()=>{playing?pause():start();};
+let wd2=null;function keepAlive2(){clearInterval(wd2);wd2=setInterval(()=>{try{if(speechSynthesis.speaking&&!speechSynthesis.paused)speechSynthesis.resume();else clearInterval(wd2);}catch(e){}},9000);}
+function sayText(t){if(!ttsOK||!t)return;try{speechSynthesis.cancel();}catch(e){}const u=new SpeechSynthesisUtterance(t);u.lang='es-ES';u.rate=1.03;if(voice)u.voice=voice;keepAlive2();speechSynthesis.speak(u);}
+function clean(el){return (el.getAttribute('data-say')||el.textContent||'').replace(/\s+/g,' ').trim().slice(0,340);}
+document.addEventListener('mouseover',e=>{if(!inter||playing)return;const el=e.target.closest(SAYSEL);if(el&&el!==last){last=el;clearTimeout(hov);hov=setTimeout(()=>sayText(clean(el)),320);}});
+document.addEventListener('mouseout',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el&&el===last&&!el.contains(e.relatedTarget))last=null;});
+document.addEventListener('click',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el){if(playing)pause();clearTimeout(hov);sayText(clean(el));}});
+mode.onclick=()=>{inter=!inter;document.body.classList.toggle('imode',inter);mode.classList.toggle('on',inter);mode.title=inter?'Narración al pasar el ratón: ACTIVADA':'Narrar al pasar el ratón';if(inter&&playing)pause();if(!inter&&ttsOK)try{speechSynthesis.cancel();}catch(e){}};
+window.addEventListener('beforeunload',()=>{if(ttsOK)try{speechSynthesis.cancel();}catch(e){}});
+})();
+</script>
+</body>
+</html>

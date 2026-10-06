@@ -28,3 +28,4 @@ Norma del proyecto: todo artefacto nuevo se guarda aquí automáticamente (HTML 
 | politico.html | ¿Cuánto te cuesta un político? Coste "todo incluido" (sueldo, coche, chófer, escolta, asesores), sueldos de alcaldes/concejales, aforamiento + baremo aforados España vs Europa | politico.md |
 | vitalicias.html | Pagas vitalicias: privilegio y mito. Qué es bulo y qué real (expresidentes Gobierno/autonómicos, Consejo de Estado), importes y mapa de CCAA que las mantienen/suprimieron | vitalicias.md |
 | coste.html | ¿Qué haríamos con ese dinero? Coste de oportunidad: conversor de corrupción/fraude/Iglesia/Casa Real a hospitales, enfermeras, viviendas y becas | coste.md |
+| tres.html | Tres preguntas incómodas: sanidad pública vs privada, la factura de la luz (el tópico desfasado) e inmigración (aportan vs cuestan), con matiz honesto | tres.md |
