@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pensiones: ¿quién mantiene a quién?</title>
+<meta name="description" content="La mayor partida del gasto público en España: cuánto cuestan las pensiones, cuántos trabajadores sostienen a cada jubilado, la hucha vaciada y el baremo por comunidades.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --bg:#0f1f2e; --panel:rgba(255,255,255,.055); --panel-2:rgba(255,255,255,.10); --ink:#eef7f8; --ink-2:#bdd8dd; --muted:#82a4ab;
+    --line:rgba(255,255,255,.12); --line-2:rgba(255,255,255,.22);
+    --accent:#14B8A6; --accent-2:#5EEAD4; --gold:#FBBF24; --good:#14B8A6; --bad:#F43F5E; --warn:#FB923C; --cool:#38BDF8; --grey:#8aa0b8;
+    --f-disp:"Fraunces",Georgia,serif; --f-body:"IBM Plex Sans",system-ui,sans-serif; color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+    font-variant-numeric:tabular-nums;
+    background:radial-gradient(90% 60% at 85% -5%,rgba(251,191,36,.16),transparent 60%),
+      radial-gradient(80% 55% at 0% 0%,rgba(20,184,166,.24),transparent 55%),
+      linear-gradient(160deg,#103433,#0f1f2e 55%,#0a1420);background-attachment:fixed;min-height:100%}
+  html,body{min-height:100%}
+  .wrap{max-width:840px;margin:0 auto;padding-inline:16px}
+  h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(27px,5.4vw,49px);line-height:1.05;margin:0;
+    background:linear-gradient(92deg,#fff 10%,#b9f3ea 45%,#fbbf24 98%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  h2{font-family:var(--f-disp);font-weight:700;font-size:clamp(21px,4vw,29px);margin:32px 0 8px;color:#fff}
+  header{padding-block:34px 4px}
+  .eyebrow{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#052623;font-weight:700;
+    background:linear-gradient(90deg,var(--accent),var(--gold));padding:5px 12px;border-radius:999px;margin-bottom:14px}
+  .sub{font-size:clamp(16px,2.4vw,19px);color:var(--ink-2);max-width:63ch;margin-top:12px}
+  p{margin:0 0 .8em} .lead{font-size:16.5px;color:var(--ink-2);max-width:64ch} b,strong{color:#fff}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:16px 0 6px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .card .k{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  .card .v{font-family:var(--f-disp);font-weight:700;font-size:25px;color:#fff;margin:6px 0 2px;line-height:1.05}
+  .card .d{font-size:13px;color:var(--ink-2)}
+  .card.good{border-left:4px solid var(--good)} .card.bad{border-left:4px solid var(--bad)} .card.gold{border-left:4px solid var(--gold)} .card.warn{border-left:4px solid var(--warn)}
+
+  .ba{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0}
+  .barow{display:grid;grid-template-columns:130px 1fr;gap:12px;align-items:center;margin-bottom:11px}
+  .barow:last-child{margin-bottom:0}
+  .barow .lab{font-size:13px;color:var(--ink-2)}
+  .ab{position:relative;height:24px;border-radius:7px;background:rgba(255,255,255,.07);overflow:hidden}
+  .ab i{position:absolute;left:0;top:0;height:100%;border-radius:7px}
+  .ab .t{position:absolute;right:8px;top:3px;font-size:12px;font-weight:700;color:#fff}
+  .ab.before i{background:rgba(130,164,171,.55)} .ab.now i{background:linear-gradient(90deg,var(--accent),var(--gold))}
+  .ab.alert i{background:linear-gradient(90deg,var(--bad),var(--warn))}
+
+  .ratio{display:flex;flex-wrap:wrap;gap:16px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;margin:12px 0;align-items:center;justify-content:center}
+  .rblock{text-align:center} .rblock .big2{font-family:var(--f-disp);font-weight:700;font-size:40px;line-height:1;color:#fff}
+  .rblock .cap{font-size:12.5px;color:var(--ink-2);margin-top:4px}
+  .rarrow{font-size:26px;color:var(--gold)}
+
+  .ccaa{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 16px 10px;margin:12px 0}
+  .chartbox{position:relative} svg.chart{display:block;width:100%;height:auto;overflow:visible}
+  .tip{position:absolute;pointer-events:none;background:#06201d;color:#fff;border:1px solid var(--line-2);border-radius:10px;padding:8px 11px;font-size:12.5px;opacity:0;transition:opacity .08s;z-index:5} .tip b{color:#fff}
+  .src{font-size:12.5px;color:var(--muted);margin-top:4px}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+  @media(max-width:560px){.two{grid-template-columns:1fr}}
+  .tbox{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px}
+  .tbox h4{margin:0 0 6px;font-size:16px;color:#fff;font-family:var(--f-disp)} .tbox p{font-size:14px;color:var(--ink-2);margin:0}
+  .tbox .ic{font-size:22px;margin-bottom:6px}
+
+  .big{background:linear-gradient(145deg,rgba(20,184,166,.16),rgba(251,191,36,.10));border:1px solid rgba(20,184,166,.35);border-radius:18px;padding:18px;margin:16px 0}
+  .big .q{font-family:var(--f-disp);font-weight:700;font-size:21px;color:#fff;margin-bottom:6px}
+  .disc{background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.35);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--ink-2);margin:14px 0}
+  details{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin:12px 0;overflow:hidden}
+  summary{cursor:pointer;padding:14px 16px;font-weight:700;color:#fff;list-style:none} summary::-webkit-details-marker{display:none}
+  .dbody{padding:0 16px 16px;color:var(--ink-2);font-size:14px} .dbody b{color:#fff} .dbody li{margin-bottom:.4em}
+  footer{padding:24px 0 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:22px}
+
+  .loc{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:12px;z-index:60;display:flex;align-items:center;gap:8px}
+  .loc .lbl{font-size:12px;font-weight:700;color:var(--ink-2);background:rgba(6,20,18,.6);border:1px solid var(--line);border-radius:999px;padding:6px 11px}
+  .locbtn{width:48px;height:48px;border-radius:50%;border:1px solid rgba(0,0,0,.15);cursor:pointer;font-size:19px;background:linear-gradient(92deg,var(--accent),var(--gold));color:#052623;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+  .locbtn.playing{background:#f43f5e;color:#fff}
+  .locbtn.sec{background:rgba(255,255,255,.12);color:#fff;border:1px solid var(--line-2);width:44px;height:44px;font-size:17px}
+  .locbtn.sec.on{background:#14B8A6;color:#052623;border-color:transparent}
+  body.imode .card,body.imode .barow,body.imode .tbox,body.imode .ccaa,body.imode .big,body.imode .ratio,body.imode .lead{cursor:pointer}
+  body.imode .card:hover,body.imode .tbox:hover{outline:2px solid var(--gold);outline-offset:2px}
+  @media(max-width:520px){ .loc .lbl{display:none} }
+</style>
+</head>
+<body>
+<div class="loc"><span class="lbl">Escúchalo</span><button class="locbtn sec" id="locmode" title="Narrar al pasar el ratón" aria-label="Narración interactiva">👆</button><button class="locbtn" id="locplay" title="Escuchar" aria-label="Escuchar">🔊</button></div>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">España · El sistema de pensiones</span>
+    <h1>Pensiones: ¿quién mantiene a quién?</h1>
+    <p class="sub">Es, con diferencia, el <b>mayor gasto del Estado</b>: uno de cada tres euros públicos. No es un ahorro guardado con tu nombre: lo que cotizas hoy paga la pensión de hoy. Y cada vez hay <b>menos manos para sostenerlo</b>.</p>
+  </header>
+
+  <div class="cards">
+    <div class="card gold"><div class="k">Gasto en pensiones (2025)</div><div class="v">≈ 216.000 M€</div><div class="d">12,9% del PIB · la mayor partida</div></div>
+    <div class="card gold"><div class="k">Pensionistas</div><div class="v">9,4 millones</div><div class="d">nómina de 13.720 M€ cada mes</div></div>
+    <div class="card warn"><div class="k">Sostienen cada pensión</div><div class="v">2,37<span style="font-size:14px;color:var(--ink-2)"> cotizantes</span></div><div class="d">y bajando: la cuenta no sale sola</div></div>
+    <div class="card good"><div class="k">Pensión media</div><div class="v">1.318 €<span style="font-size:14px;color:var(--ink-2)">/mes</span></div><div class="d">jubilación: 1.513 €; viudedad: 938 €</div></div>
+  </div>
+
+  <h2>1. El pacto entre generaciones</h2>
+  <p class="lead">El sistema es "de reparto": no hay una hucha con tu dinero esperándote. Los que trabajan hoy pagan a los jubilados de hoy, con la promesa de que mañana otros les paguen a ellos. El problema es cuánta gente queda a cada lado:</p>
+  <div class="ratio">
+    <div class="rblock"><div class="big2">2,37</div><div class="cap">cotizantes por pensionista · <b style="color:#fff">hoy</b></div></div>
+    <div class="rarrow">⟶</div>
+    <div class="rblock"><div class="big2" style="color:var(--warn)">~1,7</div><div class="cap">proyección para 2050</div></div>
+  </div>
+  <p class="lead">Con la jubilación de la generación del <i>baby boom</i> y una esperanza de vida cada vez mayor, entran más pensionistas y cobran durante más años. La factura crece por los dos lados.</p>
+
+  <h2>2. La hucha que se vació (y se rellena con un impuesto)</h2>
+  <p class="lead">El Fondo de Reserva —la "hucha de las pensiones"— se creó para los años malos. Se vació casi por completo y hoy se rellena, pero no con superávit del sistema, sino con un <b>recargo nuevo en tu nómina</b> (el MEI):</p>
+  <div class="ba">
+    <div class="barow"><div class="lab">2011 (máximo)</div><div class="ab before"><i style="width:100%"></i><span class="t">66.815 M€</span></div></div>
+    <div class="barow"><div class="lab">2017–18 (vacía)</div><div class="ab alert"><i style="width:3%"></i><span class="t">~2.000 M€</span></div></div>
+    <div class="barow"><div class="lab">2025</div><div class="ab now"><i style="width:21%"></i><span class="t">14.069 M€</span></div></div>
+    <div class="src">El 93% de lo recaudado hoy viene del MEI, un impuesto creado en 2023. Toda la hucha actual daría para pagar poco más de <b>un mes</b> de pensiones.</div>
+  </div>
+
+  <h2>3. El agujero real</h2>
+  <p class="lead">Las cotizaciones ya no cubren las pensiones. La diferencia la pone el Estado, con impuestos y deuda:</p>
+  <div class="two">
+    <div class="tbox"><div class="ic">🕳️</div><h4>≈ 70.000 M€ de déficit real</h4><p>Es lo que falta cada año entre lo que ingresa el sistema por cotizaciones y lo que paga. Tras la ayuda del Estado, el déficit "contable" baja a ~8.400 M€, pero el agujero de fondo sigue ahí.</p></div>
+    <div class="tbox"><div class="ic">💸</div><h4>≈ 600.000 M€ ya inyectados</h4><p>Es lo que el Estado ha transferido y prestado acumulado a la Seguridad Social para poder pagar. Se tapa el presente con cargo al futuro.</p></div>
+    <div class="tbox"><div class="ic">⚖️</div><h4>La AIReF avisa</h4><p>La autoridad fiscal critica rellenar la hucha con dinero del Estado mientras el sistema está en déficit: es mover dinero de un bolsillo público a otro, no ahorrar de verdad.</p></div>
+    <div class="tbox"><div class="ic">🔗</div><h4>Conecta con tu nómina</h4><p>Parte de por qué una familia no llega a fin de mes es cuánto se va en cotizaciones e impuestos para sostener el sistema. Lo pagan, sobre todo, los que trabajan.</p></div>
+  </div>
+
+  <h2>4. Baremo: ¿cuánto cobra tu comunidad?</h2>
+  <p class="lead">La pensión no es igual en toda España: depende de los salarios y las cotizaciones de cada región. Pensión media de jubilación (la línea marca la media nacional, 1.513 €):</p>
+  <div class="ccaa"><div class="chartbox"><div class="plotP"></div></div>
+    <div class="src">Fuente: Seguridad Social (2025). El País Vasco supera a Extremadura en más de 500 € al mes. Refleja la industria y los salarios previos, no un "trato de favor".</div></div>
+
+  <div class="big">
+    <div class="q">Las pensiones no son un regalo: se cotizó por ellas y sacan a millones de mayores de la pobreza. El problema no es que existan, es que la cuenta ya no cuadra.</div>
+    <p style="margin:0;color:var(--ink-2)">Cada vez <b>menos trabajadores</b> sostienen a <b>más pensionistas</b>, y el hueco se tapa con <b>impuestos y deuda</b> que recaen en los jóvenes y en quien trabaja. No se arregla con demagogia ("son unos privilegiados") ni negándolo ("no pasa nada"): se arregla <b>diciendo la verdad</b> sobre quién paga y cómo se sostiene.</p>
+  </div>
+
+  <div class="disc">⚠️ <b>Matiz honesto:</b> hablar del agujero <b>no</b> es atacar a los pensionistas: cotizaron toda su vida y la pensión es el pilar que evita la pobreza en la vejez. Tampoco vale el alarmismo de "las pensiones desaparecerán": seguirán pagándose. La pregunta real es <b>a qué coste</b> para quien trabaja, y <b>con qué reformas</b> (edad, cotización, natalidad, productividad) se mantiene el pacto.</div>
+
+  <details><summary>Fuentes y cómo leerlo</summary><div class="dbody">
+    <ul>
+      <li><b>Gasto 2025:</b> ≈216.000 M€ (12,9% del PIB); nómina mensual 13.720 M€. 9,4 M de pensionistas (6,5 M de jubilación).</li>
+      <li><b>Ratio:</b> 22,46 M de afiliados / 9,49 M de pensionistas = 2,37 cotizantes por pensionista (jun. 2025); proyección a la baja.</li>
+      <li><b>Pensión media:</b> 1.317,7 €/mes (todas); jubilación 1.512,7 €; viudedad 937,6 €.</li>
+      <li><b>Fondo de Reserva:</b> 66.815 M€ (2011) → ~2.000 M€ (2017-18) → 14.069 M€ (2025), 93% del MEI.</li>
+      <li><b>Déficit:</b> real ~69.800 M€ (2025); contable ~8.400 M€ tras transferencias; ~600.000 M€ acumulados del Estado.</li>
+      <li><b>Baremo jubilación/CCAA:</b> País Vasco 1.829 €, Asturias 1.773 €, Madrid 1.724 €, media 1.513 €, Galicia 1.284 €, Extremadura 1.269 €.</li>
+    </ul>
+    <p class="src">Fuentes: Seguridad Social, Ministerio de Inclusión, AIReF, Instituto Santalucía, Funcas, prensa económica. Octubre de 2026. Síntesis divulgativa; cifras redondeadas.</p>
+  </div></details>
+
+  <footer>Estudio de síntesis con fuentes oficiales. Distingue el hecho (cuánto cuesta y quién lo paga) de la interpretación (qué significa). Sin demagogia a favor ni en contra. Octubre de 2026.</footer>
+</div>
+
+<script>
+// pensión media de jubilación por CCAA (€/mes)
+const P=[["País Vasco",1829],["Asturias",1773],["Madrid",1724],["Galicia",1284],["Extremadura",1269]];
+const MEDIA=1513;
+const cv=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+function tipFor(box){let t=box.querySelector('.tip');if(!t){t=document.createElement('div');t.className='tip';box.appendChild(t);}return t;}
+(function(){
+  const wrap=document.querySelector('.plotP');
+  const W=760,rh=40,mT=6,mB=24,mL=140,mR=70,H=mT+mB+P.length*rh,max=1950,min=1000;
+  const X=v=>mL+((v-min)/(max-min))*(W-mL-mR);let g='';const xm=X(MEDIA);
+  P.forEach((c,i)=>{const y=mT+i*rh+rh/2,col=c[1]>=MEDIA?cv('--accent'):cv('--warn');
+    g+=`<text x="${mL-8}" y="${y+4}" text-anchor="end" font-size="12.5" fill="${cv('--ink-2')}">${c[0]}</text>`;
+    const bw=Math.max(3,X(c[1])-mL);
+    g+=`<rect class="b" data-n="${c[0]}" data-v="${c[1]}" x="${mL}" y="${y-11}" width="${bw}" height="22" rx="5" fill="${col}"/>`;
+    g+=`<text x="${mL+bw+7}" y="${y+4}" font-size="12.5" font-weight="700" fill="#fff">${c[1].toLocaleString('es-ES')} €</text>`;});
+  g+=`<line x1="${xm}" y1="${mT-2}" x2="${xm}" y2="${H-mB+2}" stroke="${cv('--gold')}" stroke-width="1.5" stroke-dasharray="4 4"/>`;
+  g+=`<text x="${xm}" y="${H-7}" text-anchor="middle" font-size="11" fill="${cv('--gold')}">media 1.513 €</text>`;
+  wrap.innerHTML=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Pensión media de jubilación por comunidad">${g}</svg>`;
+  const box=wrap.closest('.chartbox'),tip=tipFor(box);
+  wrap.querySelectorAll('.b').forEach(b=>{b.addEventListener('mousemove',e=>{const v=(+b.dataset.v).toLocaleString('es-ES');tip.innerHTML=`<b>${b.dataset.n}</b> · ${v} €/mes de jubilación`;tip.style.opacity='1';const bx=box.getBoundingClientRect();tip.style.left=Math.min(bx.width-210,Math.max(4,e.clientX-bx.left+12))+'px';tip.style.top=(e.clientY-bx.top-10)+'px';});b.addEventListener('mouseleave',()=>tip.style.opacity='0');});
+})();
+
+(function(){
+const LINES=[
+  "Pensiones: ¿quién mantiene a quién?",
+  "Las pensiones son, con diferencia, el mayor gasto del Estado: uno de cada tres euros públicos. Unos doscientos dieciséis mil millones al año, el trece por ciento de todo lo que produce el país.",
+  "Pero cuidado: no es un ahorro guardado con tu nombre. El sistema es de reparto: lo que cotizas hoy paga la pensión de hoy.",
+  "Hay nueve millones cuatrocientos mil pensionistas, y la nómina de cada mes cuesta trece mil setecientos millones de euros.",
+  "El problema es cuánta gente queda a cada lado. Hoy, dos coma tres siete trabajadores sostienen cada pensión. En dos mil cincuenta podrían ser menos de dos.",
+  "Con la jubilación del baby boom y una vida cada vez más larga, entran más pensionistas y cobran durante más años. La factura crece por los dos lados.",
+  "La hucha de las pensiones, el Fondo de Reserva, llegó a tener casi sesenta y siete mil millones en dos mil once. Se vació casi por completo, hasta unos dos mil.",
+  "Hoy tiene catorce mil millones, pero ojo: el noventa y tres por ciento de ese dinero viene de un impuesto nuevo en tu nómina, el MEI, no del ahorro del sistema. Y toda la hucha daría para pagar poco más de un mes de pensiones.",
+  "Porque las cotizaciones ya no cubren las pensiones. Falta un agujero real de unos setenta mil millones al año, que pone el Estado con impuestos y deuda.",
+  "De hecho, el Estado ya ha inyectado unos seiscientos mil millones acumulados a la Seguridad Social para poder pagar. Se tapa el presente con cargo al futuro.",
+  "Y esto conecta con tu bolsillo: parte de por qué una familia no llega a fin de mes es cuánto se va en cotizaciones e impuestos para sostener todo esto.",
+  "La pensión tampoco es igual en toda España. En el País Vasco, la media de jubilación supera los mil ochocientos euros; en Extremadura, ronda los mil doscientos. Refleja los salarios y las cotizaciones de cada región, no un trato de favor.",
+  "Seamos justos: las pensiones no son un regalo. Se cotizó por ellas y sacan a millones de mayores de la pobreza. El problema no es que existan, es que la cuenta ya no cuadra.",
+  "Cada vez menos trabajadores sostienen a más pensionistas, y el hueco se tapa con impuestos y deuda que recaen en los jóvenes. No se arregla con demagogia, se arregla diciendo la verdad sobre quién paga.",
+  "Activa el dedo para que te narre cada dato al pasar el ratón."
+];
+const SAYSEL='.card,.barow,.tbox,.ratio,.ccaa,.big,.lead';
+const ttsOK='speechSynthesis'in window; let i=0,playing=false,voice=null,inter=false,last=null,wd=null,hov=null;
+const play=document.getElementById('locplay'),mode=document.getElementById('locmode');
+function pick(){if(!ttsOK)return;const vs=speechSynthesis.getVoices();voice=vs.find(v=>/alvaro/i.test(v.name))||vs.find(v=>/es[-_]ES/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang))||null;}
+if(ttsOK){pick();speechSynthesis.onvoiceschanged=pick;}
+function keepAlive(){clearInterval(wd);wd=setInterval(()=>{if(!playing){clearInterval(wd);return;}try{if(speechSynthesis.speaking&&!speechSynthesis.paused)speechSynthesis.resume();}catch(e){}},9000);}
+function speak(n){if(n>=LINES.length){stop();return;}i=n;const u=new SpeechSynthesisUtterance(LINES[n]);u.lang='es-ES';u.rate=1;if(voice)u.voice=voice;
+  let adv=false;const go=()=>{if(adv)return;adv=true;if(playing)speak(n+1);};u.onend=go;u.onerror=go;
+  const est=Math.max(2600,LINES[n].length*85);setTimeout(()=>{if(playing&&!adv&&!speechSynthesis.speaking)go();},est+1600);
+  try{speechSynthesis.speak(u);}catch(e){go();}}
+function start(){if(!ttsOK)return;try{speechSynthesis.cancel();}catch(e){}playing=true;play.textContent='⏸';play.classList.add('playing');play.title='Pausar';keepAlive();setTimeout(()=>speak(i),130);}
+function stop(){playing=false;clearInterval(wd);if(ttsOK)try{speechSynthesis.cancel();}catch(e){}i=0;play.textContent='🔊';play.classList.remove('playing');play.title='Escuchar';}
+function pause(){playing=false;clearInterval(wd);if(ttsOK)try{speechSynthesis.cancel();}catch(e){}play.textContent='▶';play.classList.remove('playing');play.title='Reanudar';}
+play.onclick=()=>{playing?pause():start();};
+let wd2=null;function keepAlive2(){clearInterval(wd2);wd2=setInterval(()=>{try{if(speechSynthesis.speaking&&!speechSynthesis.paused)speechSynthesis.resume();else clearInterval(wd2);}catch(e){}},9000);}
+function sayText(t){if(!ttsOK||!t)return;try{speechSynthesis.cancel();}catch(e){}const u=new SpeechSynthesisUtterance(t);u.lang='es-ES';u.rate=1.03;if(voice)u.voice=voice;keepAlive2();speechSynthesis.speak(u);}
+function clean(el){return (el.getAttribute('data-say')||el.textContent||'').replace(/\s+/g,' ').trim().slice(0,340);}
+document.addEventListener('mouseover',e=>{if(!inter||playing)return;const el=e.target.closest(SAYSEL);if(el&&el!==last){last=el;clearTimeout(hov);hov=setTimeout(()=>sayText(clean(el)),320);}});
+document.addEventListener('mouseout',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el&&el===last&&!el.contains(e.relatedTarget))last=null;});
+document.addEventListener('click',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el){if(playing)pause();clearTimeout(hov);sayText(clean(el));}});
+mode.onclick=()=>{inter=!inter;document.body.classList.toggle('imode',inter);mode.classList.toggle('on',inter);mode.title=inter?'Narración al pasar el ratón: ACTIVADA':'Narrar al pasar el ratón';if(inter&&playing)pause();if(!inter&&ttsOK)try{speechSynthesis.cancel();}catch(e){}};
+window.addEventListener('beforeunload',()=>{if(ttsOK)try{speechSynthesis.cancel();}catch(e){}});
+})();
+</script>
+</body>
+</html>

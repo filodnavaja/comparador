@@ -24,3 +24,4 @@ Norma del proyecto: todo artefacto nuevo se guarda aquí automáticamente (HTML 
 | medios.html | ¿Quién te informa (y quién lo paga)? Dinero público a los medios: publicidad institucional, TVs públicas y subvenciones + baremo TV autonómica/hab | medios.md |
 | deuda.html | La deuda: la factura que nadie firma. Deuda total y por habitante, intereses anuales, a dónde va + baremo de deuda autonómica/hab | deuda.md |
 | andalucia.html | Andalucía: la más grande, la última en la fila. Paradoja (renta/paro), poder (37 años PSOE→PP), EREs, campo/PAC/olivar, liderazgo solar + comparativa con España/UE | andalucia.md |
+| pensiones.html | Pensiones: ¿quién mantiene a quién? Gasto, sistema de reparto, ratio cotizantes/pensionista, hucha vaciada, déficit real + baremo de pensión por CCAA | pensiones.md |
