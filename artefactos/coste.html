@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>¿Qué haríamos con ese dinero?</title>
+<meta name="description" content="El coste de oportunidad en España: qué se podría hacer con el dinero de la corrupción, el fraude fiscal, la Casa Real y las exenciones de la Iglesia. Hospitales, enfermeras, viviendas y becas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --bg:#0d1f1a; --panel:rgba(255,255,255,.055); --panel-2:rgba(255,255,255,.10); --ink:#eafaf3; --ink-2:#bfe0d2; --muted:#7fa795;
+    --line:rgba(255,255,255,.12); --line-2:rgba(255,255,255,.22);
+    --accent:#10B981; --accent-2:#5EEAD4; --gold:#FBBF24; --good:#10B981; --bad:#F43F5E; --warn:#FB923C; --cool:#38BDF8;
+    --f-disp:"Fraunces",Georgia,serif; --f-body:"IBM Plex Sans",system-ui,sans-serif; color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+    font-variant-numeric:tabular-nums;
+    background:radial-gradient(90% 60% at 85% -5%,rgba(251,191,36,.14),transparent 60%),
+      radial-gradient(80% 55% at 0% 0%,rgba(16,185,129,.24),transparent 55%),
+      linear-gradient(160deg,#123a2c,#0d1f1a 55%,#081512);background-attachment:fixed;min-height:100%}
+  html,body{min-height:100%}
+  .wrap{max-width:840px;margin:0 auto;padding-inline:16px}
+  h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(27px,5.4vw,49px);line-height:1.05;margin:0;
+    background:linear-gradient(92deg,#fff 10%,#b6f0dc 45%,#fbbf24 98%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  h2{font-family:var(--f-disp);font-weight:700;font-size:clamp(21px,4vw,29px);margin:32px 0 8px;color:#fff}
+  header{padding-block:34px 4px}
+  .eyebrow{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#052019;font-weight:700;
+    background:linear-gradient(90deg,var(--accent),var(--gold));padding:5px 12px;border-radius:999px;margin-bottom:14px}
+  .sub{font-size:clamp(16px,2.4vw,19px);color:var(--ink-2);max-width:63ch;margin-top:12px}
+  p{margin:0 0 .8em} .lead{font-size:16.5px;color:var(--ink-2);max-width:64ch} b,strong{color:#fff}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:16px 0 6px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .card .k{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  .card .v{font-family:var(--f-disp);font-weight:700;font-size:24px;color:#fff;margin:6px 0 2px;line-height:1.05}
+  .card .d{font-size:13px;color:var(--ink-2)}
+  .card.bad{border-left:4px solid var(--bad)} .card.warn{border-left:4px solid var(--warn)} .card.gold{border-left:4px solid var(--gold)}
+
+  .conv{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;margin:14px 0}
+  .switch{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .switch button{flex:1 1 auto;min-width:120px;padding:10px 12px;border-radius:11px;border:1px solid var(--line-2);background:rgba(255,255,255,.05);color:var(--ink-2);font-weight:700;font-size:13.5px;cursor:pointer;font-family:inherit}
+  .switch button.on{background:linear-gradient(92deg,var(--bad),var(--warn));color:#fff;border-color:transparent}
+  .amount{font-family:var(--f-disp);font-weight:700;font-size:clamp(26px,6vw,40px);color:#fff;text-align:center;margin:4px 0 2px}
+  .amount small{font-size:15px;color:var(--ink-2);font-family:var(--f-body);font-weight:400}
+  .amtnote{text-align:center;font-size:12.5px;color:var(--muted);margin-bottom:14px}
+  .eqgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+  .eq{background:linear-gradient(145deg,rgba(16,185,129,.14),rgba(16,185,129,.04));border:1px solid rgba(16,185,129,.3);border-radius:13px;padding:14px;text-align:center}
+  .eq .n{font-family:var(--f-disp);font-weight:700;font-size:23px;color:#6ee7b7;line-height:1.05}
+  .eq .l{font-size:12.5px;color:var(--ink-2);margin-top:4px}
+  .eq .ic{font-size:20px}
+
+  .ccaa{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 16px 10px;margin:12px 0}
+  .chartbox{position:relative} svg.chart{display:block;width:100%;height:auto;overflow:visible}
+  .tip{position:absolute;pointer-events:none;background:#06130f;color:#fff;border:1px solid var(--line-2);border-radius:10px;padding:8px 11px;font-size:12.5px;opacity:0;transition:opacity .08s;z-index:5} .tip b{color:#fff}
+  .src{font-size:12.5px;color:var(--muted);margin-top:4px}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+  @media(max-width:560px){.two{grid-template-columns:1fr}}
+  .tbox{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px}
+  .tbox h4{margin:0 0 6px;font-size:16px;color:#fff;font-family:var(--f-disp)} .tbox p{font-size:14px;color:var(--ink-2);margin:0}
+  .tbox .ic{font-size:22px;margin-bottom:6px}
+
+  .big{background:linear-gradient(145deg,rgba(16,185,129,.16),rgba(251,191,36,.10));border:1px solid rgba(16,185,129,.35);border-radius:18px;padding:18px;margin:16px 0}
+  .big .q{font-family:var(--f-disp);font-weight:700;font-size:21px;color:#fff;margin-bottom:6px}
+  .disc{background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.35);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--ink-2);margin:14px 0}
+  details{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin:12px 0;overflow:hidden}
+  summary{cursor:pointer;padding:14px 16px;font-weight:700;color:#fff;list-style:none} summary::-webkit-details-marker{display:none}
+  .dbody{padding:0 16px 16px;color:var(--ink-2);font-size:14px} .dbody b{color:#fff} .dbody li{margin-bottom:.4em}
+  footer{padding:24px 0 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:22px}
+
+  .loc{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:12px;z-index:60;display:flex;align-items:center;gap:8px}
+  .loc .lbl{font-size:12px;font-weight:700;color:var(--ink-2);background:rgba(6,19,15,.6);border:1px solid var(--line);border-radius:999px;padding:6px 11px}
+  .locbtn{width:48px;height:48px;border-radius:50%;border:1px solid rgba(0,0,0,.15);cursor:pointer;font-size:19px;background:linear-gradient(92deg,var(--accent),var(--gold));color:#052019;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+  .locbtn.playing{background:#f43f5e;color:#fff}
+  .locbtn.sec{background:rgba(255,255,255,.12);color:#fff;border:1px solid var(--line-2);width:44px;height:44px;font-size:17px}
+  .locbtn.sec.on{background:#10B981;color:#052019;border-color:transparent}
+  body.imode .card,body.imode .conv,body.imode .tbox,body.imode .ccaa,body.imode .big,body.imode .lead{cursor:pointer}
+  body.imode .card:hover,body.imode .tbox:hover{outline:2px solid var(--gold);outline-offset:2px}
+  @media(max-width:520px){ .loc .lbl{display:none} }
+</style>
+</head>
+<body>
+<div class="loc"><span class="lbl">Escúchalo</span><button class="locbtn sec" id="locmode" title="Narrar al pasar el ratón" aria-label="Narración interactiva">👆</button><button class="locbtn" id="locplay" title="Escuchar" aria-label="Escuchar">🔊</button></div>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">España · El coste de oportunidad</span>
+    <h1>¿Qué haríamos con ese dinero?</h1>
+    <p class="sub">Las grandes cifras no dicen nada hasta que las traduces. Vamos a convertir lo que se <b>pierde</b> (corrupción, fraude) y lo que se <b>destina</b> (Casa Real, Iglesia) en lo que de verdad importa: <b>hospitales, enfermeras, viviendas y becas</b>.</p>
+  </header>
+
+  <div class="cards">
+    <div class="card bad"><div class="k">Fraude fiscal</div><div class="v">≈ 90.000 M€<span style="font-size:13px;color:var(--ink-2)">/año</span></div><div class="d">estimación de los técnicos de Hacienda (Gestha)</div></div>
+    <div class="card bad"><div class="k">Corrupción</div><div class="v">≈ 40–90.000 M€<span style="font-size:13px;color:var(--ink-2)">/año</span></div><div class="d">estimación indirecta; no hay cifra oficial</div></div>
+    <div class="card warn"><div class="k">Iglesia (0,7% + IBI)</div><div class="v">≈ 630 M€<span style="font-size:13px;color:var(--ink-2)">/año</span></div><div class="d">382 M€ del IRPF + ~250 M€ de exención de IBI</div></div>
+    <div class="card gold"><div class="k">Casa Real</div><div class="v">8,4 M€<span style="font-size:13px;color:var(--ink-2)">/año</span></div><div class="d">presupuesto oficial (sin contar seguridad)</div></div>
+  </div>
+
+  <h2>1. El conversor: elige y mira qué se pagaría</h2>
+  <p class="lead">Pulsa una fuente y verás qué se podría financiar <b>cada año</b> con ese dinero:</p>
+  <div class="conv">
+    <div class="switch">
+      <button data-k="fraude" class="on">Fraude fiscal</button>
+      <button data-k="corrupcion">Corrupción</button>
+      <button data-k="iglesia">Iglesia</button>
+      <button data-k="casareal">Casa Real</button>
+    </div>
+    <div class="amount" id="amt"></div>
+    <div class="amtnote" id="amtnote"></div>
+    <div class="eqgrid" id="eq"></div>
+  </div>
+  <p class="src" style="margin-top:0">Equivalencias con costes de referencia: enfermero/a ~30.000 €/año, profesor/a ~35.000 €/año, hospital nuevo ~200 M€, vivienda pública ~130.000 €, beca de comedor ~1.000 €/año.</p>
+
+  <h2>2. La foto: nada se acerca al fraude</h2>
+  <p class="lead">Puestas a la misma escala, se ve dónde está el dinero de verdad. La Casa Real, que tanto se discute, es casi invisible al lado del fraude fiscal:</p>
+  <div class="ccaa"><div class="chartbox"><div class="plotC"></div></div>
+    <div class="src">Millones de euros al año (escala comprimida para que se vean las pequeñas). El fraude fiscal es ~140 veces el presupuesto de la Iglesia y ~10.700 veces el de la Casa Real.</div></div>
+
+  <h2>3. Casa Real e Iglesia: lo simbólico y lo real</h2>
+  <div class="two">
+    <div class="tbox"><div class="ic">👑</div><h4>Casa Real: 8,4 M€</h4><p>Da para unas <b>280 enfermeras</b> o <b>8.400 becas de comedor</b>. Es un debate legítimo, pero en euros es <b>marginal</b>: suprimirla no cambiaría los servicios públicos. Su coste real sube si sumas seguridad y protocolo, que no se consolidan.</p></div>
+    <div class="tbox"><div class="ic">⛪</div><h4>Iglesia: ~630 M€</h4><p>382 M€ del 0,7% del IRPF (voluntario) + ~250 M€ que los ayuntamientos dejan de ingresar por la <b>exención del IBO</b>. Equivale a <b>3 hospitales</b> al año. Contrapartida: parte sostiene labor social (Cáritas) y patrimonio.</p></div>
+  </div>
+
+  <div class="big">
+    <div class="q">Con solo recuperar una parte del fraude fiscal, España pagaría cada año miles de enfermeras, decenas de hospitales y cientos de miles de becas. Ese es el verdadero agujero.</div>
+    <p style="margin:0;color:var(--ink-2)">El foco mediático se va a la Casa Real (8 millones) y a la Iglesia (cientos de millones), pero <b>el dinero de verdad</b> está en el <b>fraude</b> y la <b>corrupción</b>: <b>decenas de miles de millones al año</b>. No es que falte dinero: es que <b>se pierde, se evade y se desvía</b>.</p>
+  </div>
+
+  <div class="disc">⚠️ <b>Matiz honesto:</b> las cifras de fraude y corrupción son <b>estimaciones</b> (indirectas), no dinero que esté en una caja esperando. <b>Es imposible recaudar el 100%</b> del fraude, y recuperar lo robado por corrupción es muy difícil. Pero incluso una <b>fracción</b> cambiaría los presupuestos. La Casa Real es <b>simbólica</b> en euros; la Iglesia tiene <b>contrapartida social</b>. El objetivo no es la demagogia, es ver <b>dónde está de verdad el dinero</b>.</div>
+
+  <details><summary>Fuentes y cómo leerlo</summary><div class="dbody">
+    <ul>
+      <li><b>Fraude fiscal:</b> ~90.000-91.600 M€/año (Gestha): ~60.600 M€ en impuestos + ~31.000 M€ en cotizaciones. Economía sumergida ~20-25% del PIB.</li>
+      <li><b>Corrupción:</b> estimación indirecta de 40.000-90.000 M€/año (no hay cifra oficial; sobrecostes, mordidas, contratos).</li>
+      <li><b>Iglesia:</b> 382 M€ (0,7% del IRPF) + exención de IBI estimada en 150-300 M€/año (usamos ~250 M€).</li>
+      <li><b>Casa Real:</b> 8,4 M€ (presupuesto oficial 2025; sin consolidar seguridad y otros apoyos).</li>
+      <li><b>Costes de referencia:</b> enfermero/a 30.000 €, profesor/a 35.000 €, hospital 200 M€, vivienda pública 130.000 €, beca comedor 1.000 €.</li>
+    </ul>
+    <p class="src">Fuentes: Gestha, Agencia Tributaria, PGE 2025, Conferencia Episcopal/Hacienda, prensa. Octubre de 2026. Síntesis divulgativa; equivalencias ilustrativas.</p>
+  </div></details>
+
+  <footer>Estudio de síntesis con fuentes oficiales. Distingue el hecho (presupuestos publicados) de la estimación (fraude y corrupción). Las equivalencias son ilustrativas, para dar escala. Octubre de 2026.</footer>
+</div>
+
+<script>
+const SRC={
+  fraude:{amt:90000,note:"Estimación de los técnicos de Hacienda (Gestha). No todo es recuperable.",label:"Fraude fiscal"},
+  corrupcion:{amt:65000,note:"Punto medio de la estimación indirecta (40.000–90.000 M€). No hay cifra oficial.",label:"Corrupción"},
+  iglesia:{amt:630,note:"382 M€ del 0,7% del IRPF + ~250 M€ de exención de IBI.",label:"Iglesia"},
+  casareal:{amt:8.4,note:"Presupuesto oficial 2025 (sin consolidar seguridad).",label:"Casa Real"}
+};
+const UNITS=[
+  {ic:"🩺",cost:30000,l:"enfermeras/año"},
+  {ic:"👩‍🏫",cost:35000,l:"profesores/año"},
+  {ic:"🏥",cost:200000000,l:"hospitales nuevos"},
+  {ic:"🏘️",cost:130000,l:"viviendas públicas"},
+  {ic:"🍎",cost:1000,l:"becas de comedor"}
+];
+const fmt=n=>{let d=n<10?2:(n<1000?0:0);return n.toLocaleString('es-ES',{maximumFractionDigits:d});};
+function render(k){
+  const s=SRC[k],eur=s.amt*1e6;
+  document.getElementById('amt').innerHTML=fmt(s.amt)+' <small>millones € / año</small>';
+  document.getElementById('amtnote').textContent=s.note;
+  const eq=document.getElementById('eq');eq.innerHTML='';
+  UNITS.forEach(u=>{const v=eur/u.cost;const d=document.createElement('div');d.className='eq';
+    d.innerHTML=`<div class="ic">${u.ic}</div><div class="n">${fmt(v)}</div><div class="l">${u.l}</div>`;eq.appendChild(d);});
+  document.querySelectorAll('.switch button').forEach(b=>b.classList.toggle('on',b.dataset.k===k));
+}
+document.querySelectorAll('.switch button').forEach(b=>b.addEventListener('click',()=>render(b.dataset.k)));
+render('fraude');
+
+// gráfico comparativo
+const C=[["Fraude fiscal",90000],["Corrupción (est.)",65000],["Iglesia",630],["Casa Real",8.4]];
+const cv=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+function tipFor(box){let t=box.querySelector('.tip');if(!t){t=document.createElement('div');t.className='tip';box.appendChild(t);}return t;}
+(function(){
+  const wrap=document.querySelector('.plotC');
+  const W=760,rh=44,mT=8,mB=16,mL=170,mR=96,H=mT+mB+C.length*rh,max=90000;
+  const X=v=>mL+Math.pow(v/max,0.42)*(W-mL-mR);let g='';
+  C.forEach((c,i)=>{const y=mT+i*rh+rh/2,col=i<2?cv('--bad'):i===2?cv('--warn'):cv('--gold');
+    g+=`<text x="${mL-8}" y="${y+4}" text-anchor="end" font-size="13" fill="${cv('--ink-2')}">${c[0]}</text>`;
+    const bw=Math.max(4,X(c[1])-mL);
+    g+=`<rect class="b" data-n="${c[0]}" data-v="${c[1]}" x="${mL}" y="${y-12}" width="${bw}" height="24" rx="6" fill="${col}"/>`;
+    const lab=c[1]>=1000?(c[1]/1000).toLocaleString('es-ES')+' mil M€':c[1].toLocaleString('es-ES')+' M€';
+    g+=`<text x="${mL+bw+8}" y="${y+4}" font-size="12.5" font-weight="700" fill="#fff">${lab}</text>`;});
+  wrap.innerHTML=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Comparativa de cifras">${g}</svg>`;
+  const box=wrap.closest('.chartbox'),tip=tipFor(box);
+  wrap.querySelectorAll('.b').forEach(b=>{b.addEventListener('mousemove',e=>{const v=(+b.dataset.v*1e6).toLocaleString('es-ES');tip.innerHTML=`<b>${b.dataset.n}</b> · ${v} € al año`;tip.style.opacity='1';const bx=box.getBoundingClientRect();tip.style.left=Math.min(bx.width-210,Math.max(4,e.clientX-bx.left+12))+'px';tip.style.top=(e.clientY-bx.top-10)+'px';});b.addEventListener('mouseleave',()=>tip.style.opacity='0');});
+})();
+
+(function(){
+const LINES=[
+  "¿Qué haríamos con ese dinero?",
+  "Las grandes cifras no dicen nada hasta que las traduces. Vamos a convertir lo que se pierde, por corrupción y fraude, y lo que se destina, a la Casa Real y a la Iglesia, en lo que de verdad importa: hospitales, enfermeras, viviendas y becas.",
+  "Primero, las cifras. El fraude fiscal se estima en unos noventa mil millones de euros al año, según los técnicos de Hacienda.",
+  "La corrupción, entre cuarenta y noventa mil millones al año, aunque aquí no hay cifra oficial, son estimaciones indirectas.",
+  "La Iglesia recibe unos seiscientos treinta millones: trescientos ochenta y dos del cero coma siete por ciento del IRPF, más unos doscientos cincuenta que los ayuntamientos dejan de ingresar por la exención del IBI.",
+  "Y la Casa Real, ocho coma cuatro millones de euros al año, sin contar la seguridad.",
+  "Ahora traduzcámoslo. Con los noventa mil millones del fraude fiscal se pagarían, cada año, tres millones de salarios de enfermera. O cuatrocientos cincuenta hospitales nuevos. O casi setecientas mil viviendas públicas.",
+  "Puestas a la misma escala, se ve dónde está el dinero de verdad. La Casa Real, que tanto se discute, es casi invisible al lado del fraude: el fraude es unas diez mil setecientas veces el presupuesto de la Casa Real.",
+  "La Casa Real, ocho millones, da para unas doscientas ochenta enfermeras. Es un debate legítimo, pero en euros es marginal: suprimirla no cambiaría los servicios.",
+  "La Iglesia, seiscientos treinta millones, equivale a unos tres hospitales al año. Aunque parte sostiene labor social, como Cáritas.",
+  "La conclusión: con solo recuperar una parte del fraude fiscal, España pagaría cada año miles de enfermeras, decenas de hospitales y cientos de miles de becas. Ese es el verdadero agujero.",
+  "El foco se va a la Casa Real y a la Iglesia, pero el dinero de verdad está en el fraude y la corrupción: decenas de miles de millones al año. No es que falte dinero: es que se pierde, se evade y se desvía.",
+  "Eso sí, seamos honestos: son estimaciones, no dinero en una caja. Es imposible recaudar el cien por cien del fraude. Pero incluso una fracción lo cambiaría todo.",
+  "Activa el dedo para que te narre cada dato al pasar el ratón."
+];
+const SAYSEL='.card,.conv,.tbox,.ccaa,.big,.lead';
+const ttsOK='speechSynthesis'in window; let i=0,playing=false,voice=null,inter=false,last=null,wd=null,hov=null;
+const play=document.getElementById('locplay'),mode=document.getElementById('locmode');
+function pick(){if(!ttsOK)return;const vs=speechSynthesis.getVoices();voice=vs.find(v=>/alvaro/i.test(v.name))||vs.find(v=>/es[-_]ES/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang))||null;}
+if(ttsOK){pick();speechSynthesis.onvoiceschanged=pick;}
+function keepAlive(){clearInterval(wd);wd=setInterval(()=>{if(!playing){clearInterval(wd);return;}try{if(speechSynthesis.speaking&&!speechSynthesis.paused)speechSynthesis.resume();}catch(e){}},9000);}
+function speak(n){if(n>=LINES.length){stop();return;}i=n;const u=new SpeechSynthesisUtterance(LINES[n]);u.lang='es-ES';u.rate=1;if(voice)u.voice=voice;
+  let adv=false;const go=()=>{if(adv)return;adv=true;if(playing)speak(n+1);};u.onend=go;u.onerror=go;
+  const est=Math.max(2600,LINES[n].length*85);setTimeout(()=>{if(playing&&!adv&&!speechSynthesis.speaking)go();},est+1600);
+  try{speechSynthesis.speak(u);}catch(e){go();}}
+function start(){if(!ttsOK)return;try{speechSynthesis.cancel();}catch(e){}playing=true;play.textContent='⏸';play.classList.add('playing');play.title='Pausar';keepAlive();setTimeout(()=>speak(i),130);}
+function stop(){playing=false;clearInterval(wd);if(ttsOK)try{speechSynthesis.cancel();}catch(e){}i=0;play.textContent='🔊';play.classList.remove('playing');play.title='Escuchar';}
+function pause(){playing=false;clearInterval(wd);if(ttsOK)try{speechSynthesis.cancel();}catch(e){}play.textContent='▶';play.classList.remove('playing');play.title='Reanudar';}
+play.onclick=()=>{playing?pause():start();};
+let wd2=null;function keepAlive2(){clearInterval(wd2);wd2=setInterval(()=>{try{if(speechSynthesis.speaking&&!speechSynthesis.paused)speechSynthesis.resume();else clearInterval(wd2);}catch(e){}},9000);}
+function sayText(t){if(!ttsOK||!t)return;try{speechSynthesis.cancel();}catch(e){}const u=new SpeechSynthesisUtterance(t);u.lang='es-ES';u.rate=1.03;if(voice)u.voice=voice;keepAlive2();speechSynthesis.speak(u);}
+function clean(el){return (el.getAttribute('data-say')||el.textContent||'').replace(/\s+/g,' ').trim().slice(0,340);}
+document.addEventListener('mouseover',e=>{if(!inter||playing)return;const el=e.target.closest(SAYSEL);if(el&&el!==last){last=el;clearTimeout(hov);hov=setTimeout(()=>sayText(clean(el)),320);}});
+document.addEventListener('mouseout',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el&&el===last&&!el.contains(e.relatedTarget))last=null;});
+document.addEventListener('click',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el){if(playing)pause();clearTimeout(hov);sayText(clean(el));}});
+mode.onclick=()=>{inter=!inter;document.body.classList.toggle('imode',inter);mode.classList.toggle('on',inter);mode.title=inter?'Narración al pasar el ratón: ACTIVADA':'Narrar al pasar el ratón';if(inter&&playing)pause();if(!inter&&ttsOK)try{speechSynthesis.cancel();}catch(e){}};
+window.addEventListener('beforeunload',()=>{if(ttsOK)try{speechSynthesis.cancel();}catch(e){}});
+})();
+</script>
+</body>
+</html>
