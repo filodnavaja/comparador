@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pagas vitalicias: privilegio y mito</title>
+<meta name="description" content="Las pagas vitalicias de los políticos en España: qué es bulo, qué es real, cuánto cobran los expresidentes y qué comunidades las suprimieron. Con el coste honesto.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --bg:#1e1726; --panel:rgba(255,255,255,.055); --panel-2:rgba(255,255,255,.10); --ink:#f6f0ea; --ink-2:#ddcebf; --muted:#a89782;
+    --line:rgba(255,255,255,.12); --line-2:rgba(255,255,255,.22);
+    --accent:#F59E0B; --accent-2:#FBBF24; --gold:#FBBF24; --good:#22C55E; --bad:#E11D48; --warn:#FB923C; --cool:#38BDF8;
+    --f-disp:"Fraunces",Georgia,serif; --f-body:"IBM Plex Sans",system-ui,sans-serif; color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+    font-variant-numeric:tabular-nums;
+    background:radial-gradient(90% 60% at 85% -5%,rgba(225,29,72,.18),transparent 60%),
+      radial-gradient(80% 55% at 0% 0%,rgba(245,158,11,.22),transparent 55%),
+      linear-gradient(160deg,#3a2a12,#1e1726 55%,#140f1c);background-attachment:fixed;min-height:100%}
+  html,body{min-height:100%}
+  .wrap{max-width:840px;margin:0 auto;padding-inline:16px}
+  h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(27px,5.4vw,49px);line-height:1.05;margin:0;
+    background:linear-gradient(92deg,#fff 10%,#ffe6b0 45%,#fca5b8 98%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  h2{font-family:var(--f-disp);font-weight:700;font-size:clamp(21px,4vw,29px);margin:32px 0 8px;color:#fff}
+  header{padding-block:34px 4px}
+  .eyebrow{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#2a1803;font-weight:700;
+    background:linear-gradient(90deg,var(--accent),var(--gold));padding:5px 12px;border-radius:999px;margin-bottom:14px}
+  .sub{font-size:clamp(16px,2.4vw,19px);color:var(--ink-2);max-width:63ch;margin-top:12px}
+  p{margin:0 0 .8em} .lead{font-size:16.5px;color:var(--ink-2);max-width:64ch} b,strong{color:#fff}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:16px 0 6px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .card .k{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  .card .v{font-family:var(--f-disp);font-weight:700;font-size:24px;color:#fff;margin:6px 0 2px;line-height:1.05}
+  .card .d{font-size:13px;color:var(--ink-2)}
+  .card.good{border-left:4px solid var(--good)} .card.bad{border-left:4px solid var(--bad)} .card.gold{border-left:4px solid var(--gold)} .card.acc{border-left:4px solid var(--accent)}
+
+  .ba{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0}
+  .barow{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:center;margin-bottom:11px}
+  .barow:last-child{margin-bottom:0}
+  .barow .lab{font-size:13px;color:var(--ink-2)}
+  .ab{position:relative;height:24px;border-radius:7px;background:rgba(255,255,255,.07);overflow:hidden}
+  .ab i{position:absolute;left:0;top:0;height:100%;border-radius:7px}
+  .ab .t{position:absolute;right:8px;top:3px;font-size:12px;font-weight:700;color:#fff}
+  .ab.now i{background:linear-gradient(90deg,var(--accent),var(--bad))}
+
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+  @media(max-width:560px){.cols{grid-template-columns:1fr}}
+  .col{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px}
+  .col h4{margin:0 0 10px;font-size:15px;font-family:var(--f-disp)}
+  .col.red h4{color:#fda4b4} .col.green h4{color:#86efac}
+  .col ul{margin:0;padding-left:18px} .col li{font-size:13.5px;color:var(--ink-2);margin-bottom:5px}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+  @media(max-width:560px){.two{grid-template-columns:1fr}}
+  .tbox{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px}
+  .tbox h4{margin:0 0 6px;font-size:16px;color:#fff;font-family:var(--f-disp)} .tbox p{font-size:14px;color:var(--ink-2);margin:0}
+  .tbox .ic{font-size:22px;margin-bottom:6px}
+
+  .big{background:linear-gradient(145deg,rgba(245,158,11,.16),rgba(225,29,72,.10));border:1px solid rgba(245,158,11,.35);border-radius:18px;padding:18px;margin:16px 0}
+  .big .q{font-family:var(--f-disp);font-weight:700;font-size:21px;color:#fff;margin-bottom:6px}
+  .disc{background:rgba(251,146,60,.12);border:1px solid rgba(251,146,60,.35);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--ink-2);margin:14px 0}
+  .myth{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.35);border-radius:14px;padding:15px;margin:12px 0}
+  .myth h4{margin:0 0 6px;color:#86efac;font-family:var(--f-disp);font-size:17px} .myth p{margin:0;font-size:14.5px;color:var(--ink-2)}
+  details{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin:12px 0;overflow:hidden}
+  summary{cursor:pointer;padding:14px 16px;font-weight:700;color:#fff;list-style:none} summary::-webkit-details-marker{display:none}
+  .dbody{padding:0 16px 16px;color:var(--ink-2);font-size:14px} .dbody b{color:#fff} .dbody li{margin-bottom:.4em}
+  footer{padding:24px 0 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:22px}
+
+  .loc{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:12px;z-index:60;display:flex;align-items:center;gap:8px}
+  .loc .lbl{font-size:12px;font-weight:700;color:var(--ink-2);background:rgba(20,15,28,.6);border:1px solid var(--line);border-radius:999px;padding:6px 11px}
+  .locbtn{width:48px;height:48px;border-radius:50%;border:1px solid rgba(0,0,0,.15);cursor:pointer;font-size:19px;background:linear-gradient(92deg,var(--accent),var(--gold));color:#2a1803;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+  .locbtn.playing{background:#e11d48;color:#fff}
+  .locbtn.sec{background:rgba(255,255,255,.12);color:#fff;border:1px solid var(--line-2);width:44px;height:44px;font-size:17px}
+  .locbtn.sec.on{background:#F59E0B;color:#2a1803;border-color:transparent}
+  body.imode .card,body.imode .barow,body.imode .tbox,body.imode .col,body.imode .big,body.imode .myth,body.imode .lead{cursor:pointer}
+  body.imode .card:hover,body.imode .tbox:hover,body.imode .col:hover{outline:2px solid var(--gold);outline-offset:2px}
+  @media(max-width:520px){ .loc .lbl{display:none} }
+</style>
+</head>
+<body>
+<div class="loc"><span class="lbl">Escúchalo</span><button class="locbtn sec" id="locmode" title="Narrar al pasar el ratón" aria-label="Narración interactiva">👆</button><button class="locbtn" id="locplay" title="Escuchar" aria-label="Escuchar">🔊</button></div>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">España · Pagas vitalicias</span>
+    <h1>Pagas vitalicias: privilegio y mito</h1>
+    <p class="sub">Circula que <b>todos los políticos cobran una paga de por vida</b> que "podría ir a tus pensiones". Eso es, en gran parte, <b>falso</b>. Pero el privilegio vitalicio <b>sí existe</b> para unos pocos. Separemos el bulo del dinero real.</p>
+  </header>
+
+  <div class="cards">
+    <div class="card acc"><div class="k">Expresidente del Gobierno</div><div class="v">80% del sueldo · 2 años</div><div class="d">transitorio, no vitalicio; + oficina de por vida</div></div>
+    <div class="card bad"><div class="k">Expresident catalán (65+)</div><div class="v">hasta 122.588 €<span style="font-size:13px;color:var(--ink-2)">/año</span></div><div class="d">pensión vitalicia real (60% del sueldo)</div></div>
+    <div class="card gold"><div class="k">Pensión de diputado</div><div class="v">suprimida en 2011</div><div class="d">pero no retroactiva: las antiguas se siguen pagando</div></div>
+    <div class="card good"><div class="k">Comunidades que la quitaron</div><div class="v">la mayoría</div><div class="d">tras la presión ciudadana de 2012–2017</div></div>
+  </div>
+
+  <div class="myth">
+    <h4>🧯 El bulo: "los políticos cobran una vitalicia que pagaría tus pensiones"</h4>
+    <p>Falso tal y como circula (Maldita.es). Los <b>diputados, ministros y vicepresidentes NO</b> tienen sueldo vitalicio por el cargo. Y aunque sumáramos todos los privilegios reales, serían <b>unos pocos millones al año</b>: ni de lejos tapan el agujero de las pensiones (que cuestan <b>216.000 millones</b>). El escándalo es <b>moral y de opacidad</b>, no una fuente de financiación oculta.</p>
+  </div>
+
+  <h2>1. Lo que SÍ existe (y para quién)</h2>
+  <div class="two">
+    <div class="tbox"><div class="ic">🏛️</div><h4>Expresidentes del Gobierno</h4><p>Al cesar, el <b>80% del sueldo durante 2 años</b> si no trabajan (transitorio, igual que ministros y altos cargos). De por vida: <b>oficina, personal, coche y seguridad</b> (Estatuto de 1983). Pueden ser <b>consejeros natos de Estado</b> (vitalicio, con sueldo si ejercen).</p></div>
+    <div class="tbox"><div class="ic">🎗️</div><h4>Expresidentes autonómicos</h4><p>Aquí estuvo el gran abuso. <b>Cataluña</b> mantiene pensión vitalicia: a los 65 años, el <b>60% del sueldo</b> de presidente (Mas y Maragall ~92.000 €; Torra ~122.588 € en 2023). Otras daban oficina y personal.</p></div>
+    <div class="tbox"><div class="ic">📜</div><h4>Pensiones parlamentarias</h4><p><b>Suprimidas en 2011</b>, pero <b>sin efecto retroactivo</b>: quien ya las cobraba sigue cobrándolas. Al cesar hoy solo hay una <b>indemnización</b> de 1 mes por año, máximo 24 meses.</p></div>
+    <div class="tbox"><div class="ic">⚖️</div><h4>Consejo de Estado</h4><p>Un "retiro dorado" clásico: exministros y expresidentes nombrados consejeros cobran un sueldo alto (~120.000 €) mientras ejercen. No es por el cargo pasado, pero funciona como recolocación.</p></div>
+  </div>
+
+  <h2>2. Baremo: el mapa del privilegio autonómico</h2>
+  <p class="lead">La gran diferencia está entre comunidades. Tras años de escándalos, la mayoría recortó o eliminó estas ventajas. ¿Quién mantiene y quién quitó?</p>
+  <div class="cols">
+    <div class="col red"><h4>🔴 Mantienen pensión/ventajas vitalicias</h4><ul>
+      <li><b>Cataluña</b> — pensión vitalicia (60% del sueldo) a partir de los 65</li>
+      <li>Otras conservan <b>oficina, personal o coche</b> temporal para el expresidente</li>
+    </ul></div>
+    <div class="col green"><h4>🟢 Suprimidas o nunca existieron</h4><ul>
+      <li><b>Madrid</b> (eliminó el Consejo Consultivo en 2015)</li>
+      <li><b>Cantabria</b> (suprimió complementos en 2012)</li>
+      <li><b>Aragón, Baleares, Murcia, La Rioja</b></li>
+      <li><b>Asturias, Canarias, País Vasco</b></li>
+    </ul></div>
+  </div>
+  <p class="lead" style="margin-top:4px">En euros concretos, lo que cobran los expresidentes catalanes con pensión vitalicia (2023):</p>
+  <div class="ba">
+    <div class="barow"><div class="lab">Quim Torra</div><div class="ab now"><i style="width:100%"></i><span class="t">122.588 €</span></div></div>
+    <div class="barow"><div class="lab">Artur Mas</div><div class="ab now"><i style="width:75%"></i><span class="t">91.941 €</span></div></div>
+    <div class="barow"><div class="lab">Pasqual Maragall</div><div class="ab now"><i style="width:75%"></i><span class="t">91.941 €</span></div></div>
+    <div class="src">Solo las pensiones de los expresidents catalanes suman más de medio millón de euros al año. Es poco dinero para el Estado, pero mucho como símbolo.</div>
+  </div>
+
+  <h2>3. ¿Cuánto nos ha costado desde el principio?</h2>
+  <p class="lead">La respuesta honesta: <b>nadie lo ha sumado oficialmente</b> desde 1978. No existe una cifra total pública (parte del problema es, justamente, esa opacidad). Lo que sí podemos ordenar:</p>
+  <div class="two">
+    <div class="tbox"><div class="ic">📊</div><h4>Orden de magnitud: millones, no miles de millones</h4><p>Pensiones vitalicias autonómicas vivas + oficinas de expresidentes del Gobierno + pensiones parlamentarias pre-2011 aún pagándose. En conjunto, <b>unos pocos millones al año</b>, no las cifras astronómicas del bulo.</p></div>
+    <div class="tbox"><div class="ic">📉</div><h4>Lo peor ya se recortó</h4><p>El grueso del abuso eran las vitalicias autonómicas, y <b>la presión ciudadana (2012–2017) las eliminó en casi toda España</b>. Es uno de los pocos casos donde la indignación popular cambió la ley.</p></div>
+  </div>
+
+  <div class="big">
+    <div class="q">El privilegio vitalicio existe, pero es más pequeño de lo que dice el bulo y en gran parte ya se recortó. Lo que queda es símbolo y opacidad, no el gran agujero.</div>
+    <p style="margin:0;color:var(--ink-2)">Conviene no confundir la <b>indignación legítima</b> (¿por qué un expresidente cobra 122.000 € de por vida mientras una pensión media es de 1.300 €?) con el <b>bulo</b> de que "ahí está el dinero de tus pensiones". Exigir que se <b>eliminen del todo y se publiquen</b> es razonable; creer que resolverían el déficit, no.</p>
+  </div>
+
+  <div class="disc">⚠️ <b>Matiz honesto:</b> parte de lo vitalicio (seguridad de un expresidente del Gobierno) es <b>razonable</b> por motivos de Estado. Lo difícil de justificar son las <b>pensiones autonómicas</b> por haber gobernado unos años. El dato clave: el daño real es <b>pequeño en euros</b> pero <b>grande en ejemplaridad</b>. Ni minimizar el agravio ni exagerar la cifra.</div>
+
+  <details><summary>Fuentes y cómo leerlo</summary><div class="dbody">
+    <ul>
+      <li><b>Mito:</b> Maldita.es — ni diputados ni ministros ni vicepresidentes tienen sueldo vitalicio por el cargo; no "financiaría" las pensiones.</li>
+      <li><b>Expresidentes del Gobierno:</b> Estatuto de 1983 (reformado 1992); 80% del sueldo 2 años + oficina/personal/seguridad vitalicios; Consejo de Estado (consejeros natos).</li>
+      <li><b>Cataluña:</b> pensión vitalicia 60% del sueldo a los 65; 2023: Mas y Maragall 91.941 €, Torra 122.588 €.</li>
+      <li><b>Parlamento:</b> pensiones suprimidas en 2011 (no retroactivo); indemnización 1 mes/año, máx 24 meses.</li>
+      <li><b>Suprimieron:</b> Madrid (2015), Cantabria (2012), Aragón, Baleares, Murcia, La Rioja, Asturias, Canarias, País Vasco.</li>
+    </ul>
+    <p class="src">Fuentes: Maldita.es, Newtral, Infobae, Diari de Tarragona, prensa y boletines autonómicos. Octubre de 2026. No existe cifra oficial agregada del coste histórico total.</p>
+  </div></details>
+
+  <footer>Estudio de síntesis con fuentes oficiales y verificadores. Separa el bulo (la vitalicia universal) del hecho (los privilegios reales de unos pocos). Octubre de 2026.</footer>
+</div>
+
+<script>
+const V=[["Quim Torra",122588],["Artur Mas",91941],["Pasqual Maragall",91941]];
+const cv=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+(function(){
+  // the € bars are static HTML; nothing to render dynamically here, kept for parity
+})();
+
+(function(){
+const LINES=[
+  "Pagas vitalicias: privilegio y mito.",
+  "Circula que todos los políticos cobran una paga de por vida que podría ir a tus pensiones. Eso es, en gran parte, falso. Pero el privilegio vitalicio sí existe para unos pocos. Separemos el bulo del dinero real.",
+  "El bulo, primero: los diputados, los ministros y los vicepresidentes no tienen sueldo vitalicio por el cargo. Lo ha explicado Maldita punto es.",
+  "Y aunque sumáramos todos los privilegios reales, serían unos pocos millones al año. Ni de lejos tapan el agujero de las pensiones, que cuestan doscientos dieciséis mil millones. El escándalo es moral y de opacidad, no una fuente de financiación oculta.",
+  "¿Qué existe de verdad? Los expresidentes del Gobierno cobran el ochenta por ciento del sueldo durante dos años si no trabajan, y de por vida tienen oficina, personal, coche y seguridad.",
+  "Lo más polémico son los expresidentes autonómicos. Cataluña mantiene una pensión vitalicia: a los sesenta y cinco años, el sesenta por ciento del sueldo. Mas y Maragall cobran unos noventa y dos mil euros; Torra, ciento veintidós mil.",
+  "Las pensiones de diputado se suprimieron en dos mil once, pero sin efecto retroactivo: quien ya la cobraba, sigue cobrándola.",
+  "Y está el Consejo de Estado, un retiro dorado donde exministros y expresidentes cobran unos ciento veinte mil euros mientras ejercen.",
+  "Ahora el mapa por comunidades. Tras años de escándalos, la mayoría recortó o eliminó estas ventajas: Madrid, Cantabria, Aragón, Baleares, Murcia, La Rioja, Asturias, Canarias y País Vasco.",
+  "Solo las pensiones de los expresidents catalanes suman más de medio millón de euros al año. Es poco dinero para el Estado, pero mucho como símbolo.",
+  "¿Y cuánto nos ha costado desde el principio? La respuesta honesta: nadie lo ha sumado oficialmente desde mil novecientos setenta y ocho. No hay cifra total pública, y esa opacidad es parte del problema.",
+  "Pero el orden de magnitud son millones, no miles de millones. Y lo peor, las vitalicias autonómicas, ya se recortó gracias a la presión ciudadana. Es uno de los pocos casos donde la indignación cambió la ley.",
+  "La conclusión: el privilegio existe, pero es más pequeño de lo que dice el bulo, y en gran parte ya se recortó. Lo que queda es símbolo y opacidad, no el gran agujero.",
+  "No confundas la indignación legítima, por qué un expresidente cobra ciento veintidós mil euros mientras una pensión media es de mil trescientos, con el bulo de que ahí está el dinero de tus pensiones.",
+  "Activa el dedo para que te narre cada dato al pasar el ratón."
+];
+const SAYSEL='.card,.tbox,.col,.barow,.myth,.big,.lead';
+const ttsOK='speechSynthesis'in window; let i=0,playing=false,voice=null,inter=false,last=null,wd=null,hov=null;
+const play=document.getElementById('locplay'),mode=document.getElementById('locmode');
+function pick(){if(!ttsOK)return;const vs=speechSynthesis.getVoices();voice=vs.find(v=>/alvaro/i.test(v.name))||vs.find(v=>/es[-_]ES/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang))||null;}
+if(ttsOK){pick();speechSynthesis.onvoiceschanged=pick;}
+function keepAlive(){clearInterval(wd);wd=setInterval(()=>{if(!playing){clearInterval(wd);return;}try{if(speechSynthesis.speaking&&!speechSynthesis.paused)speechSynthesis.resume();}catch(e){}},9000);}
+function speak(n){if(n>=LINES.length){stop();return;}i=n;const u=new SpeechSynthesisUtterance(LINES[n]);u.lang='es-ES';u.rate=1;if(voice)u.voice=voice;
+  let adv=false;const go=()=>{if(adv)return;adv=true;if(playing)speak(n+1);};u.onend=go;u.onerror=go;
+  const est=Math.max(2600,LINES[n].length*85);setTimeout(()=>{if(playing&&!adv&&!speechSynthesis.speaking)go();},est+1600);
+  try{speechSynthesis.speak(u);}catch(e){go();}}
+function start(){if(!ttsOK)return;try{speechSynthesis.cancel();}catch(e){}playing=true;play.textContent='⏸';play.classList.add('playing');play.title='Pausar';keepAlive();setTimeout(()=>speak(i),130);}
+function stop(){playing=false;clearInterval(wd);if(ttsOK)try{speechSynthesis.cancel();}catch(e){}i=0;play.textContent='🔊';play.classList.remove('playing');play.title='Escuchar';}
+function pause(){playing=false;clearInterval(wd);if(ttsOK)try{speechSynthesis.cancel();}catch(e){}play.textContent='▶';play.classList.remove('playing');play.title='Reanudar';}
+play.onclick=()=>{playing?pause():start();};
+let wd2=null;function keepAlive2(){clearInterval(wd2);wd2=setInterval(()=>{try{if(speechSynthesis.speaking&&!speechSynthesis.paused)speechSynthesis.resume();else clearInterval(wd2);}catch(e){}},9000);}
+function sayText(t){if(!ttsOK||!t)return;try{speechSynthesis.cancel();}catch(e){}const u=new SpeechSynthesisUtterance(t);u.lang='es-ES';u.rate=1.03;if(voice)u.voice=voice;keepAlive2();speechSynthesis.speak(u);}
+function clean(el){return (el.getAttribute('data-say')||el.textContent||'').replace(/\s+/g,' ').trim().slice(0,340);}
+document.addEventListener('mouseover',e=>{if(!inter||playing)return;const el=e.target.closest(SAYSEL);if(el&&el!==last){last=el;clearTimeout(hov);hov=setTimeout(()=>sayText(clean(el)),320);}});
+document.addEventListener('mouseout',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el&&el===last&&!el.contains(e.relatedTarget))last=null;});
+document.addEventListener('click',e=>{if(!inter)return;const el=e.target.closest(SAYSEL);if(el){if(playing)pause();clearTimeout(hov);sayText(clean(el));}});
+mode.onclick=()=>{inter=!inter;document.body.classList.toggle('imode',inter);mode.classList.toggle('on',inter);mode.title=inter?'Narración al pasar el ratón: ACTIVADA':'Narrar al pasar el ratón';if(inter&&playing)pause();if(!inter&&ttsOK)try{speechSynthesis.cancel();}catch(e){}};
+window.addEventListener('beforeunload',()=>{if(ttsOK)try{speechSynthesis.cancel();}catch(e){}});
+})();
+</script>
+</body>
+</html>
